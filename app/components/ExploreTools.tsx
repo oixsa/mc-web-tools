@@ -85,7 +85,7 @@ export function ExploreTools({
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search 34+ tools..."
+              placeholder="Search tools..."
               className="w-full h-10 pl-9 pr-8 rounded-lg bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] text-[#1A1210] dark:text-[#F8F4F0] text-xs sm:text-sm shadow-2xs focus:outline-none focus:border-[#8A4228] dark:focus:border-[#E07A5F] focus:ring-2 focus:ring-[#8A4228]/15 dark:focus:ring-[#E07A5F]/15 transition-all placeholder:text-[#918A83]"
             />
             {searchQuery && (
@@ -121,7 +121,7 @@ export function ExploreTools({
 
       {/* Category Filter Pills (Touch friendly, horizontally scrollable on mobile) */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 sm:mb-8 no-scrollbar">
-        {CATEGORIES.map((cat) => {
+        {CATEGORIES.filter((cat) => cat.id === 'all' || tools.some((t) => t.category === cat.id)).map((cat) => {
           const isActive = activeCategory === cat.id;
           return (
             <button

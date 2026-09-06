@@ -2,28 +2,27 @@
 
 > Precision Minecraft tools, calculators, and schematics crafted for technical builders and voxel architects.
 
-Berasaskan rekaan laman moden Stitch, **Kita Tools** menyediakan lebih 34 alatan pelayar untuk merancang binaan, menghasilkan bentuk geometri, meneroka peta seed, dan mengira keperluan bahan Minecraft tanpa perlu keluar dari laman web.
+Berasaskan rekaan laman moden Stitch, **Kita Tools** menyediakan alatan pelayar untuk pemain dan pembangun Minecraft, bermula dengan alatan berkuasa **Server MOTD Generator** (dengan sokongan eksport `server.properties`, BungeeCord, dan YAML `.yml`).
 
 ---
 
 ## ✨ Ciri-Ciri Utama (Key Features)
 
-- **34+ Alatan Pelayar Minecraft**: Daripada *Build Planner*, *Circle Generator*, *Roof Designer*, hingga ke *Enchant Optimizer* dan *Seed Map*.
+- **Alatan Pelayar Minecraft Berfungsi Penuh**: Alatan *Server MOTD Generator* interaktif dengan pratonton langsung *in-game*, pembuat gradien RGB hex, dan eksport pelbagai format.
 - **Dua Pilihan Tema (Dark Mode & Light Mode - Dark Bay, Gray, & Bay)**:
   - **Dark Bay Mode (Dark Mode)**: Warna asas *Dark Bay* `#15100E`, kad `#201815`, aksen tembaga bay bersinar *Luminous Bay* `#E07A5F`, dan perincian kelabu neutral `#A8A19B`.
   - **Light Mode (Stone Gray & Warm Bay)**: Warna kanvas kelabu hangat `#F7F6F4`, kad putih bersih `#FFFFFF`, aksen kayu berangan *Rich Bay* `#8A4228`, dan dakwat gelap *Dark Bay Ink* `#1A1210`.
   - Dilengkapi ciri suis tema pantas dan ingatan kekal (*persisted preference* tanpa kerlipan FOUC).
 - **Paparan Responsif Penuh (Mobile, Tablet, & Desktop)**:
-  - Grid fleksibel 1 hingga 4 lajur mengikut saiz peranti.
+  - Grid fleksibel mengikut saiz peranti.
   - Bar kategori alatan boleh diskrol secara sentuhan (*horizontal touch scrolling*).
   - Menu drawer navigasi mudah alih.
 - **Carian Pantas & Pintasan Papan Kekunci (⌘K / Ctrl+K)**:
   - Buka dialog *Quick Launcher* dengan menekan kekunci `⌘K` atau `Ctrl+K`.
   - Carian masa nyata mengikut nama, kategori, dan fungsi.
-- **Sistem Alatan Berbintang (Favorites)**: Simpan alatan kegemaran pada peranti untuk capaian segera.
 - **Kod Mudah Diselenggara (Maintainable & Type-Safe)**:
-  - Data alatan dan panduan dipisahkan ke dalam fail TypeScript berpusat (`app/data/tools.ts`, `app/data/guides.ts`).
-  - Menambah alatan baharu hanya memerlukan penambahan 1 objek data tanpa mengusik kod komponen UI.
+  - Hanya alatan yang benar-benar siap dan berfungsi dimasukkan ke dalam katalog.
+  - Menambah alatan baharu hanya memerlukan 1 objek data dalam `app/data/tools.ts`.
 
 ---
 

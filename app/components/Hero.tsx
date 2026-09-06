@@ -1,11 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
 
 export function Hero() {
-  const [currentLayer, setCurrentLayer] = useState(42);
-  const totalLayers = 96;
-
   return (
     <div className="relative w-full overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16 border-b border-[#E2DDD8] dark:border-[#3A2D28] transition-colors duration-200">
       {/* Background ambient radial glows */}
@@ -24,7 +21,7 @@ export function Hero() {
               </span>
               <span className="text-[#918A83]">•</span>
               <span className="text-xs font-semibold text-[#8A4228] dark:text-[#E07A5F]">
-                New Build Planner released
+                Server MOTD Generator active
               </span>
             </div>
 
@@ -38,25 +35,25 @@ export function Hero() {
 
             {/* Sub-headline */}
             <p className="text-base sm:text-lg text-[#68615A] dark:text-[#A8A19B] mb-8 leading-relaxed max-w-xl">
-              Plan builds, generate shapes, create map art, explore seeds, and export useful files
-              without leaving the page.
+              Precision utilities, custom color generators, and server configurations crafted for technical
+              Minecraft creators.
             </p>
 
             {/* Call to Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 mb-10 w-full sm:w-auto">
-              <a
-                href="#build-planner"
+              <Link
+                href="/tools/motd-editor"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] text-sm font-semibold shadow-md shadow-[#8A4228]/20 dark:shadow-[#E07A5F]/25 hover:bg-[#72341D] dark:hover:bg-[#F19178] transition-all transform hover:-translate-y-0.5 active:scale-[0.98]"
               >
-                <span className="material-symbols-outlined text-[18px]">architecture</span>
-                Open Build Planner
+                <span className="material-symbols-outlined text-[18px]">dns</span>
+                Open MOTD Generator
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-              </a>
+              </Link>
               <a
                 href="#explore-tools"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] text-[#1A1210] dark:text-[#F8F4F0] text-sm font-semibold shadow-2xs hover:bg-[#EFECE9] dark:hover:bg-[#261D19] hover:border-[#CBC4BD] dark:hover:border-[#54413A] transition-all"
               >
-                Browse Tools
+                Browse Catalog
                 <span className="material-symbols-outlined text-[#68615A] dark:text-[#A8A19B] text-[16px]">
                   expand_more
                 </span>
@@ -67,9 +64,9 @@ export function Hero() {
             <div className="grid grid-cols-3 gap-4 w-full p-4 bg-white/80 dark:bg-[#201815]/80 backdrop-blur-sm border border-[#E2DDD8] dark:border-[#3A2D28] rounded-xl shadow-2xs">
               <div className="flex flex-col">
                 <span className="font-headline text-xl sm:text-2xl text-[#8A4228] dark:text-[#E07A5F] font-bold">
-                  34+
+                  v2.4
                 </span>
-                <span className="text-xs text-[#68615A] dark:text-[#A8A19B]">Browser tools</span>
+                <span className="text-xs text-[#68615A] dark:text-[#A8A19B]">Active release</span>
               </div>
               <div className="flex flex-col border-x border-[#E2DDD8] dark:border-[#3A2D28] px-3 sm:px-4">
                 <span className="font-headline text-xl sm:text-2xl text-[#1A1210] dark:text-[#F8F4F0] font-bold">
@@ -79,15 +76,15 @@ export function Hero() {
               </div>
               <div className="flex flex-col">
                 <span className="font-headline text-xl sm:text-2xl text-[#8A4228] dark:text-[#E07A5F] font-bold">
-                  1.20+
+                  1.21+
                 </span>
                 <span className="text-xs text-[#68615A] dark:text-[#A8A19B]">Java &amp; Bedrock</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Build Planner Interactive Spotlight Card */}
-          <div className="lg:col-span-6 w-full" id="build-planner">
+          {/* Right Column: Server MOTD Generator Spotlight Card */}
+          <div className="lg:col-span-6 w-full" id="featured-tool">
             <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl shadow-xl p-5 sm:p-6 transition-all hover:border-[#CBC4BD] dark:hover:border-[#54413A]">
               {/* Card Header Bar */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#E2DDD8] dark:border-[#3A2D28]">
@@ -96,201 +93,116 @@ export function Hero() {
                     Featured tool
                   </span>
                   <h3 className="font-headline font-bold text-base sm:text-lg text-[#1A1210] dark:text-[#F8F4F0]">
-                    Build Planner
+                    Server MOTD Generator
                   </h3>
                 </div>
                 <span className="text-xs text-[#918A83] dark:text-[#766F69] flex items-center gap-1">
                   <span className="material-symbols-outlined text-[16px] text-[#8A4228] dark:text-[#E07A5F]">
                     check_circle
                   </span>
-                  v2.4 Active
+                  Active &amp; Ready
                 </span>
               </div>
 
-              {/* Spotlight Viewport Mockup (Isometric 3D Stage + Materials List) */}
-              <div className="bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-xl p-3 sm:p-4 mb-4">
-                {/* Stage Header Info */}
-                <div className="flex items-center justify-between mb-3 text-xs">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#BA1A1A]/70" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#C27838]/70" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#8A4228]/70" />
-                    <span className="font-mono-meta text-[11px] text-[#918A83] dark:text-[#766F69] ml-1.5 truncate max-w-[140px] sm:max-w-none">
-                      cathedral_spire_v3.litematic
+              {/* Spotlight Viewport Mockup (In-game Server List Simulation) */}
+              <div className="bg-[#0E0E0E] border-2 border-[#222222] rounded-xl p-3.5 sm:p-4 mb-4 font-mono">
+                <div className="flex items-start gap-3">
+                  {/* Mini Server Icon */}
+                  <div className="w-12 h-12 rounded bg-[#1F1F1F] border border-[#333333] flex items-center justify-center flex-shrink-0">
+                    <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[26px]">
+                      dns
                     </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={() => setCurrentLayer(Math.max(1, currentLayer - 1))}
-                      className="px-1 py-0.5 rounded bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] text-[10px] text-[#68615A] dark:text-[#A8A19B] hover:text-[#1A1210] dark:hover:text-white"
-                    >
-                      -
-                    </button>
-                    <span className="font-mono-meta px-2 py-0.5 text-[10px] font-bold rounded bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] text-[#1A1210] dark:text-[#F8F4F0]">
-                      Layer {currentLayer}/{totalLayers}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setCurrentLayer(Math.min(totalLayers, currentLayer + 1))}
-                      className="px-1 py-0.5 rounded bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] text-[10px] text-[#68615A] dark:text-[#A8A19B] hover:text-[#1A1210] dark:hover:text-white"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
 
-                {/* Viewport Simulation Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
-                  {/* Isometric Stage */}
-                  <div className="sm:col-span-7 bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-lg p-3 flex flex-col justify-between min-h-[160px]">
-                    <div className="flex justify-between items-center text-[10px] text-[#918A83]">
-                      <span className="font-mono-meta text-[#68615A] dark:text-[#A8A19B]">
-                        3D LAYER ROTATE
+                  {/* Server Details */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-white text-xs font-bold tracking-wider">
+                        KITA NETWORK
                       </span>
-                      <span className="material-symbols-outlined text-[16px]">view_in_ar</span>
+                      <div className="flex items-center gap-2 text-[11px] text-[#AAAAAA]">
+                        <span>42/100</span>
+                        <div className="flex items-end gap-0.5 h-3">
+                          <span className="w-0.5 h-1 bg-[#55FF55]" />
+                          <span className="w-0.5 h-1.5 bg-[#55FF55]" />
+                          <span className="w-0.5 h-2 bg-[#55FF55]" />
+                          <span className="w-0.5 h-2.5 bg-[#55FF55]" />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Isometric SVG Tower Art */}
-                    <div className="flex items-center justify-center py-2">
-                      <svg className="w-24 h-24 text-[#8A4228] dark:text-[#E07A5F]" viewBox="0 0 120 120" fill="none">
-                        {/* Base grid */}
-                        <path
-                          d="M60 20 L105 45 L60 70 L15 45 Z"
-                          fill="currentColor"
-                          fillOpacity="0.12"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                        <path
-                          d="M15 45 L15 75 L60 100 L60 70 Z"
-                          fill="currentColor"
-                          fillOpacity="0.85"
-                        />
-                        <path
-                          d="M105 45 L105 75 L60 100 L60 70 Z"
-                          fill="currentColor"
-                          fillOpacity="0.6"
-                        />
-                        {/* Internal layered spire */}
-                        <path
-                          d="M60 5 L85 20 L60 35 L35 20 Z"
-                          fill="#C27838"
-                          stroke="#72341D"
-                          strokeWidth="1.2"
-                        />
-                        <path d="M35 20 L35 45 L60 60 L60 35 Z" fill="#D98A4E" />
-                        <path d="M85 20 L85 45 L60 60 L60 35 Z" fill="#8A4228" />
-                        {/* Highlights */}
-                        <circle cx="60" cy="50" fill="#FFFFFF" r="3" />
-                        <circle cx="48" cy="42" fill="#FFFFFF" r="2.5" />
-                        <circle cx="72" cy="42" fill="#FFFFFF" r="2.5" />
-                      </svg>
-                    </div>
-
-                    <div className="flex items-center justify-between text-[10px] text-[#68615A] dark:text-[#A8A19B]">
-                      <span>Dims: 32×48×32</span>
-                      <span className="font-bold text-[#8A4228] dark:text-[#E07A5F]">
-                        1,842 Blocks
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Materials Need Mini Breakdown */}
-                  <div className="sm:col-span-5 flex flex-col justify-between bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-lg p-2.5">
-                    <div className="font-mono-meta text-[10px] uppercase font-bold text-[#918A83] pb-1 border-b border-[#E2DDD8] dark:border-[#3A2D28]">
-                      Materials Need
-                    </div>
-                    <div className="space-y-1.5 py-1 text-xs">
-                      <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1 text-[#1A1210] dark:text-[#F8F4F0] truncate">
-                          <span className="w-2 h-2 rounded-2xs bg-stone-700 inline-block" />
-                          Deepslate
-                        </span>
-                        <span className="font-mono-meta text-[10px] font-bold">840</span>
+                    {/* 2-line MOTD text */}
+                    <div className="bg-black/60 rounded p-2 text-xs space-y-0.5 leading-tight">
+                      <div className="text-[#FFAA00] font-bold">
+                        ★ KITA NETWORK <span className="text-[#AAAAAA]">[1.20 - 1.21]</span> <span className="text-[#55FF55]">ONLINE</span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1 text-[#1A1210] dark:text-[#F8F4F0] truncate">
-                          <span className="w-2 h-2 rounded-2xs bg-amber-800 inline-block" />
-                          Dark Oak
-                        </span>
-                        <span className="font-mono-meta text-[10px] font-bold">462</span>
+                      <div className="text-[#FFFF55]">
+                        ➤ <span className="text-white">Custom Quests</span> <span className="text-[#555555]">|</span> <span className="text-[#55FFFF]">Economy</span> <span className="text-[#555555]">|</span> <span className="text-[#55FF55]">SMP</span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1 text-[#1A1210] dark:text-[#F8F4F0] truncate">
-                          <span className="w-2 h-2 rounded-2xs bg-amber-600 inline-block" />
-                          Copper Bulbs
-                        </span>
-                        <span className="font-mono-meta text-[10px] font-bold">184</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1 text-[#1A1210] dark:text-[#F8F4F0] truncate">
-                          <span className="w-2 h-2 rounded-2xs bg-stone-400 inline-block" />
-                          Cut Copper
-                        </span>
-                        <span className="font-mono-meta text-[10px] font-bold">96</span>
-                      </div>
-                    </div>
-                    <div className="pt-1 border-t border-[#E2DDD8] dark:border-[#3A2D28] flex items-center justify-between text-[10px] text-[#918A83]">
-                      <span>
-                        Shulkers: <strong className="text-[#1A1210] dark:text-[#F8F4F0]">2.8</strong>
-                      </span>
-                      <span className="text-[#8A4228] dark:text-[#E07A5F] font-bold">Ready</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* 4 Feature Capability Tiles */}
-              <div className="grid grid-cols-2 gap-2">
-                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28] hover:border-[#CBC4BD] dark:hover:border-[#54413A] transition-colors">
+              <div className="grid grid-cols-2 gap-2 mb-4">
+                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
                   <div className="flex items-center gap-1.5 mb-1 text-xs font-semibold text-[#1A1210] dark:text-[#F8F4F0]">
                     <span className="material-symbols-outlined text-[16px] text-[#8A4228] dark:text-[#E07A5F]">
-                      visibility
+                      palette
                     </span>
-                    Inspect in 3D
+                    16 Colors &amp; Styles
                   </div>
                   <p className="text-[11px] text-[#68615A] dark:text-[#A8A19B] leading-tight">
-                    Open .litematic, .schem, and NBT builds.
+                    Standard &amp;0-&amp;f colors, bold, italic.
                   </p>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28] hover:border-[#CBC4BD] dark:hover:border-[#54413A] transition-colors">
+                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
                   <div className="flex items-center gap-1.5 mb-1 text-xs font-semibold text-[#1A1210] dark:text-[#F8F4F0]">
                     <span className="material-symbols-outlined text-[16px] text-[#8A4228] dark:text-[#E07A5F]">
-                      inventory_2
+                      gradient
                     </span>
-                    Material breakdown
+                    RGB Hex Gradients
                   </div>
                   <p className="text-[11px] text-[#68615A] dark:text-[#A8A19B] leading-tight">
-                    Break builds into craftable materials.
+                    Smooth 1.16+ hex color transitions.
                   </p>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28] hover:border-[#CBC4BD] dark:hover:border-[#54413A] transition-colors">
+                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
                   <div className="flex items-center gap-1.5 mb-1 text-xs font-semibold text-[#1A1210] dark:text-[#F8F4F0]">
                     <span className="material-symbols-outlined text-[16px] text-[#8A4228] dark:text-[#E07A5F]">
-                      grid_view
+                      description
                     </span>
-                    Shulker planning
+                    server.properties
                   </div>
                   <p className="text-[11px] text-[#68615A] dark:text-[#A8A19B] leading-tight">
-                    Plan pack orders slot by slot.
+                    Ready-to-paste escaped Unicode.
                   </p>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28] hover:border-[#CBC4BD] dark:hover:border-[#54413A] transition-colors">
+                <div className="p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
                   <div className="flex items-center gap-1.5 mb-1 text-xs font-semibold text-[#1A1210] dark:text-[#F8F4F0]">
                     <span className="material-symbols-outlined text-[16px] text-[#8A4228] dark:text-[#E07A5F]">
-                      checklist
+                      download
                     </span>
-                    Shopping list
+                    YAML (.yml) Export
                   </div>
                   <p className="text-[11px] text-[#68615A] dark:text-[#A8A19B] leading-tight">
-                    Track gathering with running totals.
+                    Download config.yml with 1 click.
                   </p>
                 </div>
               </div>
+
+              {/* Direct Launch Link */}
+              <Link
+                href="/tools/motd-editor"
+                className="w-full py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs hover:bg-[#72341D] dark:hover:bg-[#F19178] transition-colors"
+              >
+                <span>Launch Server MOTD Generator</span>
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
             </div>
           </div>
         </div>

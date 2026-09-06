@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { ExploreTools } from './components/ExploreTools';
 import { FlagshipSection } from './components/FlagshipSection';
 import { Footer } from './components/Footer';
-import { GuidesSection } from './components/GuidesSection';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { QuickLauncherModal } from './components/QuickLauncherModal';
@@ -35,7 +34,6 @@ export default function Home() {
   const flagshipTools = useMemo(() => getFlagshipTools(), []);
 
   const handleSelectTool = (tool: Tool) => {
-    // Navigate or smooth scroll to tool
     window.location.href = tool.href;
   };
 
@@ -50,17 +48,19 @@ export default function Home() {
 
       {/* Main Content Area */}
       <main className="flex-1 w-full">
-        {/* Hero Section with Interactive Build Planner Spotlight */}
+        {/* Hero Section with Interactive Server MOTD Generator Spotlight */}
         <Hero />
 
-        {/* Flagship Recommended Tools */}
-        <FlagshipSection
-          flagshipTools={flagshipTools}
-          isFavorite={isFavorite}
-          onToggleFavorite={toggleFavorite}
-        />
+        {/* Flagship Recommended Tools (displayed when multiple flagship tools exist) */}
+        {flagshipTools.length > 1 && (
+          <FlagshipSection
+            flagshipTools={flagshipTools}
+            isFavorite={isFavorite}
+            onToggleFavorite={toggleFavorite}
+          />
+        )}
 
-        {/* Complete Filterable & Searchable Tool Catalog */}
+        {/* Complete Filterable & Searchable Active Tool Catalog */}
         <ExploreTools
           tools={TOOLS}
           isFavorite={isFavorite}
@@ -68,9 +68,6 @@ export default function Home() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
-
-        {/* Guides & References Section */}
-        <GuidesSection />
       </main>
 
       {/* Footer Directory & Legal Disclaimer */}

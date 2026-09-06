@@ -149,7 +149,7 @@ export function QuickLauncherModal({
             <span>↑↓ Navigate</span>
             <span>↵ Select</span>
           </div>
-          <span>34 tools ready</span>
+          <span>{TOOLS.length} {TOOLS.length === 1 ? 'tool' : 'tools'} ready</span>
         </div>
       </div>
     </div>
