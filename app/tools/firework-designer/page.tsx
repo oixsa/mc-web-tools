@@ -107,7 +107,7 @@ export default function FireworkDesignerPage() {
     );
 
     for (let i = 0; i < count; i++) {
-      let angle = (Math.PI * 2 * i) / count;
+      const angle = (Math.PI * 2 * i) / count;
       let speed = Math.random() * 4 + 2;
 
       // Adjust particle vectors for shapes

@@ -111,20 +111,14 @@ export default function SphereGeneratorPage() {
   );
 
   const totalLayers = voxels.length;
-
-  // Auto-clamp current layer when dimensions change
-  useEffect(() => {
-    if (currentLayer >= totalLayers) {
-      setCurrentLayer(Math.max(0, totalLayers - 1));
-    }
-  }, [totalLayers, currentLayer]);
+  const safeCurrentLayer = Math.min(currentLayer, Math.max(0, totalLayers - 1));
 
   // Block counts calculation
   const { layerBlockCount, totalBlockCount } = useMemo(() => {
     let layerTotal = 0;
     let grandTotal = 0;
 
-    const slice = voxels[currentLayer] || [];
+    const slice = voxels[safeCurrentLayer] || [];
     for (const row of slice) {
       for (const cell of row) {
         if (cell) layerTotal++;
@@ -140,7 +134,7 @@ export default function SphereGeneratorPage() {
     }
 
     return { layerBlockCount: layerTotal, totalBlockCount: grandTotal };
-  }, [voxels, currentLayer]);
+  }, [voxels, safeCurrentLayer]);
 
   // Render 2D Layer Slice on Canvas
   useEffect(() => {
@@ -149,7 +143,7 @@ export default function SphereGeneratorPage() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const slice = voxels[currentLayer];
+    const slice = voxels[safeCurrentLayer];
     if (!slice) return;
 
     const height = slice.length;
@@ -207,17 +201,17 @@ export default function SphereGeneratorPage() {
         }
       }
     }
-  }, [voxels, currentLayer, zoom, isDark]);
+  }, [voxels, safeCurrentLayer, zoom, isDark]);
 
   const handleCopyLayer = () => {
-    const slice = voxels[currentLayer];
+    const slice = voxels[safeCurrentLayer];
     if (!slice) return;
-    let text = `# Sphere Layer ${currentLayer + 1}/${totalLayers} (Radius ${radius}, ${shell})\n# Blocks this layer: ${layerBlockCount}\n\n`;
+    let text = `# Sphere Layer ${safeCurrentLayer + 1}/${totalLayers} (Radius ${radius}, ${shell})\n# Blocks this layer: ${layerBlockCount}\n\n`;
     for (const row of slice) {
       text += row.map((c) => (c ? '██' : '  ')).join('') + '\n';
     }
     navigator.clipboard.writeText(text);
-    triggerToast(`Copied Layer ${currentLayer + 1} ASCII layout!`);
+    triggerToast(`Copied Layer ${safeCurrentLayer + 1} ASCII layout!`);
   };
 
   return (
@@ -333,14 +327,14 @@ export default function SphereGeneratorPage() {
                 <div className="flex justify-between items-center text-xs font-semibold mb-2">
                   <span>Layer Slice</span>
                   <span className="font-mono bg-[#FBECE6] dark:bg-[#38231C] text-[#8A4228] dark:text-[#E07A5F] px-2 py-0.5 rounded font-bold">
-                    Y = {currentLayer + 1} of {totalLayers}
+                    Y = {safeCurrentLayer + 1} of {totalLayers}
                   </span>
                 </div>
                 <input
                   type="range"
                   min="0"
                   max={Math.max(0, totalLayers - 1)}
-                  value={currentLayer}
+                  value={safeCurrentLayer}
                   onChange={(e) => setCurrentLayer(parseInt(e.target.value))}
                   className="w-full accent-[#8A4228] dark:accent-[#E07A5F] mb-3"
                 />
@@ -348,8 +342,8 @@ export default function SphereGeneratorPage() {
                 <div className="flex gap-2">
                   <button
                     type="button"
-                    disabled={currentLayer <= 0}
-                    onClick={() => setCurrentLayer((prev) => Math.max(0, prev - 1))}
+                    disabled={safeCurrentLayer <= 0}
+                    onClick={() => setCurrentLayer((prev) => Math.max(0, Math.min(prev, totalLayers - 1) - 1))}
                     className="flex-1 py-1.5 px-2 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] text-xs font-semibold disabled:opacity-40 flex items-center justify-center gap-1"
                   >
                     <span className="material-symbols-outlined text-[16px]">arrow_downward</span>
@@ -357,8 +351,8 @@ export default function SphereGeneratorPage() {
                   </button>
                   <button
                     type="button"
-                    disabled={currentLayer >= totalLayers - 1}
-                    onClick={() => setCurrentLayer((prev) => Math.min(totalLayers - 1, prev + 1))}
+                    disabled={safeCurrentLayer >= totalLayers - 1}
+                    onClick={() => setCurrentLayer((prev) => Math.min(totalLayers - 1, Math.min(prev, totalLayers - 1) + 1))}
                     className="flex-1 py-1.5 px-2 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] text-xs font-semibold disabled:opacity-40 flex items-center justify-center gap-1"
                   >
                     <span className="material-symbols-outlined text-[16px]">arrow_upward</span>
