@@ -1,39 +1,49 @@
 import { FooterSection, NavItem } from '../types/tools';
 
 export const MAIN_NAV_ITEMS: NavItem[] = [
-  { label: 'Tools', href: '#explore-tools' },
+  { label: 'All Tools', href: '/#explore-tools' },
+  { label: 'Circle Generator', href: '/tools/circle-generator' },
+  { label: 'Enchant Optimizer', href: '/tools/enchant-optimizer' },
   { label: 'MOTD Generator', href: '/tools/motd-editor' },
-  { label: 'Changelog', href: '#changelog' },
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '/#about' },
 ];
 
 export const FOOTER_SECTIONS: FooterSection[] = [
   {
-    title: 'Active Tools',
+    title: 'Voxel & World Tools',
+    links: [
+      { label: 'Voxel Circle & Oval Generator', href: '/tools/circle-generator' },
+      { label: 'Sphere & Dome 3D Generator', href: '/tools/sphere-generator' },
+      { label: 'Nether Portal Calculator', href: '/tools/nether-portal' },
+      { label: 'Block Gradient Matcher', href: '/tools/gradient-generator' },
+    ],
+  },
+  {
+    title: 'Survival & Calculators',
+    links: [
+      { label: 'Anvil Enchantment Optimizer', href: '/tools/enchant-optimizer' },
+      { label: 'Beacon Pyramid Calculator', href: '/tools/beacon-calculator' },
+      { label: 'XP & Mob Farm Calculator', href: '/tools/xp-calculator' },
+      { label: 'Leather Armor Dye Mixer', href: '/tools/leather-dye-calculator' },
+    ],
+  },
+  {
+    title: 'Server & Creator',
     links: [
       { label: 'Server MOTD Generator', href: '/tools/motd-editor' },
-      { label: 'Browse All Tools', href: '#explore-tools' },
+      { label: 'Server Icon Resizer (64×64)', href: '/tools/server-icon' },
+      { label: 'Tellraw & JSON Text Builder', href: '/tools/tellraw-editor' },
+      { label: 'Firework Rocket Designer', href: '/tools/firework-designer' },
+      { label: 'Armor Stand Pose Visualizer', href: '/tools/armor-stand' },
     ],
   },
   {
-    title: 'Resources',
+    title: 'Project & Docs',
     links: [
-      { label: 'Documentation', href: '/docs' },
+      { label: 'About Kita Tools', href: '/#about' },
       { label: 'Architecture Guide', href: '/docs/ARCHITECTURE.md' },
-    ],
-  },
-  {
-    title: 'Community',
-    links: [
       { label: 'GitHub Repository', href: 'https://github.com' },
-      { label: 'Discord Server', href: 'https://discord.com' },
-    ],
-  },
-  {
-    title: 'Project Info',
-    links: [
-      { label: 'About Kita Tools', href: '#about' },
-      { label: 'Release Notes (v2.4)', href: '#changelog' },
+      { label: 'Discord Community', href: 'https://discord.com' },
     ],
   },
 ];

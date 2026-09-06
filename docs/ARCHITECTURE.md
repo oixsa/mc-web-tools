@@ -24,34 +24,39 @@ kitatools/
 ├── app/
 │   ├── components/                 # Komponen UI modular
 │   │   ├── Header.tsx              # Bar navigasi atas + toggle tema + drawer mudah alih
-│   │   ├── Hero.tsx                # Hero section + Build Planner spotlight
-│   │   ├── FlagshipSection.tsx     # 8 alatan utama yang disyorkan
+│   │   ├── Hero.tsx                # Hero section + MOTD spotlight
+│   │   ├── FlagshipSection.tsx     # Alatan utama yang disyorkan
 │   │   ├── ExploreTools.tsx        # Katalog penuh alatan + carian + filter kategori
 │   │   ├── ToolCard.tsx            # Komponen kad alatan yang boleh diguna semula
-│   │   ├── GuidesSection.tsx       # Seksyen panduan rujukan binaan
 │   │   ├── Footer.tsx              # Footer direktori 4-lajur + penafian hak cipta
 │   │   └── QuickLauncherModal.tsx  # Dialog carian pantas (⌘K / Ctrl+K)
 │   ├── data/                       # Lapisan data berpusat (Maintainable Data Layer)
-│   │   ├── tools.ts                # Senarai 34+ alatan Minecraft
-│   │   ├── guides.ts               # Senarai panduan rujukan
-│   │   └── navigation.ts           # Pautan navigasi & footer
+│   │   ├── tools.ts                # Senarai alatan aktif dengan pautan dan metadata
+│   │   └── navigation.ts           # Pautan navigasi & footer aktif
 │   ├── hooks/                      # Custom React hooks
 │   │   ├── useTheme.ts             # Pengurusan tema Light / Dark + storan tempatan
 │   │   └── useFavorites.ts         # Pengurusan alatan berbintang + storan tempatan
 │   ├── types/                      # Definisi jenis TypeScript
 │   │   └── tools.ts                # Interface: Tool, Category, Guide, ThemeMode
-│   ├── tools/                      # Halaman alatan khusus
-│   │   └── motd-editor/            # Server MOTD Generator
-│   │       └── page.tsx            # Editor MOTD interaktif & simulator senarai pelayan
+│   ├── tools/                      # Halaman alatan khusus yang aktif
+│   │   ├── motd-editor/            # 1. Server MOTD Generator & YAML (.yml) export
+│   │   ├── server-icon/            # 2. Server Icon Resizer (64x64 PNG & Base64)
+│   │   ├── nether-portal/          # 3. Nether Portal 3D Link Calculator
+│   │   ├── circle-generator/       # 4. Voxel Circle & Oval Generator (Canvas Grid)
+│   │   ├── sphere-generator/       # 5. Sphere & Dome 3D Generator (Layer Slices)
+│   │   ├── tellraw-editor/         # 6. Tellraw & JSON Text Builder (/tellraw & /title)
+│   │   ├── gradient-generator/     # 7. Block Gradient & Palette Matcher (60+ Blocks)
+│   │   ├── enchant-optimizer/      # 8. Anvil & Enchantment Optimizer (Penalty Tree)
+│   │   ├── armor-stand/            # 9. Armor Stand Pose Visualizer & /summon
+│   │   ├── beacon-calculator/      # 10. Beacon Pyramid & Mineral Calculator (1-4 Tiers)
+│   │   ├── xp-calculator/          # 11. XP & Mob Farm Calculator (1.8+ Formulas)
+│   │   ├── firework-designer/      # 12. Firework Rocket Designer (Live Particle Canvas)
+│   │   └── leather-dye-calculator/ # 13. Leather Armor Dye Mixer (5.7M Vanilla Colors)
 │   ├── layout.tsx                  # Layout induk + pencegahan kerlipan tema (anti-FOUC)
 │   └── page.tsx                    # Halaman utama menggabungkan semua komponen
 ├── docs/
 │   └── ARCHITECTURE.md             # Dokumentasi teknikal ini
-├── public/
-│   └── logo.png                    # Logo rasmi kita tools
-└── stitch/                         # Fail sumber reka bentuk Stitch
-    ├── design_systems/             # Spesifikasi Obsidian & Precision
-    └── downloads/                  # Aset imej & HTML asal
+└── README.md                       # Pengenalan projek dan panduan pantas
 ```
 
 ---

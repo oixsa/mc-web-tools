@@ -27,20 +27,19 @@ export function Hero() {
 
             {/* Main Headline */}
             <h1 className="font-display-hero text-3xl sm:text-4xl lg:text-5xl text-[#1A1210] dark:text-[#F8F4F0] tracking-tight leading-[1.15] mb-5">
-              Minecraft tools for{' '}
+              All Minecraft tools in{' '}
               <span className="text-[#8A4228] dark:text-[#E07A5F] underline decoration-[#8A4228]/25 dark:decoration-[#E07A5F]/35 decoration-wavy">
-                builders &amp; creators
+                one web app
               </span>
             </h1>
 
             {/* Sub-headline */}
             <p className="text-base sm:text-lg text-[#68615A] dark:text-[#A8A19B] mb-8 leading-relaxed max-w-xl">
-              Precision utilities, custom color generators, and server configurations crafted for technical
-              Minecraft creators.
+              Precision generators, calculators, and server utilities crafted for Minecraft builders, admins, and technical creators.
             </p>
 
             {/* Call to Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 mb-10 w-full sm:w-auto">
+            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
               <Link
                 href="/tools/motd-editor"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] text-sm font-semibold shadow-md shadow-[#8A4228]/20 dark:shadow-[#E07A5F]/25 hover:bg-[#72341D] dark:hover:bg-[#F19178] transition-all transform hover:-translate-y-0.5 active:scale-[0.98]"
@@ -58,28 +57,6 @@ export function Hero() {
                   expand_more
                 </span>
               </a>
-            </div>
-
-            {/* Metrics Ribbon */}
-            <div className="grid grid-cols-3 gap-4 w-full p-4 bg-white/80 dark:bg-[#201815]/80 backdrop-blur-sm border border-[#E2DDD8] dark:border-[#3A2D28] rounded-xl shadow-2xs">
-              <div className="flex flex-col">
-                <span className="font-headline text-xl sm:text-2xl text-[#8A4228] dark:text-[#E07A5F] font-bold">
-                  v2.4
-                </span>
-                <span className="text-xs text-[#68615A] dark:text-[#A8A19B]">Active release</span>
-              </div>
-              <div className="flex flex-col border-x border-[#E2DDD8] dark:border-[#3A2D28] px-3 sm:px-4">
-                <span className="font-headline text-xl sm:text-2xl text-[#1A1210] dark:text-[#F8F4F0] font-bold">
-                  100%
-                </span>
-                <span className="text-xs text-[#68615A] dark:text-[#A8A19B]">Client-side &amp; free</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-headline text-xl sm:text-2xl text-[#8A4228] dark:text-[#E07A5F] font-bold">
-                  1.21+
-                </span>
-                <span className="text-xs text-[#68615A] dark:text-[#A8A19B]">Java &amp; Bedrock</span>
-              </div>
             </div>
           </div>
 

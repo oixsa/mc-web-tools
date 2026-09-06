@@ -6,14 +6,12 @@ interface ToolCardProps {
   tool: Tool;
   isFavorite: boolean;
   onToggleFavorite: () => void;
-  featuredLayout?: boolean;
 }
 
 export function ToolCard({
   tool,
   isFavorite,
   onToggleFavorite,
-  featuredLayout = false,
 }: ToolCardProps) {
   return (
     <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group hover:-translate-y-1 hover:border-[#CBC4BD] dark:hover:border-[#54413A]">

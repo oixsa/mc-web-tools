@@ -44,11 +44,10 @@ export function Header({ onOpenSearch, isDark, toggleTheme }: HeaderProps) {
               <a
                 key={item.label}
                 href={item.href}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
-                  index === 0
+                className={`px-3 py-1.5 rounded-lg transition-colors ${index === 0
                     ? 'bg-[#EFECE9] dark:bg-[#261D19] text-[#1A1210] dark:text-[#F8F4F0] font-semibold'
                     : 'text-[#68615A] dark:text-[#A8A19B] hover:text-[#1A1210] dark:hover:text-[#F8F4F0] hover:bg-black/[0.03] dark:hover:bg-white/[0.04]'
-                }`}
+                  }`}
               >
                 {item.label}
               </a>
@@ -120,13 +119,6 @@ export function Header({ onOpenSearch, isDark, toggleTheme }: HeaderProps) {
               {isDark ? 'dark_mode' : 'light_mode'}
             </span>
           </button>
-
-          {/* User Profile avatar */}
-          <div className="w-8 h-8 rounded-full bg-[#8A4228] dark:bg-[#E07A5F] flex items-center justify-center shadow-xs ml-1">
-            <span className="material-symbols-outlined text-white dark:text-[#15100E] text-[18px]">
-              person
-            </span>
-          </div>
 
           {/* Mobile Hamburger Menu Toggle */}
           <button

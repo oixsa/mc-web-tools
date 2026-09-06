@@ -35,12 +35,7 @@ export function QuickLauncherModal({
 
   // Handle keyboard navigation
   useEffect(() => {
-    if (!isOpen) return;
-
-    // Reset state & autofocus
-    setQuery('');
-    setSelectedIndex(0);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       inputRef.current?.focus();
     }, 50);
 
@@ -62,7 +57,10 @@ export function QuickLauncherModal({
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOpen, results, selectedIndex, onClose, onSelectTool]);
 
   if (!isOpen) return null;

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { AboutSection } from './components/AboutSection';
 import { ExploreTools } from './components/ExploreTools';
 import { FlagshipSection } from './components/FlagshipSection';
 import { Footer } from './components/Footer';
@@ -68,17 +69,22 @@ export default function Home() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
+
+        {/* About Kita Tools Section */}
+        <AboutSection />
       </main>
 
       {/* Footer Directory & Legal Disclaimer */}
       <Footer />
 
       {/* Command Palette / ⌘K Search Modal */}
-      <QuickLauncherModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectTool={handleSelectTool}
-      />
+      {isSearchOpen && (
+        <QuickLauncherModal
+          isOpen={isSearchOpen}
+          onClose={() => setIsSearchOpen(false)}
+          onSelectTool={handleSelectTool}
+        />
+      )}
     </div>
   );
 }

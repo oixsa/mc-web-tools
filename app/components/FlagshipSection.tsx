@@ -37,7 +37,6 @@ export function FlagshipSection({
             tool={tool}
             isFavorite={isFavorite(tool.id)}
             onToggleFavorite={() => onToggleFavorite(tool.id)}
-            featuredLayout={true}
           />
         ))}
       </div>

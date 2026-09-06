@@ -1,36 +1,52 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
 const FAVORITES_STORAGE_KEY = 'kitatools_favorites';
-const DEFAULT_FAVORITES = ['build-planner', 'circle-generator', 'seed-map'];
+
+function getFavoritesSnapshot(): string {
+  if (typeof window === 'undefined') return '[]';
+  try {
+    return localStorage.getItem(FAVORITES_STORAGE_KEY) || '[]';
+  } catch {
+    return '[]';
+  }
+}
+
+function getServerSnapshot(): string {
+  return '[]';
+}
+
+function subscribe(notify: () => void) {
+  if (typeof window === 'undefined') return () => {};
+  window.addEventListener('storage', notify);
+  window.addEventListener('favorites-change', notify);
+  return () => {
+    window.removeEventListener('storage', notify);
+    window.removeEventListener('favorites-change', notify);
+  };
+}
 
 /**
  * Custom hook to manage starred / favorited tools persisted in localStorage.
+ * Uses useSyncExternalStore to eliminate cascading setState renders.
  */
 export function useFavorites() {
-  const [favorites, setFavorites] = useState<string[]>(DEFAULT_FAVORITES);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);
-      if (stored) {
-        setFavorites(JSON.parse(stored));
-      }
-    } catch {
-      // Fall back to default
-    }
-    setMounted(true);
-  }, []);
+  const raw = useSyncExternalStore(subscribe, getFavoritesSnapshot, getServerSnapshot);
+  let favorites: string[] = [];
+  try {
+    favorites = JSON.parse(raw);
+  } catch {
+    favorites = [];
+  }
 
   const saveFavorites = (newList: string[]) => {
-    setFavorites(newList);
     try {
       localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(newList));
     } catch {
-      // Ignore
+      // Ignore storage errors
     }
+    window.dispatchEvent(new Event('favorites-change'));
   };
 
   const toggleFavorite = (toolId: string) => {
@@ -41,19 +57,11 @@ export function useFavorites() {
     }
   };
 
-  const clearFavorites = () => {
-    saveFavorites([]);
-  };
-
-  const isFavorite = (toolId: string) => {
-    return favorites.includes(toolId);
-  };
+  const isFavorite = (toolId: string) => favorites.includes(toolId);
 
   return {
     favorites,
     toggleFavorite,
-    clearFavorites,
     isFavorite,
-    mounted,
   };
 }

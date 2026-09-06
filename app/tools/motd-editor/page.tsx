@@ -76,6 +76,123 @@ const PRESETS: Preset[] = [
   },
 ];
 
+// --- Parser for Minecraft Code to HTML with Obfuscation ---
+interface ParsedSpan {
+  text: string;
+  color: string;
+  shadowColor: string;
+  bold: boolean;
+  italic: boolean;
+  underline: boolean;
+  strikethrough: boolean;
+  magic: boolean;
+}
+
+function parseMinecraftText(rawText: string, randomTick: number): ParsedSpan[] {
+  // Normalize § to &
+  const normalized = rawText.replace(/§/g, '&');
+  const spans: ParsedSpan[] = [];
+
+  let currentColor = '#AAAAAA'; // default gray
+  let currentShadow = '#2A2A2A';
+  let isBold = false;
+  let isItalic = false;
+  let isUnderline = false;
+  let isStrikethrough = false;
+  let isMagic = false;
+
+  let i = 0;
+  while (i < normalized.length) {
+    // Check for hex code: &#RRGGBB
+    if (normalized[i] === '&' && normalized[i + 1] === '#' && i + 8 <= normalized.length) {
+      const hex = normalized.substring(i + 2, i + 8);
+      if (/^[0-9a-fA-F]{6}$/.test(hex)) {
+        currentColor = `#${hex}`;
+        currentShadow = '#151515';
+        i += 8;
+        continue;
+      }
+    }
+
+    // Check for standard code: &x
+    if (normalized[i] === '&' && i + 1 < normalized.length) {
+      const code = normalized[i + 1].toLowerCase();
+      const foundColor = MINECRAFT_COLORS.find((c) => c.code === code);
+      if (foundColor) {
+        currentColor = foundColor.hex;
+        currentShadow = foundColor.shadowHex;
+        // Color code resets formatting styles in vanilla MC
+        isBold = false;
+        isItalic = false;
+        isUnderline = false;
+        isStrikethrough = false;
+        isMagic = false;
+        i += 2;
+        continue;
+      }
+
+      if (code === 'l') {
+        isBold = true;
+        i += 2;
+        continue;
+      }
+      if (code === 'o') {
+        isItalic = true;
+        i += 2;
+        continue;
+      }
+      if (code === 'n') {
+        isUnderline = true;
+        i += 2;
+        continue;
+      }
+      if (code === 'm') {
+        isStrikethrough = true;
+        i += 2;
+        continue;
+      }
+      if (code === 'k') {
+        isMagic = true;
+        i += 2;
+        continue;
+      }
+      if (code === 'r') {
+        currentColor = '#AAAAAA';
+        currentShadow = '#2A2A2A';
+        isBold = false;
+        isItalic = false;
+        isUnderline = false;
+        isStrikethrough = false;
+        isMagic = false;
+        i += 2;
+        continue;
+      }
+    }
+
+    // Plain character
+    let char = normalized[i];
+    if (isMagic) {
+      // Random characters for magic obfuscation
+      const magicChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+      char = magicChars[(char.charCodeAt(0) + randomTick) % magicChars.length];
+    }
+
+    spans.push({
+      text: char,
+      color: currentColor,
+      shadowColor: currentShadow,
+      bold: isBold,
+      italic: isItalic,
+      underline: isUnderline,
+      strikethrough: isStrikethrough,
+      magic: isMagic,
+    });
+    i++;
+  }
+
+  return spans;
+}
+
 export default function MotdEditorPage() {
   const { isDark, toggleTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -198,125 +315,8 @@ export default function MotdEditorPage() {
     triggerToast(`Line ${targetLine} centered!`);
   };
 
-  // --- Parser for Minecraft Code to HTML with Obfuscation ---
-  interface ParsedSpan {
-    text: string;
-    color: string;
-    shadowColor: string;
-    bold: boolean;
-    italic: boolean;
-    underline: boolean;
-    strikethrough: boolean;
-    magic: boolean;
-  }
-
-  const parseMinecraftText = (rawText: string): ParsedSpan[] => {
-    // Normalize § to &
-    const normalized = rawText.replace(/§/g, '&');
-    const spans: ParsedSpan[] = [];
-
-    let currentColor = '#AAAAAA'; // default gray
-    let currentShadow = '#2A2A2A';
-    let isBold = false;
-    let isItalic = false;
-    let isUnderline = false;
-    let isStrikethrough = false;
-    let isMagic = false;
-
-    let i = 0;
-    while (i < normalized.length) {
-      // Check for hex code: &#RRGGBB
-      if (normalized[i] === '&' && normalized[i + 1] === '#' && i + 8 <= normalized.length) {
-        const hex = normalized.substring(i + 2, i + 8);
-        if (/^[0-9a-fA-F]{6}$/.test(hex)) {
-          currentColor = `#${hex}`;
-          currentShadow = '#151515';
-          i += 8;
-          continue;
-        }
-      }
-
-      // Check for standard code: &x
-      if (normalized[i] === '&' && i + 1 < normalized.length) {
-        const code = normalized[i + 1].toLowerCase();
-        const foundColor = MINECRAFT_COLORS.find((c) => c.code === code);
-        if (foundColor) {
-          currentColor = foundColor.hex;
-          currentShadow = foundColor.shadowHex;
-          // Color code resets formatting styles in vanilla MC
-          isBold = false;
-          isItalic = false;
-          isUnderline = false;
-          isStrikethrough = false;
-          isMagic = false;
-          i += 2;
-          continue;
-        }
-
-        if (code === 'l') {
-          isBold = true;
-          i += 2;
-          continue;
-        }
-        if (code === 'o') {
-          isItalic = true;
-          i += 2;
-          continue;
-        }
-        if (code === 'n') {
-          isUnderline = true;
-          i += 2;
-          continue;
-        }
-        if (code === 'm') {
-          isStrikethrough = true;
-          i += 2;
-          continue;
-        }
-        if (code === 'k') {
-          isMagic = true;
-          i += 2;
-          continue;
-        }
-        if (code === 'r') {
-          currentColor = '#AAAAAA';
-          currentShadow = '#2A2A2A';
-          isBold = false;
-          isItalic = false;
-          isUnderline = false;
-          isStrikethrough = false;
-          isMagic = false;
-          i += 2;
-          continue;
-        }
-      }
-
-      // Plain character
-      let char = normalized[i];
-      if (isMagic) {
-        // Random characters for magic obfuscation
-        const magicChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-        char = magicChars[(char.charCodeAt(0) + randomTick) % magicChars.length];
-      }
-
-      spans.push({
-        text: char,
-        color: currentColor,
-        shadowColor: currentShadow,
-        bold: isBold,
-        italic: isItalic,
-        underline: isUnderline,
-        strikethrough: isStrikethrough,
-        magic: isMagic,
-      });
-      i++;
-    }
-
-    return spans;
-  };
-
-  const parsedLine1 = useMemo(() => parseMinecraftText(line1), [line1, randomTick]);
-  const parsedLine2 = useMemo(() => parseMinecraftText(line2), [line2, randomTick]);
+  const parsedLine1 = useMemo(() => parseMinecraftText(line1, randomTick), [line1, randomTick]);
+  const parsedLine2 = useMemo(() => parseMinecraftText(line2, randomTick), [line2, randomTick]);
 
   // Export conversions
   const exportServerProperties = () => {
@@ -339,13 +339,7 @@ export default function MotdEditorPage() {
     return `motd=${convert(line1)}\\n${convert(line2)}`;
   };
 
-  const exportSectionSigns = () => {
-    return `${line1.replace(/&/g, '§')}\n${line2.replace(/&/g, '§')}`;
-  };
 
-  const exportAmpersands = () => {
-    return `${line1.replace(/§/g, '&')}\n${line2.replace(/§/g, '&')}`;
-  };
 
   const exportJsonFormat = () => {
     return JSON.stringify(

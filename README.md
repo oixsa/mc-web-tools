@@ -1,66 +1,66 @@
-# Kita Tools (kita tools) ⛏️
+# Kita Tools ⛏️
 
 > Precision Minecraft tools, calculators, and schematics crafted for technical builders and voxel architects.
 
-Berasaskan rekaan laman moden Stitch, **Kita Tools** menyediakan alatan pelayar untuk pemain dan pembangun Minecraft, bermula dengan alatan berkuasa **Server MOTD Generator** (dengan sokongan eksport `server.properties`, BungeeCord, dan YAML `.yml`).
+Crafted based on modern Stitch web design, **Kita Tools** provides in-browser tools for Minecraft players and developers, starting with a powerful **Server MOTD Generator** (with export support for `server.properties`, BungeeCord, and YAML `.yml`).
 
 ---
 
-## ✨ Ciri-Ciri Utama (Key Features)
+## ✨ Key Features
 
-- **Alatan Pelayar Minecraft Berfungsi Penuh**: Alatan *Server MOTD Generator* interaktif dengan pratonton langsung *in-game*, pembuat gradien RGB hex, dan eksport pelbagai format.
-- **Dua Pilihan Tema (Dark Mode & Light Mode - Dark Bay, Gray, & Bay)**:
-  - **Dark Bay Mode (Dark Mode)**: Warna asas *Dark Bay* `#15100E`, kad `#201815`, aksen tembaga bay bersinar *Luminous Bay* `#E07A5F`, dan perincian kelabu neutral `#A8A19B`.
-  - **Light Mode (Stone Gray & Warm Bay)**: Warna kanvas kelabu hangat `#F7F6F4`, kad putih bersih `#FFFFFF`, aksen kayu berangan *Rich Bay* `#8A4228`, dan dakwat gelap *Dark Bay Ink* `#1A1210`.
-  - Dilengkapi ciri suis tema pantas dan ingatan kekal (*persisted preference* tanpa kerlipan FOUC).
-- **Paparan Responsif Penuh (Mobile, Tablet, & Desktop)**:
-  - Grid fleksibel mengikut saiz peranti.
-  - Bar kategori alatan boleh diskrol secara sentuhan (*horizontal touch scrolling*).
-  - Menu drawer navigasi mudah alih.
-- **Carian Pantas & Pintasan Papan Kekunci (⌘K / Ctrl+K)**:
-  - Buka dialog *Quick Launcher* dengan menekan kekunci `⌘K` atau `Ctrl+K`.
-  - Carian masa nyata mengikut nama, kategori, dan fungsi.
-- **Kod Mudah Diselenggara (Maintainable & Type-Safe)**:
-  - Hanya alatan yang benar-benar siap dan berfungsi dimasukkan ke dalam katalog.
-  - Menambah alatan baharu hanya memerlukan 1 objek data dalam `app/data/tools.ts`.
+- **Fully Functional In-Browser Minecraft Tools**: Interactive *Server MOTD Generator* with live in-game preview, RGB hex gradient builder, and multi-format export.
+- **Dual Theme Support (Dark Mode & Light Mode - Dark Bay, Gray, & Bay)**:
+  - **Dark Bay Mode (Dark Mode)**: Dark Bay `#15100E` base canvas, `#201815` card surfaces, *Luminous Bay* `#E07A5F` copper accent, and neutral `#A8A19B` details.
+  - **Light Mode (Stone Gray & Warm Bay)**: Warm stone gray `#F7F6F4` canvas, clean white `#FFFFFF` cards, *Rich Bay* `#8A4228` chestnut accent, and *Dark Bay Ink* `#1A1210`.
+  - Equipped with a smooth theme toggle and persistent preferences (no FOUC/flicker).
+- **Fully Responsive Design (Mobile, Tablet, & Desktop)**:
+  - Adaptive grid layout across all screen sizes.
+  - Horizontal touch-scrollable category bar.
+  - Mobile drawer navigation menu.
+- **Quick Search & Keyboard Shortcuts (⌘K / Ctrl+K)**:
+  - Open the *Quick Launcher* modal by pressing `⌘K` or `Ctrl+K`.
+  - Real-time search across tool names, categories, and descriptions.
+- **Maintainable & Type-Safe Codebase**:
+  - Only complete, fully working tools are listed in the active catalog.
+  - Adding a new tool only requires a single data object in `app/data/tools.ts`.
 
 ---
 
-## 🚀 Memulakan Projek (Getting Started)
+## 🚀 Getting Started
 
-Pasang kebergantungan pakej (dependencies):
+Install dependencies:
 
 ```bash
 npm install
-# atau
+# or
 pnpm install
-# atau
+# or
 yarn install
 ```
 
-Jalankan pelayan pembangunan (development server):
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
-Buka pelayar anda di [http://localhost:3000](http://localhost:3000).
+Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 📚 Dokumentasi Pembangun (Developer Documentation)
+## 📚 Developer Documentation
 
-Sila rujuk dokumen seni bina dan panduan penyelenggaraan lengkap di:
+Please refer to the complete architecture and maintenance guide at:
 👉 **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**
 
-Ia merangkumi:
-- Panduan langkah demi langkah menambah alatan atau kategori baharu.
-- Pemetaan warna token reka bentuk (Design System tokens).
-- Struktur hook `useTheme` dan `useFavorites`.
+It covers:
+- Step-by-step guide for adding new tools or categories.
+- Design System token and color mappings.
+- Structure of the `useTheme` and `useFavorites` hooks.
 
 ---
 
-## ⚖️ Penafian Hak Cipta (Disclaimer)
+## ⚖️ Disclaimer
 
 *NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.*
-Minecraft ialah tanda dagangan berdaftar Mojang Synergies AB.
+Minecraft is a registered trademark of Mojang Synergies AB.
