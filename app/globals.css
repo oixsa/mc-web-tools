@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* --- Palette: Light Mode (Gray Canvas & Cards, Bay Accents, Dark Bay Ink) --- */
+    --bg-canvas: #F7F6F4;
+    --bg-card: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+    --bg-container: #EFECE9;
+    --bg-container-low: #F4F2EF;
+    --bg-container-lowest: #FFFFFF;
+    --border-subtle: #E2DDD8;
+    --border-hover: #CBC4BD;
+    --text-primary: #1A1210;     /* Dark Bay Ink */
+    --text-secondary: #68615A;   /* Neutral Slate Gray */
+    --text-muted: #918A83;       /* Muted Gray */
+    
+    /* Bay Primary Tone */
+    --primary: #8A4228;          /* Rich Bay */
+    --primary-hover: #72341D;
+    --primary-container: #FBECE6;
+    --on-primary: #FFFFFF;
+    
+    /* Complementary Earth & Mineral Accents */
+    --secondary: #4E4844;        /* Deep Gray */
+    --secondary-container: #E3DFDA;
+    --status-beta: #8A4228;      /* Bay Accent */
+    --status-featured: #C27838;  /* Amber Bronze */
+    --error: #BA1A1A;
+    --glow-primary: rgba(138, 66, 40, 0.15);
+  }
+
+  .dark {
+    /* --- Palette: Dark Mode (Deep Dark Bay Canvas, Dark Bay Cards, Luminous Bay Accents, Gray Telemetry) --- */
+    --bg-canvas: #15100E;        /* Deepest Dark Bay */
+    --bg-card: #201815;          /* Dark Bay Surface */
+    --bg-elevated: #2A201C;      /* Elevated Dark Bay */
+    --bg-container: #261D19;
+    --bg-container-low: #1B1412;
+    --bg-container-lowest: #0F0A09;
+    --border-subtle: #3A2D28;    /* Dark Bay Structural Border */
+    --border-hover: #54413A;     /* Dark Bay Specular Border */
+    --text-primary: #F8F4F0;     /* Crisp Warm White */
+    --text-secondary: #A8A19B;   /* Warm Neutral Gray */
+    --text-muted: #766F69;       /* Muted Slate Gray */
+
+    /* Luminous Bay Primary Tone */
+    --primary: #E07A5F;          /* Luminous Bay */
+    --primary-hover: #F19178;
+    --primary-container: #38231C;
+    --on-primary: #15100E;
+
+    /* Complementary Earth & Mineral Accents */
+    --secondary: #B5ACA5;        /* Mineral Gray */
+    --secondary-container: #302622;
+    --status-beta: #E07A5F;      /* Luminous Bay */
+    --status-featured: #E5A158;  /* Warm Amber */
+    --error: #FFB4AB;
+    --glow-primary: rgba(224, 122, 95, 0.18);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light dark;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    overflow-x: hidden;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Material Symbols Outlined Icon helper */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Typography classes mapped to Stitch tokens */
+.font-display-hero {
+  font-family: 'Plus Jakarta Sans', 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.font-headline {
+  font-family: 'Plus Jakarta Sans', 'Space Grotesk', sans-serif;
+}
+
+.font-mono-meta {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Hide scrollbars for category strip while preserving smooth scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-card": "#FFFFFF", "border-subtle": "#E5EAF2", "surface-elevated": "#FFFFFF", "on-tertiary-fixed-variant": "#773200", "outline": "#757687", "on-error-container": "#93000a", "surface-bright": "#f8f9ff", "on-secondary-fixed": "#002116", "on-error": "#ffffff", "inverse-primary": "#bdc2ff", "error": "#ba1a1a", "on-primary-fixed": "#000865", "secondary-fixed-dim": "#27e0a9", "on-primary": "#ffffff", "on-background": "#0a1c30", "surface-tint": "#3849e5", "primary-fixed": "#dfe0ff", "on-tertiary-fixed": "#331100", "primary-container": "#5465ff", "surface-container": "#e5eeff", "surface-bg": "#F4F7FC", "status-featured": "#FFB703", "on-surface-variant": "#454655", "tertiary": "#9c4400", "surface-container-low": "#eff4ff", "on-secondary-container": "#007152", "text-muted": "#8C9BAE", "on-tertiary": "#ffffff", "surface-container-highest": "#d2e4ff", "inverse-on-surface": "#eaf1ff", "primary": "#3849e5", "inverse-surface": "#203146", "background": "#f8f9ff", "surface-variant": "#d2e4ff", "error-container": "#ffdad6", "on-primary-container": "#000125", "text-primary": "#111827", "primary-fixed-dim": "#bdc2ff", "secondary-fixed": "#54fdc4", "outline-variant": "#c5c5d8", "tertiary-container": "#c35700", "text-secondary": "#5A6B82", "secondary-container": "#51fac1", "border-hover": "#CCD6E4", "on-primary-fixed-variant": "#1529ce", "surface": "#f8f9ff", "surface-dim": "#cadbf6", "tertiary-fixed-dim": "#ffb68f", "on-secondary-fixed-variant": "#00513b", "secondary": "#006c4f", "accent-glow": "#5465FF1F", "surface-container-high": "#dce9ff", "on-surface": "#0a1c30", "tertiary-fixed": "#ffdbca", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "on-tertiary-container": "#0f0300", "status-beta": "#06D6A0" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.75rem", "grid-gutter": "1.25rem", "space-3xl": "4.5rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xs": "0.5rem", "space-2xl": "3rem", "grid-margin": "1.5rem", "space-xl": "2rem", "space-2xs": "0.25rem" }, "fontFamily": { "headline-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-md": ["Inter"], "label-md": ["Inter"], "body-lg": ["Inter"], "display-hero": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-badge": ["Inter"], "display-hero-mobile": ["Plus Jakarta Sans"] }, "fontSize": { "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-badge": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }] } } } }</script></head><body class="bg-surface-bg font-body-md text-text-primary antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-card/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-7xl mx-auto px-grid-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-xs" data-path="tools" href="#"><img alt="kita tools logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_43zO6iu8Sd0M6NWwLHGLCkBFCpZFliccCUb6O0k0X8u9D9463NrcbZpUY_Z4DV088ah4OL0R2HfiGoTfbNYxgi1a8qaNkc97HcSvoDUaQG3uLvaGTASHQyaTgqQPqXVb4eofXCrup0U_ih8wHpDnj_d-kijfiwEG1sz_WzIqXSOo1-6T2evFwwefvlwrQmeHSTcpMi-wBDe5gTJlYqvCSL6D6nyshxWrbLUWZLykMc3BkIJrHKJF"/><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight">kita <span class="text-primary">tools</span></span></a><nav class="hidden md:flex items-center gap-space-sm" data-active-classes="bg-surface-container text-on-surface font-label-md text-label-md rounded-lg px-space-xs py-space-2xs"><a aria-current="page" class="transition-colors bg-surface-container text-on-surface font-label-md text-label-md rounded-lg px-space-xs py-space-2xs" data-path="tools" href="#">Tools</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-xs py-space-2xs transition-colors" data-path="guides" href="#">Guides</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-xs py-space-2xs transition-colors" data-path="changelog" href="#">Changelog</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-xs py-space-2xs transition-colors" data-path="about" href="#">About</a></nav></div><div class="flex items-center gap-space-xs"><button class="hidden sm:flex items-center justify-between gap-space-sm px-space-sm h-10 w-48 lg:w-64 bg-surface-bg rounded-lg text-text-secondary hover:text-text-primary transition-colors" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-text-muted text-[18px]">search</span><span class="font-body-sm text-body-sm">Quick launcher...</span></div><kbd class="font-label-badge text-label-badge bg-surface-card px-1.5 py-0.5 rounded text-text-muted shadow-sm">⌘K</kbd></button><a aria-label="GitHub" class="w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors" href="https://github.com" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[20px]">code</span></a><a aria-label="Discord" class="w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors" href="https://discord.com" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[20px]">forum</span></a><button aria-label="Toggle theme" class="w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">light_mode</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-2xs shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface-bg min-h-[calc(100vh-4rem)]"><div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow & Geometric Accent Background -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-40 right-1/4 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-96 -left-20 w-80 h-80 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<!-- ================= HERO & SPOTLIGHT SECTION ================= -->
+<section class="max-w-7xl mx-auto px-grid-margin pt-space-xl pb-space-2xl w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+<!-- Left: Hero Headline & Fast Access -->
+<div class="lg:col-span-6 flex flex-col items-start">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-card shadow-sm mb-space-md">
+<span class="w-2 h-2 rounded-full bg-status-beta animate-pulse"></span>
+<span class="font-label-badge text-label-badge text-text-secondary uppercase">kita tools v2.4</span>
+<span class="text-text-muted">•</span>
+<span class="font-label-md text-label-md text-primary font-semibold">New Build Planner released</span>
+</div>
+<h1 class="font-display-hero text-display-hero text-text-primary tracking-tight mb-space-md">
+            Minecraft tools for <span class="text-primary underline decoration-primary/20 decoration-wavy">builders &amp; creators</span>
+</h1>
+<p class="font-body-lg text-body-lg text-text-secondary mb-space-xl leading-relaxed max-w-xl">
+            Plan builds, generate shapes, create map art, explore seeds, and export useful files without leaving the page.
+          </p>
+<div class="flex flex-wrap items-center gap-space-sm mb-space-xl">
+<a class="inline-flex items-center gap-space-xs px-5 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-md shadow-primary/25 hover:bg-primary-container transition-all transform hover:-translate-y-0.5 active:scale-[0.98]" href="#build-planner">
+<span class="material-symbols-outlined text-[18px]">architecture</span>
+              Open Build Planner
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<a class="inline-flex items-center gap-space-xs px-5 py-2.5 rounded-lg bg-surface-card text-text-primary font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-all" href="#explore-tools">
+              Browse Tools
+              <span class="material-symbols-outlined text-text-secondary text-[16px]">expand_more</span>
+</a>
+</div>
+<!-- Quick Metrics Ribbon -->
+<div class="grid grid-cols-3 gap-space-md w-full pt-space-md bg-surface-card/60 backdrop-blur-sm rounded-xl p-space-sm shadow-sm">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-primary font-bold">34+</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Browser tools</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-text-primary font-bold">100%</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Client-side &amp; free</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-secondary font-bold">1.20+</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Java &amp; Bedrock</span>
+</div>
+</div>
+</div>
+<!-- Right: Interactive Featured Tool Spotlight (Build Planner) -->
+<div class="lg:col-span-6 w-full" id="build-planner">
+<div class="bg-surface-card rounded-2xl shadow-xl overflow-hidden p-space-md flex flex-col">
+<!-- Header bar inside card -->
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-badge text-label-badge uppercase px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant">Featured tool</span>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold">Build Planner</h3>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span> v2.4 Active
+              </span>
+</div>
+<!-- Spotlight Visual UI Mockup (Isometric voxel view + materials table) -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm overflow-hidden mb-space-md">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error/40"></div>
+<div class="w-3 h-3 rounded-full bg-status-featured/50"></div>
+<div class="w-3 h-3 rounded-full bg-status-beta/50"></div>
+<span class="font-label-badge text-label-badge text-text-muted ml-2">cathedral_spire_v3.litematic</span>
+</div>
+<div class="flex gap-1">
+<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-surface-container text-text-primary">Layer 42/96</span>
+</div>
+</div>
+<!-- Interactive Simulated Viewport -->
+<div class="grid grid-cols-12 gap-3 py-2">
+<!-- 3D Voxel Stage Preview (SVG schematic rendering) -->
+<div class="col-span-7 bg-surface-bg rounded-lg p-3 flex flex-col justify-between relative min-h-[160px]">
+<div class="flex justify-between items-center text-text-muted">
+<span class="font-label-badge text-label-badge text-text-secondary">3D LAYER ROTATE</span>
+<span class="material-symbols-outlined text-[16px]">view_in_ar</span>
+</div>
+<!-- Isometric SVG Tower Art -->
+<div class="flex items-center justify-center py-2">
+<svg class="w-28 h-28 text-primary" fill="none" viewbox="0 0 120 120">
+<!-- Isometric base grid -->
+<path d="M60 20 L105 45 L60 70 L15 45 Z" fill="#E5EEFF" stroke="#3849e5" stroke-width="1.5"></path>
+<path d="M15 45 L15 75 L60 100 L60 70 Z" fill="#5465FF" opacity="0.85"></path>
+<path d="M105 45 L105 75 L60 100 L60 70 Z" fill="#3849E5"></path>
+<!-- Internal layered spire -->
+<path d="M60 5 L85 20 L60 35 L35 20 Z" fill="#51FAC1" stroke="#006C4F" stroke-width="1.2"></path>
+<path d="M35 20 L35 45 L60 60 L60 35 Z" fill="#27E0A9"></path>
+<path d="M85 20 L85 45 L60 60 L60 35 Z" fill="#007152"></path>
+<!-- Voxel highlight accents -->
+<circle cx="60" cy="50" fill="#ffffff" r="3"></circle>
+<circle cx="48" cy="42" fill="#ffffff" r="2.5"></circle>
+<circle cx="72" cy="42" fill="#ffffff" r="2.5"></circle>
+</svg>
+</div>
+<div class="flex items-center justify-between text-[11px] text-text-secondary">
+<span>Dimensions: 32×48×32</span>
+<span class="text-primary font-bold">1,842 Blocks</span>
+</div>
+</div>
+<!-- Live Material Breakdown mini list -->
+<div class="col-span-5 flex flex-col justify-between bg-surface-card rounded-lg p-2.5 shadow-sm">
+<div class="font-label-badge text-label-badge text-text-secondary uppercase pb-1">Materials Need</div>
+<div class="space-y-1.5 overflow-hidden">
+<div class="flex items-center justify-between text-body-sm">
+<span class="flex items-center gap-1 truncate text-text-primary"><span class="w-2.5 h-2.5 rounded-sm bg-slate-700 inline-block"></span> Deepslate Tiles</span>
+<span class="font-bold text-text-primary text-[11px]">840</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="flex items-center gap-1 truncate text-text-primary"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-600 inline-block"></span> Dark Prismarine</span>
+<span class="font-bold text-text-primary text-[11px]">462</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="flex items-center gap-1 truncate text-text-primary"><span class="w-2.5 h-2.5 rounded-sm bg-amber-500 inline-block"></span> Copper Bulbs</span>
+<span class="font-bold text-text-primary text-[11px]">184</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="flex items-center gap-1 truncate text-text-primary"><span class="w-2.5 h-2.5 rounded-sm bg-blue-400 inline-block"></span> Sea Lanterns</span>
+<span class="font-bold text-text-primary text-[11px]">96</span>
+</div>
+</div>
+<div class="pt-1.5 flex items-center justify-between text-[10px] text-text-muted">
+<span>Shulkers: <strong class="text-text-primary">2.8 Boxes</strong></span>
+<span class="text-secondary font-bold">Ready</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature capability tabs from reference text -->
+<div class="grid grid-cols-2 gap-space-xs">
+<div class="p-space-xs rounded-lg bg-surface-bg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-1.5 mb-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">visibility</span>
+<span class="font-headline-sm text-[13px] text-text-primary font-bold">Inspect in 3D</span>
+</div>
+<p class="font-body-sm text-[11px] text-text-secondary leading-snug">Open .litematic, .schem, and NBT builds. Rotate them and inspect each layer.</p>
+</div>
+<div class="p-space-xs rounded-lg bg-surface-bg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-1.5 mb-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">inventory_2</span>
+<span class="font-headline-sm text-[13px] text-text-primary font-bold">Material breakdown</span>
+</div>
+<p class="font-body-sm text-[11px] text-text-secondary leading-snug">Break a build down into craftable materials and base ingredients.</p>
+</div>
+<div class="p-space-xs rounded-lg bg-surface-bg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-1.5 mb-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">grid_view</span>
+<span class="font-headline-sm text-[13px] text-text-primary font-bold">Shulker box planning</span>
+</div>
+<p class="font-body-sm text-[11px] text-text-secondary leading-snug">Plan how the build packs into shulker boxes, slot by slot.</p>
+</div>
+<div class="p-space-xs rounded-lg bg-surface-bg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-1.5 mb-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">checklist</span>
+<span class="font-headline-sm text-[13px] text-text-primary font-bold">Shopping list</span>
+</div>
+<p class="font-body-sm text-[11px] text-text-secondary leading-snug">Track gathering progress with a checkable list and running totals.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- ================= YOUR FAVORITES PINNED SECTION ================= -->
+<section class="max-w-7xl mx-auto px-grid-margin py-space-md w-full" id="favorites-section">
+<div class="bg-surface-card rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-status-featured text-[22px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary">Your favorites</h2>
+<p class="font-body-sm text-body-sm text-text-secondary">Tools you starred, saved on this device.</p>
+</div>
+</div>
+<button class="font-label-md text-label-md text-text-secondary hover:text-error transition-colors flex items-center gap-1" onclick="document.getElementById('favorites-container').classList.toggle('opacity-30')" type="button">
+<span class="material-symbols-outlined text-[16px]">clear_all</span>
+          Clear all
+        </button>
+</div>
+<!-- Quick Favorites Horizontal Strip -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md" id="favorites-container">
+<!-- Fav 1: Circle Generator -->
+<a class="flex items-center gap-space-md p-space-sm rounded-xl bg-surface-bg hover:bg-surface-container-low transition-all group" href="#circle-gen">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-[24px]">radio_button_unchecked</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-headline-sm text-headline-sm text-text-primary truncate">Circle Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary truncate">Plan circles and rings block by block</p>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors text-[20px]">arrow_forward</span>
+</a>
+<!-- Fav 2: Build Planner -->
+<a class="flex items-center gap-space-md p-space-sm rounded-xl bg-surface-bg hover:bg-surface-container-low transition-all group" href="#build-planner">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-[24px]">architecture</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-headline-sm text-headline-sm text-text-primary truncate">Build Planner</h3>
+<p class="font-body-sm text-body-sm text-text-secondary truncate">Upload, inspect, edit &amp; export</p>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors text-[20px]">arrow_forward</span>
+</a>
+<!-- Fav 3: Seed Map -->
+<a class="flex items-center gap-space-md p-space-sm rounded-xl bg-surface-bg hover:bg-surface-container-low transition-all group" href="#seed-map">
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-all">
+<span class="material-symbols-outlined text-[24px]">explore</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-headline-sm text-headline-sm text-text-primary truncate">Seed Map</h3>
+<p class="font-body-sm text-body-sm text-text-secondary truncate">Biome &amp; structure explorer</p>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-secondary transition-colors text-[20px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- ================= FLAGSHIP TOOLS GRID ================= -->
+<section class="max-w-7xl mx-auto px-grid-margin py-space-xl w-full">
+<div class="mb-space-lg">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-bold">Flagship tools</h2>
+</div>
+<p class="font-body-md text-body-md text-text-secondary">The tools we recommend starting with.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-grid-gutter">
+<!-- 1. Build Planner -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<!-- Thumbnail preview container -->
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<!-- Interactive schematic wireframe icon -->
+<svg class="w-20 h-20 text-primary group-hover:scale-105 transition-transform" fill="none" viewbox="0 0 80 80">
+<rect fill="#5465FF" fill-opacity="0.15" height="40" rx="4" width="44" x="18" y="24"></rect>
+<path d="M18 36H62M18 48H62M32 24V64M48 24V64" stroke="#3849e5" stroke-dasharray="2 2" stroke-width="1.5"></path>
+<circle cx="40" cy="40" fill="#51FAC1" fill-opacity="0.4" r="10" stroke="#006C4F" stroke-width="2"></circle>
+</svg>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Build Planner</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Upload, inspect, edit, and export Minecraft builds.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded">SCHEMATIC</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 2. Circle Generator -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" id="circle-gen">
+<div>
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<!-- Raster Circle Pixel representation -->
+<svg class="w-20 h-20 text-primary group-hover:scale-105 transition-transform" fill="currentColor" viewbox="0 0 80 80">
+<rect fill="#3849e5" height="6" rx="1" width="12" x="34" y="10"></rect>
+<rect fill="#3849e5" height="6" rx="1" width="12" x="34" y="64"></rect>
+<rect fill="#3849e5" height="12" rx="1" width="6" x="10" y="34"></rect>
+<rect fill="#3849e5" height="12" rx="1" width="6" x="64" y="34"></rect>
+<rect fill="#5465FF" height="6" rx="1" width="8" x="22" y="16"></rect>
+<rect fill="#5465FF" height="6" rx="1" width="8" x="50" y="16"></rect>
+<rect fill="#5465FF" height="6" rx="1" width="8" x="22" y="58"></rect>
+<rect fill="#5465FF" height="6" rx="1" width="8" x="50" y="58"></rect>
+<rect fill="#5465FF" height="8" rx="1" width="6" x="16" y="22"></rect>
+<rect fill="#5465FF" height="8" rx="1" width="6" x="58" y="22"></rect>
+<rect fill="#5465FF" height="8" rx="1" width="6" x="16" y="50"></rect>
+<rect fill="#5465FF" height="8" rx="1" width="6" x="58" y="50"></rect>
+</svg>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Circle Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Plan Minecraft circles and rings block by block.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-surface-container text-text-primary px-2 py-0.5 rounded">SHAPES</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 3. Roof Designer -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-text-muted hover:text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]">star</span>
+</button>
+</div>
+<!-- Roof Gable Graphic -->
+<svg class="w-20 h-20 group-hover:scale-105 transition-transform" fill="none" viewbox="0 0 80 80">
+<path d="M40 16L66 48H14L40 16Z" fill="#203146"></path>
+<path d="M40 16L72 52L66 56L40 24L14 56L8 52L40 16Z" fill="#3849e5"></path>
+<rect fill="#D2E4FF" height="18" width="28" x="26" y="48"></rect>
+<rect fill="#0A1C30" height="14" width="12" x="34" y="52"></rect>
+</svg>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Roof Designer</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Design roofs in 3D from 16 styles and export schematics.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-surface-container text-text-primary px-2 py-0.5 rounded">3D BUILD</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 4. Crafting Recipe Book -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-text-muted hover:text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]">star</span>
+</button>
+</div>
+<!-- 3x3 Crafting grid preview -->
+<div class="grid grid-cols-3 gap-1 p-2 bg-surface-card rounded-lg shadow-sm">
+<div class="w-6 h-6 rounded bg-surface-container"></div>
+<div class="w-6 h-6 rounded bg-primary/30 flex items-center justify-center text-primary text-[10px] font-bold">Fe</div>
+<div class="w-6 h-6 rounded bg-surface-container"></div>
+<div class="w-6 h-6 rounded bg-surface-container"></div>
+<div class="w-6 h-6 rounded bg-amber-700/40 flex items-center justify-center text-[10px]">|</div>
+<div class="w-6 h-6 rounded bg-surface-container"></div>
+<div class="w-6 h-6 rounded bg-surface-container"></div>
+<div class="w-6 h-6 rounded bg-amber-700/40 flex items-center justify-center text-[10px]">|</div>
+<div class="w-6 h-6 rounded bg-surface-container"></div>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Crafting Recipe Book</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Search every crafting recipe on an animated 3D grid.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-surface-container text-text-primary px-2 py-0.5 rounded">RECIPES</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 5. Enchant Optimizer -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-text-muted hover:text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]">star</span>
+</button>
+</div>
+<!-- Anvil & Enchant Graphic -->
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-[42px]">auto_fix_high</span>
+<span class="font-label-badge text-label-badge text-secondary mt-1">Min XP: 27 Levels</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Enchant Optimizer</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Find the cheapest anvil order for your enchantments.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-surface-container text-text-primary px-2 py-0.5 rounded">ANVIL</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 6. Seed Map -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" id="seed-map">
+<div>
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<!-- Biome Heatmap mini SVG -->
+<svg class="w-full h-full object-cover opacity-80" fill="none" viewbox="0 0 160 90">
+<rect fill="# cadbf6" height="90" width="160"></rect>
+<path d="M0 30 Q40 10 90 40 T160 20 L160 90 L0 90 Z" fill="#27E0A9" opacity="0.6"></path>
+<path d="M30 60 Q80 30 130 70 L160 90 L30 90 Z" fill="#5465FF" opacity="0.4"></path>
+<circle cx="80" cy="45" fill="#BA1A1A" r="4"></circle>
+<circle cx="80" cy="45" r="8" stroke="#BA1A1A" stroke-dasharray="2 2" stroke-width="1.5"></circle>
+</svg>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Seed Map</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Explore any Java seed as a biome and structure map.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-secondary-fixed-dim/20 text-on-secondary-container px-2 py-0.5 rounded">WORLDS</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 7. Seed Lab -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-text-muted hover:text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]">star</span>
+</button>
+</div>
+<!-- Structure Finder Radar -->
+<div class="flex items-center justify-center">
+<div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center text-secondary relative">
+<span class="material-symbols-outlined text-[28px]">travel_explore</span>
+<span class="absolute top-1 right-2 w-2 h-2 rounded-full bg-status-beta animate-ping"></span>
+</div>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Seed Lab</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Search for seeds by the structures you want near spawn.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-secondary-fixed-dim/20 text-on-secondary-container px-2 py-0.5 rounded">FINDER</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 8. Potion Guide -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-36 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center overflow-hidden">
+<div class="absolute top-2 left-2">
+<button class="w-7 h-7 rounded-full bg-surface-card/80 backdrop-blur-sm flex items-center justify-center text-status-featured shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<!-- Brewing stand bottle graphic -->
+<div class="flex items-center gap-1.5">
+<div class="w-7 h-9 rounded-b-lg rounded-t-sm bg-error/20 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[16px]">science</span>
+</div>
+<span class="text-text-muted font-bold text-xs">→</span>
+<div class="w-7 h-9 rounded-b-lg rounded-t-sm bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span>
+</div>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Potion Guide</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Look up potion recipes, ingredients, and upgrade paths.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge bg-surface-container text-text-primary px-2 py-0.5 rounded">ALCHEMY</span>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center group-hover:bg-primary-container shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= EXPLORE ALL TOOLS DIRECTORY ================= -->
+<section class="max-w-7xl mx-auto px-grid-margin py-space-xl w-full" id="explore-tools">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-md gap-space-sm">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-bold">Explore tools</h2>
+<p class="font-body-md text-body-md text-text-secondary">Find the right Minecraft tool by category or search.</p>
+</div>
+<!-- Live Search & Sort Toolbar -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="relative w-full sm:w-72">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-text-muted text-[18px]">search</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-card text-text-primary font-body-sm text-body-sm shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-text-muted" id="tool-search-input" onkeyup="filterToolsLive()" placeholder="Search 30+ tools..." type="text"/>
+</div>
+<div class="relative">
+<select class="h-10 px-3 pr-8 rounded-lg bg-surface-card text-text-secondary font-label-md text-label-md shadow-xs focus:outline-none cursor-pointer appearance-none" id="tool-sort-select" onchange="sortToolsLive()">
+<option value="name-asc">Sort: Name A–Z</option>
+<option value="name-desc">Sort: Name Z–A</option>
+<option value="featured">Sort: Featured</option>
+<option value="popular">Sort: Most popular</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 pointer-events-none text-text-muted text-[18px]">unfold_more</span>
+</div>
+</div>
+</div>
+<!-- Category Pill Filter Bar -->
+<div class="flex items-center gap-2 overflow-x-auto pb-space-sm mb-space-lg scrollbar-none" id="category-pills">
+<button class="category-btn active px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all whitespace-nowrap" onclick="setCategoryFilter('all', this)">
+        All
+      </button>
+<button class="category-btn px-3.5 py-1.5 rounded-full bg-surface-card text-text-secondary hover:text-text-primary font-label-md text-label-md shadow-xs transition-all whitespace-nowrap" onclick="setCategoryFilter('build-planning', this)">
+        Build Planning
+      </button>
+<button class="category-btn px-3.5 py-1.5 rounded-full bg-surface-card text-text-secondary hover:text-text-primary font-label-md text-label-md shadow-xs transition-all whitespace-nowrap" onclick="setCategoryFilter('shapes', this)">
+        Shapes
+      </button>
+<button class="category-btn px-3.5 py-1.5 rounded-full bg-surface-card text-text-secondary hover:text-text-primary font-label-md text-label-md shadow-xs transition-all whitespace-nowrap" onclick="setCategoryFilter('art-palettes', this)">
+        Art &amp; Palettes
+      </button>
+<button class="category-btn px-3.5 py-1.5 rounded-full bg-surface-card text-text-secondary hover:text-text-primary font-label-md text-label-md shadow-xs transition-all whitespace-nowrap" onclick="setCategoryFilter('seeds-worlds', this)">
+        Seeds &amp; Worlds
+      </button>
+<button class="category-btn px-3.5 py-1.5 rounded-full bg-surface-card text-text-secondary hover:text-text-primary font-label-md text-label-md shadow-xs transition-all whitespace-nowrap" onclick="setCategoryFilter('calculators-games', this)">
+        Calculators &amp; Games
+      </button>
+<button class="category-btn px-3.5 py-1.5 rounded-full bg-surface-card text-text-secondary hover:text-text-primary font-label-md text-label-md shadow-xs transition-all whitespace-nowrap" onclick="setCategoryFilter('creator-tools', this)">
+        Creator Tools
+      </button>
+<button class="category-btn px-3.5 py-1.5 rounded-full bg-surface-card text-text-secondary hover:text-text-primary font-label-md text-label-md shadow-xs transition-all whitespace-nowrap" onclick="setCategoryFilter('utilities', this)">
+        Utilities
+      </button>
+</div>
+<!-- Complete Tool Cards Catalog Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-grid-gutter" id="tools-catalog">
+<!-- 3D Shape Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="shapes" data-title="3D Shape Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">deployed_code</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">3D Shape Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Generate Minecraft shapes in 3D, smoothed with stairs and slabs.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Shapes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Adventure Map -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="seeds-worlds" data-title="Adventure Map">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-tertiary">map</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Adventure Map</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Draw any Java seed, or your own world save, as a hand-inked fantasy atlas.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Seeds &amp; Worlds</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Armor Stand Skin Converter -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Armor Stand Skin Converter">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-text-primary">accessibility_new</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Armor Stand Skin Converter</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Turn player skins into armor-stand statue textures.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Armor Trim Previewer -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Armor Trim Previewer">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">shield</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Armor Trim Previewer</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Preview every armor trim on a 3D player.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Asset Library -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Asset Library">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-secondary">photo_library</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Asset Library</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Every block, item, and mob as an image, render, or clip.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Audio & Image Converter -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="utilities" data-title="Audio &amp; Image Converter">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-text-secondary">transform</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Audio &amp; Image Converter</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Convert audio and image files for Minecraft projects.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Utilities</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Avatar Maker -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Avatar Maker">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">face</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Avatar Maker</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Turn any skin into a Creator Pack, then save your own avatar presets.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Banner Studio -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="art-palettes" data-title="Banner Studio">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-tertiary">flag</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Banner Studio</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Make banners from A-Z and 0-9 presets or design your own.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Art &amp; Palettes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Block Palette Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="art-palettes" data-title="Block Palette Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<div class="flex gap-1">
+<span class="w-4 h-8 rounded bg-primary"></span>
+<span class="w-4 h-8 rounded bg-secondary"></span>
+<span class="w-4 h-8 rounded bg-tertiary"></span>
+<span class="w-4 h-8 rounded bg-status-featured"></span>
+</div>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Block Palette Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Generate an eight-block build palette from any color.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Art &amp; Palettes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Build Extractor -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="build-planning" data-title="Build Extractor">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-text-primary">unarchive</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Build Extractor</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Scan a world save and export every build as a schematic.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Build Planning</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Build Showcase -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Build Showcase">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">videocam</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Build Showcase</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Stage any schematic and export showcase shots and videos.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Command Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="build-planning" data-title="Command Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-text-primary">terminal</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Command Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Build Java Edition /give and /summon commands.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Build Planning</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Cottage Map -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="seeds-worlds" data-title="Cottage Map">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-secondary">cottage</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Cottage Map</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Draw any Java seed as a hand-illustrated storybook map poster, ready to print.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Seeds &amp; Worlds</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Curve & Arch Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="shapes" data-title="Curve &amp; Arch Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">architecture</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Curve &amp; Arch Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Design Minecraft curves, arches, and Bezier paths.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Shapes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Fireworks Lab -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="art-palettes" data-title="Fireworks Lab">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-status-featured">flare</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Fireworks Lab</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Design firework rockets and copy the Java command.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Art &amp; Palettes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Gradient Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="art-palettes" data-title="Gradient Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<div class="w-24 h-8 rounded bg-gradient-to-r from-primary via-secondary to-status-featured shadow-xs"></div>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Gradient Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Blend blocks into a gradient, with presets and a build guide.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Art &amp; Palettes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Map Art Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="art-palettes" data-title="Map Art Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">palette</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Map Art Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Turn any image into buildable Minecraft map art.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Art &amp; Palettes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Mob Millionaire -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="calculators-games" data-title="Mob Millionaire">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-status-featured">military_tech</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Mob Millionaire</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Climb 15 mob-trivia questions to a million points.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Games</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Mob Pose Studio -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Mob Pose Studio">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">animation</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Mob Pose Studio</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Animate mobs, players, and blocks, then export a video.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Mob Quiz Show -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="calculators-games" data-title="Mob Quiz Show">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-tertiary">live_tv</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Mob Quiz Show</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">A TV-style mob trivia board for up to four teams.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Games</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Mob Sound Editor -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Mob Sound Editor">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-text-secondary">graphic_eq</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Mob Sound Editor</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Replace vanilla mob sounds and export a resource pack.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Mob Voice Recorder -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Mob Voice Recorder">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-error">mic</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Mob Voice Recorder</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Voice any mob yourself, then export a resource pack.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Nether Portal Calculator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="calculators-games" data-title="Nether Portal Calculator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">swap_horiz</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Nether Portal Calculator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Convert coordinates between the Overworld and Nether.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Calculators</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Note Block Lab -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Note Block Lab">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-secondary">music_note</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Note Block Lab</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Compose note-block songs and export a schematic that plays.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Paint Studio -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="art-palettes" data-title="Paint Studio">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">brush</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Paint Studio</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Paint a stroke, get a wall relief in slabs and stairs.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Art &amp; Palettes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Pixel Art Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="art-palettes" data-title="Pixel Art Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-secondary">grid_4x4</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Pixel Art Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Turn any image into a Minecraft pixel-art mural.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Art &amp; Palettes</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- QR Code Generator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="utilities" data-title="QR Code Generator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-text-primary">qr_code_2</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">QR Code Generator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Make custom QR codes for links, Wi-Fi, contacts, and more.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Utilities</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Replay Recap -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Replay Recap">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">replay</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Replay Recap</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">A Minecraft Flashback replay analyzer: drop a replay .zip and read your session.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Resource Calculator -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="build-planning" data-title="Resource Calculator">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-secondary">calculate</span>
+<div class="absolute top-2 right-2 flex gap-1">
+<span class="font-label-badge text-label-badge bg-primary/10 text-primary px-1.5 py-0.5 rounded">NEW</span>
+<span class="font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.5 rounded">BETA</span>
+</div>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Resource Calculator</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Turn a build into raw materials and crafting steps.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Build Planning</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Skin Editor -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Skin Editor">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-tertiary">draw</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Skin Editor</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Paint Minecraft skins on a live 3D model and export a PNG.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Skin Pose Studio -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="creator-tools" data-title="Skin Pose Studio">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-primary">man</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Skin Pose Studio</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Pose your Minecraft skin in 3D and export the render.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Creator Tools</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Spawn-Proof Planner -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="build-planning" data-title="Spawn-Proof Planner">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-error">nightlight_round</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Spawn-Proof Planner</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">See where mobs can spawn in your build, and light it up.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Build Planning</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Structure Roller -->
+<div class="tool-card bg-surface-card rounded-2xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1" data-category="build-planning" data-title="Structure Roller">
+<div>
+<div class="relative w-full h-32 rounded-xl bg-surface-bg mb-space-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[40px] text-secondary">casino</span>
+<span class="absolute top-2 right-2 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">BETA</span>
+<button class="absolute top-2 left-2 text-text-muted hover:text-status-featured" type="button"><span class="material-symbols-outlined text-[16px]">star</span></button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-bold mb-1">Structure Roller</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Roll random vanilla structures with real jigsaw rules.</p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted">Build Planning</span>
+<a class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs group-hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+<!-- Empty State -->
+<div class="hidden flex-col items-center justify-center py-space-2xl text-center bg-surface-card rounded-2xl mt-space-md p-space-lg shadow-sm" id="no-match-box">
+<span class="material-symbols-outlined text-[48px] text-text-muted mb-space-xs">search_off</span>
+<h4 class="font-headline-md text-headline-md text-text-primary mb-1">No tools match your search</h4>
+<p class="font-body-sm text-body-sm text-text-secondary mb-space-md">Try searching for keywords like "seeds", "palette", "shapes", or clear filters.</p>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm" onclick="clearAllFilters()" type="button">Clear filters</button>
+</div>
+</section>
+<!-- ================= GUIDES SECTION ================= -->
+<section class="max-w-7xl mx-auto px-grid-margin py-space-xl w-full" id="guides-section">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-space-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-bold">Guides</h2>
+<p class="font-body-md text-body-md text-text-secondary">Interactive references with the real numbers behind the game.</p>
+</div>
+<a class="mt-2 sm:mt-0 font-label-md text-label-md text-primary hover:underline flex items-center gap-1" href="#">
+        See the Guides page
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Guides Responsive Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-space-md">
+<!-- Guide 1 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-primary">show_chart</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Ore Distribution &amp; Best Y Level</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">Game-file ore curves and the practical best Y level for every ore.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 2 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-tertiary">storefront</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Villager Trades Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">Every villager trade, price, level, workstation, and selection chance.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 3 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-text-primary">pest_control</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Mob Profiles</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">Every mob in 3D, with stats, drops, and sounds.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 4 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-error">science</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Potion Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">Look up potion recipes, ingredients, and upgrade paths.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 5 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-status-featured">lightbulb</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Light Level Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">Every light-emitting block and its exact light level.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 6 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-status-featured">square</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Sulfur Cube Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">See what a Sulfur Cube does with any block you feed it.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 7 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-tertiary">forest</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Wood Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">All 12 wood families side by side, with every block they make.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 8 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-secondary">format_paint</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Dye Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">All 16 dyes, every real recipe, and everything they paint.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 9 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-primary">upgrade</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Beacon Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">How beacon range scales by tier, and what each effect does.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Guide 10 -->
+<div class="bg-surface-card rounded-2xl p-space-sm shadow-sm hover:shadow-md transition-all flex flex-col justify-between group hover:-translate-y-1">
+<div>
+<div class="relative w-full h-28 rounded-lg bg-surface-bg mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] text-secondary">album</span>
+<span class="absolute top-1.5 right-1.5 font-label-badge text-label-badge bg-status-beta/10 text-secondary px-1.5 py-0.2 rounded">BETA</span>
+</div>
+<h4 class="font-headline-sm text-[14px] text-text-primary font-bold mb-1">Music Disc Guide</h4>
+<p class="font-body-sm text-[11px] text-text-secondary line-clamp-2">Every music disc and every way to earn it.</p>
+</div>
+<div class="pt-space-sm flex justify-end">
+<span class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= INLINE SCRIPT FOR CLIENT INTERACTION ================= -->
+<script>
+    let activeCategory = 'all';
+
+    function setCategoryFilter(category, btnElement) {
+      activeCategory = category;
+      const buttons = document.querySelectorAll('.category-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+        btn.classList.add('bg-surface-card', 'text-text-secondary', 'shadow-xs');
+      });
+      btnElement.classList.remove('bg-surface-card', 'text-text-secondary', 'shadow-xs');
+      btnElement.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+      filterToolsLive();
+    }
+
+    function filterToolsLive() {
+      const searchVal = (document.getElementById('tool-search-input')?.value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.tool-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = (card.getAttribute('data-title') || '').toLowerCase();
+        const category = card.getAttribute('data-category') || '';
+        const matchesCat = (activeCategory === 'all' || category === activeCategory);
+        const matchesSearch = (!searchVal || title.includes(searchVal));
+
+        if (matchesCat && matchesSearch) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      const noMatchBox = document.getElementById('no-match-box');
+      if (noMatchBox) {
+        if (visibleCount === 0) {
+          noMatchBox.classList.remove('hidden');
+          noMatchBox.classList.add('flex');
+        } else {
+          noMatchBox.classList.add('hidden');
+          noMatchBox.classList.remove('flex');
+        }
+      }
+    }
+
+    function clearAllFilters() {
+      const input = document.getElementById('tool-search-input');
+      if (input) input.value = '';
+      const allBtn = document.querySelector('.category-btn');
+      if (allBtn) setCategoryFilter('all', allBtn);
+      filterToolsLive();
+    }
+
+    function sortToolsLive() {
+      const sortVal = document.getElementById('tool-sort-select')?.value;
+      const catalog = document.getElementById('tools-catalog');
+      if (!catalog) return;
+      const cards = Array.from(catalog.querySelectorAll('.tool-card'));
+
+      cards.sort((a, b) => {
+        const titleA = (a.getAttribute('data-title') || '').toLowerCase();
+        const titleB = (b.getAttribute('data-title') || '').toLowerCase();
+        if (sortVal === 'name-desc') {
+          return titleB.localeCompare(titleA);
+        }
+        return titleA.localeCompare(titleB);
+      });
+
+      cards.forEach(card => catalog.appendChild(card));
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-card shadow-[0_1px_8px_rgba(0,0,0,0.04)] mt-space-3xl"><div class="max-w-7xl mx-auto px-grid-margin py-space-2xl"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-xl mb-space-2xl"><div class="lg:col-span-1"><div class="flex items-center gap-space-xs mb-space-sm"><img alt="kita tools logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_43zO6iu8Sd0M6NWwLHGLCkBFCpZFliccCUb6O0k0X8u9D9463NrcbZpUY_Z4DV088ah4OL0R2HfiGoTfbNYxgi1a8qaNkc97HcSvoDUaQG3uLvaGTASHQyaTgqQPqXVb4eofXCrup0U_ih8wHpDnj_d-kijfiwEG1sz_WzIqXSOo1-6T2evFwwefvlwrQmeHSTcpMi-wBDe5gTJlYqvCSL6D6nyshxWrbLUWZLykMc3BkIJrHKJF"/><span class="font-headline-sm text-headline-sm text-text-primary">kita <span class="text-primary">tools</span></span></div><p class="font-body-sm text-body-sm text-text-secondary leading-relaxed mb-space-md">Precision web utilities, calculators, and schematics crafted for technical builders and voxel architects.</p><div class="flex items-center gap-space-xs"><span class="font-label-badge text-label-badge bg-status-beta/10 text-secondary px-2 py-0.5 rounded-full">v2.4 STABLE</span></div></div><div><h4 class="font-headline-sm text-headline-sm text-text-primary mb-space-sm">Build Tools</h4><ul class="space-y-space-xs"><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="gradient-generator" href="#">Gradient Generator</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="circle-sphere-generator" href="#">Circle &amp; Sphere Generator</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="palette-picker" href="#">Block Palette Matcher</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="schematic-viewer" href="#">Schematic 3D Preview</a></li></ul></div><div><h4 class="font-headline-sm text-headline-sm text-text-primary mb-space-sm">Calculators &amp; Guides</h4><ul class="space-y-space-xs"><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="nether-portal-calculator" href="#">Nether Portal Math</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="beacon-pyramid-calc" href="#">Beacon Cost Planner</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="guides" href="#">Architectural Texturing</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="guides" href="#">Redstone Clock Timings</a></li></ul></div><div><h4 class="font-headline-sm text-headline-sm text-text-primary mb-space-sm">Creator Tools</h4><ul class="space-y-space-xs"><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="banner-editor" href="#">Custom Banner Crafter</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="armor-stand-editor" href="#">Armor Stand Animator</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="tellraw-generator" href="#">Tellraw Text Formatter</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="motd-editor" href="#">Server MOTD Generator</a></li></ul></div><div><h4 class="font-headline-sm text-headline-sm text-text-primary mb-space-sm">Utilities &amp; Hub</h4><ul class="space-y-space-xs"><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="about" href="#">About Project</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="changelog" href="#">Release Changelog</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="feedback" href="#">Request a Tool</a></li><li class="font-body-sm text-body-sm"><a class="text-text-secondary hover:text-primary transition-colors" data-path="privacy" href="#">Privacy &amp; Terms</a></li></ul></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md bg-surface-bg/50 rounded-xl p-space-md"><p class="font-body-sm text-body-sm text-text-secondary text-center md:text-left">© 2026 kita tools — Not an official Minecraft website. Not approved by or associated with Mojang or Microsoft.</p><div class="flex items-center gap-space-md"><a class="font-label-md text-label-md text-text-secondary hover:text-primary transition-colors" data-path="about" href="#">Documentation</a><a class="font-label-md text-label-md text-text-secondary hover:text-primary transition-colors" data-path="changelog" href="#">Status</a><a class="font-label-md text-label-md text-text-secondary hover:text-primary transition-colors" href="https://github.com" rel="noopener noreferrer" target="_blank">Source Code</a></div></div></div></footer></body></html>

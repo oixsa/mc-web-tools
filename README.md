@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kita Tools (kita tools) ⛏️
 
-## Getting Started
+> Precision Minecraft tools, calculators, and schematics crafted for technical builders and voxel architects.
 
-First, run the development server:
+Berasaskan rekaan laman moden Stitch, **Kita Tools** menyediakan lebih 34 alatan pelayar untuk merancang binaan, menghasilkan bentuk geometri, meneroka peta seed, dan mengira keperluan bahan Minecraft tanpa perlu keluar dari laman web.
+
+---
+
+## ✨ Ciri-Ciri Utama (Key Features)
+
+- **34+ Alatan Pelayar Minecraft**: Daripada *Build Planner*, *Circle Generator*, *Roof Designer*, hingga ke *Enchant Optimizer* dan *Seed Map*.
+- **Dua Pilihan Tema (Dark Mode & Light Mode - Dark Bay, Gray, & Bay)**:
+  - **Dark Bay Mode (Dark Mode)**: Warna asas *Dark Bay* `#15100E`, kad `#201815`, aksen tembaga bay bersinar *Luminous Bay* `#E07A5F`, dan perincian kelabu neutral `#A8A19B`.
+  - **Light Mode (Stone Gray & Warm Bay)**: Warna kanvas kelabu hangat `#F7F6F4`, kad putih bersih `#FFFFFF`, aksen kayu berangan *Rich Bay* `#8A4228`, dan dakwat gelap *Dark Bay Ink* `#1A1210`.
+  - Dilengkapi ciri suis tema pantas dan ingatan kekal (*persisted preference* tanpa kerlipan FOUC).
+- **Paparan Responsif Penuh (Mobile, Tablet, & Desktop)**:
+  - Grid fleksibel 1 hingga 4 lajur mengikut saiz peranti.
+  - Bar kategori alatan boleh diskrol secara sentuhan (*horizontal touch scrolling*).
+  - Menu drawer navigasi mudah alih.
+- **Carian Pantas & Pintasan Papan Kekunci (⌘K / Ctrl+K)**:
+  - Buka dialog *Quick Launcher* dengan menekan kekunci `⌘K` atau `Ctrl+K`.
+  - Carian masa nyata mengikut nama, kategori, dan fungsi.
+- **Sistem Alatan Berbintang (Favorites)**: Simpan alatan kegemaran pada peranti untuk capaian segera.
+- **Kod Mudah Diselenggara (Maintainable & Type-Safe)**:
+  - Data alatan dan panduan dipisahkan ke dalam fail TypeScript berpusat (`app/data/tools.ts`, `app/data/guides.ts`).
+  - Menambah alatan baharu hanya memerlukan penambahan 1 objek data tanpa mengusik kod komponen UI.
+
+---
+
+## 🚀 Memulakan Projek (Getting Started)
+
+Pasang kebergantungan pakej (dependencies):
+
+```bash
+npm install
+# atau
+pnpm install
+# atau
+yarn install
+```
+
+Jalankan pelayan pembangunan (development server):
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka pelayar anda di [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📚 Dokumentasi Pembangun (Developer Documentation)
 
-## Learn More
+Sila rujuk dokumen seni bina dan panduan penyelenggaraan lengkap di:
+👉 **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**
 
-To learn more about Next.js, take a look at the following resources:
+Ia merangkumi:
+- Panduan langkah demi langkah menambah alatan atau kategori baharu.
+- Pemetaan warna token reka bentuk (Design System tokens).
+- Struktur hook `useTheme` dan `useFavorites`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚖️ Penafian Hak Cipta (Disclaimer)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.*
+Minecraft ialah tanda dagangan berdaftar Mojang Synergies AB.
