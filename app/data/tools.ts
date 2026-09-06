@@ -424,6 +424,17 @@ export const TOOLS: Tool[] = [
     href: '/tools/structure-roller',
     icon: 'shuffle',
   },
+  {
+    id: 'motd-editor',
+    title: 'Server MOTD Generator',
+    description: 'Design custom colored and gradient Minecraft server MOTDs with live preview and export for server.properties.',
+    category: 'creator-tools',
+    badge: 'NEW',
+    href: '/tools/motd-editor',
+    icon: 'dns',
+    accentColor: '#8A4228',
+    engineVersion: 'Java & Bedrock',
+  },
 ];
 
 /**

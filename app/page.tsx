@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { ExploreTools } from './components/ExploreTools';
-import { FavoritesSection } from './components/FavoritesSection';
 import { FlagshipSection } from './components/FlagshipSection';
 import { Footer } from './components/Footer';
 import { GuidesSection } from './components/GuidesSection';
@@ -16,7 +15,7 @@ import { Tool } from './types/tools';
 
 export default function Home() {
   const { isDark, toggleTheme } = useTheme();
-  const { favorites, toggleFavorite, clearFavorites, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite } = useFavorites();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -32,13 +31,6 @@ export default function Home() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
-  // Filtered favorite tool objects
-  const favoriteTools = useMemo(() => {
-    return favorites
-      .map((id) => TOOLS.find((t) => t.id === id))
-      .filter((t): t is Tool => t !== undefined);
-  }, [favorites]);
 
   const flagshipTools = useMemo(() => getFlagshipTools(), []);
 
@@ -60,13 +52,6 @@ export default function Home() {
       <main className="flex-1 w-full">
         {/* Hero Section with Interactive Build Planner Spotlight */}
         <Hero />
-
-        {/* User Starred / Favorited Tools */}
-        <FavoritesSection
-          favoriteTools={favoriteTools}
-          onToggleFavorite={toggleFavorite}
-          onClearFavorites={clearFavorites}
-        />
 
         {/* Flagship Recommended Tools */}
         <FlagshipSection

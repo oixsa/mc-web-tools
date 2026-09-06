@@ -25,7 +25,6 @@ kitatools/
 │   ├── components/                 # Komponen UI modular
 │   │   ├── Header.tsx              # Bar navigasi atas + toggle tema + drawer mudah alih
 │   │   ├── Hero.tsx                # Hero section + Build Planner spotlight
-│   │   ├── FavoritesSection.tsx    # Jalur alatan berbintang (favorites)
 │   │   ├── FlagshipSection.tsx     # 8 alatan utama yang disyorkan
 │   │   ├── ExploreTools.tsx        # Katalog penuh alatan + carian + filter kategori
 │   │   ├── ToolCard.tsx            # Komponen kad alatan yang boleh diguna semula
@@ -41,7 +40,9 @@ kitatools/
 │   │   └── useFavorites.ts         # Pengurusan alatan berbintang + storan tempatan
 │   ├── types/                      # Definisi jenis TypeScript
 │   │   └── tools.ts                # Interface: Tool, Category, Guide, ThemeMode
-│   ├── globals.css                 # Token reka bentuk CSS, custom variant, & tipografi
+│   ├── tools/                      # Halaman alatan khusus
+│   │   └── motd-editor/            # Server MOTD Generator
+│   │       └── page.tsx            # Editor MOTD interaktif & simulator senarai pelayan
 │   ├── layout.tsx                  # Layout induk + pencegahan kerlipan tema (anti-FOUC)
 │   └── page.tsx                    # Halaman utama menggabungkan semua komponen
 ├── docs/
