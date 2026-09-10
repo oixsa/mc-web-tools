@@ -3,7 +3,7 @@ import { AppShell } from './components/AppShell';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'kita tools — Minecraft tools for builders & creators',
+  title: 'kita tools: Minecraft tools for builders & creators',
   description:
     'Plan builds, generate shapes, create map art, explore seeds, and export useful files without leaving the page. High-performance browser utilities for Minecraft architects.',
   keywords: [

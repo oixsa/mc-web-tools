@@ -25,6 +25,7 @@ kitatools/
 │   ├── components/                 # Komponen UI modular
 │   │   ├── AppShell.tsx            # Shell induk (Header + Footer + Modal carian global ⌘K)
 │   │   ├── Header.tsx              # Bar navigasi atas + toggle tema + drawer mudah alih
+│   │   ├── Navbar.tsx              # Komponen navigasi desktop & drawer mudah alih Material 3
 │   │   ├── Hero.tsx                # Hero section + MOTD spotlight
 │   │   ├── FlagshipSection.tsx     # Alatan utama yang disyorkan
 │   │   ├── ExploreTools.tsx        # Katalog penuh alatan + carian + filter kategori
@@ -121,24 +122,29 @@ Buka `app/data/guides.ts` dan tambah entri ke dalam tatasusunan `GUIDES`:
 
 ---
 
-## 4. Sistem Tema & Token Reka Bentuk (Theme System)
+## 4. Sistem Tema & Token Reka Bentuk Material 3 (Material You / M3)
 
-Pengurusan tema dikendalikan oleh hook `app/hooks/useTheme.ts` bersama pembolehubah CSS dalam `app/globals.css`:
+Pengurusan tema dikendalikan oleh hook `app/hooks/useTheme.ts` bersama pembolehubah token Material 3 dalam `app/globals.css`:
 
-### Pemetaan Warna Tema (Dark Bay, Gray, & Bay):
+### Pemetaan Warna Tema Material 3:
 
-| Elemen UI | Light Mode (*Gray Canvas & Bay Accents*) | Dark Mode (*Dark Bay & Luminous Bay*) |
+| Peranan M3 | Light Mode (Warm Terracotta M3) | Dark Mode (Deep Mineral M3) |
 |---|---|---|
-| **Latar Kanvas (Canvas)** | `#F7F6F4` (Warm Light Gray) | `#15100E` (Deepest Dark Bay) |
-| **Permukaan Kad (Card)** | `#FFFFFF` (Crisp White) | `#201815` (Dark Bay Surface) |
-| **Permukaan Elevated** | `#FFFFFF` | `#2A201C` (Elevated Dark Bay) |
-| **Aksen Utama (Bay)** | `#8A4228` (Rich Warm Bay) | `#E07A5F` (Luminous Bay Copper) |
-| **Aksen Sekunder** | `#4E4844` (Mineral Slate Gray) | `#B5ACA5` (Warm Neutral Gray) |
-| **Sempadan (Border)** | `#E2DDD8` (Soft Gray Border) | `#3A2D28` (Dark Bay Border) |
-| **Sempadan Aktif (Hover)** | `#CBC4BD` (Gray Active Border) | `#54413A` (Dark Bay Specular Border) |
-| **Teks Utama** | `#1A1210` (Dark Bay Ink) | `#F8F4F0` (High-contrast Warm White) |
-| **Teks Sekunder** | `#68615A` (Neutral Stone Gray) | `#A8A19B` (Neutral Gray) |
-| **Aksen Sorotan / Badge** | `#FBECE6` (Soft Bay Tint) | `#38231C` (Dark Bay Badge Tint) |
+| **Surface** | `#FFF8F6` (Neutral Light Surface) | `#1A110F` (Neutral Dark Surface) |
+| **Surface Container Lowest** | `#FFFFFF` (Pure White Card) | `#140C0A` (Deepest Container) |
+| **Surface Container Low** | `#FDF1ED` | `#231917` |
+| **Surface Container** | `#F7EBE7` (Base Elevation) | `#271D1B` (Base Dark Elevation) |
+| **Surface Container High** | `#F1E5E1` | `#322825` |
+| **Surface Container Highest** | `#EBE0DC` | `#3E322F` |
+| **Primary (Terracotta / Redstone)** | `#904B32` | `#FFB59D` (Luminous Redstone) |
+| **Primary Container** | `#FFDBCF` | `#72341D` |
+| **Secondary (Mineral Stone)** | `#77574C` | `#E7BDB0` |
+| **Secondary Container** | `#FFDBCF` | `#5D4036` |
+| **Tertiary (Gold / Amber)** | `#6B5E2F` | `#D7C68D` |
+| **Outline / Border** | `#85736E` | `#A08C86` |
+| **Outline Variant** | `#D8C2BC` | `#53433F` |
+| **On Surface (Teks Utama)** | `#231916` | `#F1DFDA` |
+| **On Surface Variant (Teks Sekunder)**| `#53433F` | `#D8C2BC` |
 
 ### Logik Pencegahan Kerlipan Tema (Zero-FOUC):
 Dalam `app/layout.tsx`, sebuah skrip kecil diselitkan ke dalam `<head>` yang membaca storan `localStorage` sebelum pelayan/pelayar memulakan render DOM. Ini memastikan tiada kerlipan putih berlaku apabila pengguna melayari laman dalam mod gelap.

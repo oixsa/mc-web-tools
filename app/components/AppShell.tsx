@@ -36,7 +36,7 @@ export function AppShell({ children }: AppShellProps) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F6F4] dark:bg-[#15100E] text-[#1A1210] dark:text-[#F8F4F0] transition-colors duration-200">
+    <div className="flex flex-col min-h-screen bg-[var(--md-sys-color-surface)] text-[var(--md-sys-color-on-surface)] transition-colors duration-200">
       <Header
         onOpenSearch={() => setIsSearchOpen(true)}
         isDark={isDark}

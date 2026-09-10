@@ -189,8 +189,8 @@ export default function XpCalculatorPage() {
                 </div>
 
                 <div className="text-xs text-[#68615A] dark:text-[#A8A19B] sm:text-right">
-                  <div>Start Level Total: <strong>{startTotal.toLocaleString()}</strong></div>
-                  <div>Target Level Total: <strong>{endTotal.toLocaleString()}</strong></div>
+                  <div>Start Level Total: <strong>{currentTotal.toLocaleString()}</strong></div>
+                  <div>Target Level Total: <strong>{targetTotal.toLocaleString()}</strong></div>
                 </div>
               </div>
 
