@@ -3,11 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
-import { QuickLauncherModal } from '../../components/QuickLauncherModal';
-import { useTheme } from '../../hooks/useTheme';
-import { Tool } from '../../types/tools';
 
 // --- Standard Minecraft Color Definitions ---
 interface MinecraftColor {
@@ -194,9 +189,6 @@ function parseMinecraftText(rawText: string, randomTick: number): ParsedSpan[] {
 }
 
 export default function MotdEditorPage() {
-  const { isDark, toggleTheme } = useTheme();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
   // Editor states
   const [serverName, setServerName] = useState('A Minecraft Server');
   const [playerCount, setPlayerCount] = useState('42 / 100');
@@ -392,13 +384,7 @@ motd:
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F6F4] dark:bg-[#15100E] text-[#1A1210] dark:text-[#F8F4F0] transition-colors duration-200">
-      <Header
-        onOpenSearch={() => setIsSearchOpen(true)}
-        isDark={isDark}
-        toggleTheme={toggleTheme}
-      />
-
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
       {/* Floating Toast Notification */}
       {copyToast && (
         <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-150">
@@ -406,8 +392,6 @@ motd:
           {copyToast}
         </div>
       )}
-
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         {/* Breadcrumbs & Navigation */}
         <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
           <Link href="/" className="hover:text-[#8A4228] dark:hover:text-[#E07A5F] transition-colors flex items-center gap-1">
@@ -930,17 +914,6 @@ motd:
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-
-      <QuickLauncherModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectTool={(tool: Tool) => {
-          window.location.href = tool.href;
-        }}
-      />
     </div>
   );
 }
