@@ -2,10 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Footer } from '@/app/components/Footer';
-import { Header } from '@/app/components/Header';
-import { QuickLauncherModal } from '@/app/components/QuickLauncherModal';
-import { useTheme } from '@/app/hooks/useTheme';
 
 interface Enchantment {
   id: string;
@@ -190,9 +186,6 @@ function solveOptimalAnvilOrder(
 }
 
 export default function EnchantOptimizerPage() {
-  const { isDark, toggleTheme } = useTheme();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
   const [itemType, setItemType] = useState<string>('sword');
   const [selectedIds, setSelectedIds] = useState<string[]>([
     'sharpness',
@@ -242,21 +235,13 @@ export default function EnchantOptimizerPage() {
   }, [itemType, selectedEnchantments]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F6F4] dark:bg-[#15100E] text-[#1A1210] dark:text-[#F8F4F0] transition-colors">
-      <Header
-        onOpenSearch={() => setIsSearchOpen(true)}
-        isDark={isDark}
-        toggleTheme={toggleTheme}
-      />
-
+    <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in">
           <span className="material-symbols-outlined text-[18px]">check_circle</span>
           {toastMessage}
         </div>
       )}
-
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
           <Link href="/" className="hover:underline">Home</Link>
@@ -437,14 +422,6 @@ export default function EnchantOptimizerPage() {
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-      <QuickLauncherModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectTool={(tool) => { window.location.href = tool.href; }}
-      />
     </div>
   );
 }

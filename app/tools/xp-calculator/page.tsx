@@ -2,10 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Footer } from '@/app/components/Footer';
-import { Header } from '@/app/components/Header';
-import { QuickLauncherModal } from '@/app/components/QuickLauncherModal';
-import { useTheme } from '@/app/hooks/useTheme';
 
 /**
  * Total XP points required from level 0 to target level (Minecraft 1.8+ formulas).
@@ -41,9 +37,6 @@ const MOB_XP_VALUES = [
 ];
 
 export default function XpCalculatorPage() {
-  const { isDark, toggleTheme } = useTheme();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
   // States
   const [currentLevel, setCurrentLevel] = useState<number>(0);
   const [targetLevel, setTargetLevel] = useState<number>(30);
@@ -58,36 +51,27 @@ export default function XpCalculatorPage() {
     const clamped = Math.max(0, Math.min(500, val || 0));
     setCurrentLevel(clamped);
     if (clamped >= targetLevel) {
-      setTargetLevel(clamped + 1);
+      setTargetLevel(Math.min(500, clamped + 1));
     }
   };
 
   const handleTargetChange = (val: number) => {
-    const clamped = Math.max(currentLevel + 1, Math.min(1000, val || currentLevel + 1));
+    const clamped = Math.max(1, Math.min(500, val || 1));
     setTargetLevel(clamped);
+    if (clamped <= currentLevel) {
+      setCurrentLevel(Math.max(0, clamped - 1));
+    }
   };
 
-  const { pointsNeeded, startTotal, endTotal } = useMemo(() => {
-    const start = totalXpForLevel(currentLevel);
-    const end = totalXpForLevel(targetLevel);
-    return {
-      pointsNeeded: Math.max(0, end - start),
-      startTotal: start,
-      endTotal: end,
-    };
-  }, [currentLevel, targetLevel]);
+  const currentTotal = useMemo(() => totalXpForLevel(currentLevel), [currentLevel]);
+  const targetTotal = useMemo(() => totalXpForLevel(targetLevel), [targetLevel]);
+  const pointsNeeded = Math.max(0, targetTotal - currentTotal);
 
   const bottlesNeeded = Math.ceil(pointsNeeded / 7); // Bottles o' Enchanting avg 7 XP
   const quartzOreNeeded = Math.ceil(pointsNeeded / 3.5); // Nether Quartz avg 3.5 XP
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F6F4] dark:bg-[#15100E] text-[#1A1210] dark:text-[#F8F4F0] transition-colors">
-      <Header
-        onOpenSearch={() => setIsSearchOpen(true)}
-        isDark={isDark}
-        toggleTheme={toggleTheme}
-      />
-
+    <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in">
           <span className="material-symbols-outlined text-[18px]">check_circle</span>
@@ -95,15 +79,14 @@ export default function XpCalculatorPage() {
         </div>
       )}
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
-          <Link href="/" className="hover:underline">Home</Link>
-          <span>/</span>
-          <span>Tools</span>
-          <span>/</span>
-          <span className="text-[#8A4228] dark:text-[#E07A5F] font-semibold">XP &amp; Level Calculator</span>
-        </div>
+      {/* Breadcrumb */}
+      <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
+        <Link href="/" className="hover:underline">Home</Link>
+        <span>/</span>
+        <span>Tools</span>
+        <span>/</span>
+        <span className="text-[#8A4228] dark:text-[#E07A5F] font-semibold">XP &amp; Level Calculator</span>
+      </div>
 
         {/* Header */}
         <div className="mb-8">
@@ -261,14 +244,6 @@ export default function XpCalculatorPage() {
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-      <QuickLauncherModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectTool={(tool) => { window.location.href = tool.href; }}
-      />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { MAIN_NAV_ITEMS } from '../data/navigation';
 
 interface HeaderProps {
@@ -13,6 +14,7 @@ interface HeaderProps {
 
 export function Header({ onOpenSearch, isDark, toggleTheme }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="fixed top-0 left-0 right-0 w-full z-50 bg-white/90 dark:bg-[#201815]/90 backdrop-blur-md border-b border-[#E2DDD8] dark:border-[#3A2D28] transition-colors duration-200">
@@ -40,18 +42,22 @@ export function Header({ onOpenSearch, isDark, toggleTheme }: HeaderProps) {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
-            {MAIN_NAV_ITEMS.map((item, index) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${index === 0
-                    ? 'bg-[#EFECE9] dark:bg-[#261D19] text-[#1A1210] dark:text-[#F8F4F0] font-semibold'
-                    : 'text-[#68615A] dark:text-[#A8A19B] hover:text-[#1A1210] dark:hover:text-[#F8F4F0] hover:bg-black/[0.03] dark:hover:bg-white/[0.04]'
+            {MAIN_NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || (item.href === '/#explore-tools' && pathname === '/');
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`px-3 py-1.5 rounded-lg transition-colors ${
+                    isActive
+                      ? 'bg-[#EFECE9] dark:bg-[#261D19] text-[#1A1210] dark:text-[#F8F4F0] font-semibold'
+                      : 'text-[#68615A] dark:text-[#A8A19B] hover:text-[#1A1210] dark:hover:text-[#F8F4F0] hover:bg-black/[0.03] dark:hover:bg-white/[0.04]'
                   }`}
-              >
-                {item.label}
-              </a>
-            ))}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
@@ -139,7 +145,7 @@ export function Header({ onOpenSearch, isDark, toggleTheme }: HeaderProps) {
         <div className="md:hidden px-4 pt-2 pb-4 border-t border-[#E2DDD8] dark:border-[#3A2D28] bg-white dark:bg-[#201815] shadow-lg animate-in slide-in-from-top-2 duration-150">
           <nav className="flex flex-col gap-1">
             {MAIN_NAV_ITEMS.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
@@ -149,7 +155,7 @@ export function Header({ onOpenSearch, isDark, toggleTheme }: HeaderProps) {
                 <span className="material-symbols-outlined text-[#918A83] text-[16px]">
                   arrow_forward
                 </span>
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="mt-3 pt-3 border-t border-[#E2DDD8] dark:border-[#3A2D28] flex items-center justify-between text-xs text-[#68615A] dark:text-[#A8A19B]">

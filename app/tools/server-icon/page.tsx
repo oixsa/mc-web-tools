@@ -2,14 +2,8 @@
 
 import { ChangeEvent, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Footer } from '@/app/components/Footer';
-import { Header } from '@/app/components/Header';
-import { QuickLauncherModal } from '@/app/components/QuickLauncherModal';
-import { useTheme } from '@/app/hooks/useTheme';
 
 export default function ServerIconPage() {
-  const { isDark, toggleTheme } = useTheme();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [iconUrl, setIconUrl] = useState<string | null>(null);
   const [smoothing, setSmoothing] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -57,14 +51,7 @@ export default function ServerIconPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F6F4] dark:bg-[#15100E] text-[#1A1210] dark:text-[#F8F4F0] transition-colors">
-      <Header
-        onOpenSearch={() => setIsSearchOpen(true)}
-        isDark={isDark}
-        toggleTheme={toggleTheme}
-      />
-
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 pt-24 pb-16">
+    <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 pt-24 pb-16">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
           <Link href="/" className="hover:underline">Home</Link>
@@ -186,21 +173,8 @@ export default function ServerIconPage() {
                 Download server-icon.png (64×64)
               </button>
             </div>
-          </div>
         </div>
-      </main>
-
-      <Footer />
-
-      {isSearchOpen && (
-        <QuickLauncherModal
-          isOpen={isSearchOpen}
-          onClose={() => setIsSearchOpen(false)}
-          onSelectTool={(tool) => {
-            window.location.href = tool.href;
-          }}
-        />
-      )}
+      </div>
     </div>
   );
 }

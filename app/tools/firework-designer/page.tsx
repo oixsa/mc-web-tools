@@ -2,10 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Footer } from '@/app/components/Footer';
-import { Header } from '@/app/components/Header';
-import { QuickLauncherModal } from '@/app/components/QuickLauncherModal';
-import { useTheme } from '@/app/hooks/useTheme';
 
 type FireworkShape = 'small_ball' | 'large_ball' | 'star' | 'creeper' | 'burst';
 
@@ -16,8 +12,11 @@ interface FireworkColor {
 }
 
 const FIREWORK_COLORS: FireworkColor[] = [
+  { name: 'Black', hex: '#1E1B1B', intVal: 1973019 },
   { name: 'Red', hex: '#B02E26', intVal: 11546150 },
   { name: 'Green', hex: '#5E7C16', intVal: 6192150 },
+  { name: 'Brown', hex: '#835432', intVal: 8606770 },
+  { name: 'Blue', hex: '#3C44AA', intVal: 3949738 },
   { name: 'Purple', hex: '#8932B8', intVal: 8991416 },
   { name: 'Cyan', hex: '#169C9C', intVal: 1481884 },
   { name: 'Light Gray', hex: '#9D9D97', intVal: 10329495 },
@@ -28,10 +27,7 @@ const FIREWORK_COLORS: FireworkColor[] = [
   { name: 'Light Blue', hex: '#3AB3DA', intVal: 3847130 },
   { name: 'Magenta', hex: '#C74EBD', intVal: 13061821 },
   { name: 'Orange', hex: '#F9801D', intVal: 16351261 },
-  { name: 'White', hex: '#F9FFFE', intVal: 16382462 },
-  { name: 'Blue', hex: '#3C44AA', intVal: 3949738 },
-  { name: 'Brown', hex: '#835432', intVal: 8606770 },
-  { name: 'Black', hex: '#1D1D21', intVal: 1908001 },
+  { name: 'White', hex: '#F9FFFE', intVal: 16382457 },
 ];
 
 interface Particle {
@@ -40,7 +36,7 @@ interface Particle {
   vx: number;
   vy: number;
   color: string;
-  fadeColor: string;
+  fadeColor?: string;
   alpha: number;
   decay: number;
   twinkle: boolean;
@@ -50,8 +46,6 @@ interface Particle {
 }
 
 export default function FireworkDesignerPage() {
-  const { isDark, toggleTheme } = useTheme();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // States
   const [flightDuration, setFlightDuration] = useState<number>(2);
@@ -223,21 +217,13 @@ export default function FireworkDesignerPage() {
   }, [flightDuration, shape, primaryColors, fadeColors, hasTrail, hasTwinkle]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F6F4] dark:bg-[#15100E] text-[#1A1210] dark:text-[#F8F4F0] transition-colors">
-      <Header
-        onOpenSearch={() => setIsSearchOpen(true)}
-        isDark={isDark}
-        toggleTheme={toggleTheme}
-      />
-
+    <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in">
           <span className="material-symbols-outlined text-[18px]">check_circle</span>
           {toastMessage}
         </div>
       )}
-
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
           <Link href="/" className="hover:underline">Home</Link>
@@ -446,14 +432,6 @@ export default function FireworkDesignerPage() {
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-      <QuickLauncherModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectTool={(tool) => { window.location.href = tool.href; }}
-      />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Tool } from '../types/tools';
 
 interface ToolCardProps {
@@ -48,7 +49,11 @@ export function ToolCard({
           )}
 
           {/* Center Graphic / Material Icon */}
-          <div className="flex flex-col items-center justify-center text-[#8A4228] dark:text-[#E07A5F] group-hover:scale-110 transition-transform duration-200">
+          <Link
+            href={tool.href}
+            className="flex flex-col items-center justify-center text-[#8A4228] dark:text-[#E07A5F] group-hover:scale-110 transition-transform duration-200 w-full h-full"
+            aria-label={tool.title}
+          >
             <span className="material-symbols-outlined text-[38px] sm:text-[44px]">
               {tool.icon}
             </span>
@@ -57,13 +62,15 @@ export function ToolCard({
                 {tool.engineVersion}
               </span>
             )}
-          </div>
+          </Link>
         </div>
 
         {/* Card Title & Description */}
-        <h3 className="font-headline font-bold text-base text-[#1A1210] dark:text-[#F8F4F0] mb-1.5 group-hover:text-[#8A4228] dark:group-hover:text-[#E07A5F] transition-colors">
-          {tool.title}
-        </h3>
+        <Link href={tool.href} className="block">
+          <h3 className="font-headline font-bold text-base text-[#1A1210] dark:text-[#F8F4F0] mb-1.5 group-hover:text-[#8A4228] dark:group-hover:text-[#E07A5F] transition-colors">
+            {tool.title}
+          </h3>
+        </Link>
         <p className="text-xs sm:text-sm text-[#68615A] dark:text-[#A8A19B] leading-relaxed line-clamp-2 mb-4">
           {tool.description}
         </p>
@@ -74,13 +81,13 @@ export function ToolCard({
         <span className="font-mono-meta text-[11px] text-[#918A83] dark:text-[#766F69] capitalize">
           {tool.category.replace('-', ' ')}
         </span>
-        <a
+        <Link
           href={tool.href}
-          className="w-8 h-8 rounded-full bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] flex items-center justify-center shadow-xs group-hover:bg-[#72341D] dark:group-hover:bg-[#F19178] transition-colors transform group-hover:translate-x-0.5"
+          className="w-8 h-8 rounded-full bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] flex items-center justify-center shadow-xs group-hover:bg-[#72341D] dark:hover:bg-[#F19178] transition-colors transform group-hover:translate-x-0.5"
           aria-label={`Open ${tool.title}`}
         >
           <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-        </a>
+        </Link>
       </div>
     </div>
   );

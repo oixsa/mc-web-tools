@@ -23,6 +23,7 @@ Kita Tools dibangunkan menggunakan **Next.js (App Router)**, **React 19**, **Typ
 kitatools/
 ├── app/
 │   ├── components/                 # Komponen UI modular
+│   │   ├── AppShell.tsx            # Shell induk (Header + Footer + Modal carian global ⌘K)
 │   │   ├── Header.tsx              # Bar navigasi atas + toggle tema + drawer mudah alih
 │   │   ├── Hero.tsx                # Hero section + MOTD spotlight
 │   │   ├── FlagshipSection.tsx     # Alatan utama yang disyorkan
