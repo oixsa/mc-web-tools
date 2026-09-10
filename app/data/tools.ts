@@ -27,7 +27,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/motd-editor',
     icon: 'dns',
-    accentColor: '#8A4228',
     engineVersion: 'Java & Bedrock',
   },
   {
@@ -40,7 +39,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/server-icon',
     icon: 'image',
-    accentColor: '#8A4228',
     engineVersion: 'Java 64×64',
   },
   {
@@ -53,7 +51,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/nether-portal',
     icon: 'calculate',
-    accentColor: '#8A4228',
     engineVersion: 'Java & Bedrock',
   },
   {
@@ -66,7 +63,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/circle-generator',
     icon: 'circle',
-    accentColor: '#8A4228',
     engineVersion: 'All Versions',
   },
   {
@@ -79,7 +75,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/sphere-generator',
     icon: 'sports_baseball',
-    accentColor: '#8A4228',
     engineVersion: 'All Versions',
   },
   {
@@ -92,7 +87,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/tellraw-editor',
     icon: 'chat',
-    accentColor: '#8A4228',
     engineVersion: 'Java 1.7+',
   },
   {
@@ -105,7 +99,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/gradient-generator',
     icon: 'gradient',
-    accentColor: '#8A4228',
     engineVersion: '1.21+',
   },
   {
@@ -118,7 +111,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/enchant-optimizer',
     icon: 'auto_fix_high',
-    accentColor: '#8A4228',
     engineVersion: 'Survival',
   },
   {
@@ -131,7 +123,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/armor-stand',
     icon: 'accessibility_new',
-    accentColor: '#8A4228',
     engineVersion: 'Java Edition',
   },
   {
@@ -144,20 +135,18 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/beacon-calculator',
     icon: 'diamond',
-    accentColor: '#8A4228',
     engineVersion: 'Survival',
   },
   {
     id: 'xp-calculator',
     title: 'XP & Level Calculator',
-    description: 'Calculate exact XP points, mob farm kill counts, and Bottles o&apos; Enchanting needed to reach any target level.',
+    description: 'Calculate exact XP points, mob farm kill counts, and Bottles o\' Enchanting needed to reach any target level.',
     category: 'calculators-games',
     badge: 'ACTIVE',
     isFlagship: false,
     featured: true,
     href: '/tools/xp-calculator',
     icon: 'calculate',
-    accentColor: '#8A4228',
     engineVersion: 'Minecraft 1.8+',
   },
   {
@@ -170,7 +159,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/firework-designer',
     icon: 'celebration',
-    accentColor: '#8A4228',
     engineVersion: 'Java 1.20.5+',
   },
   {
@@ -183,7 +171,6 @@ export const TOOLS: Tool[] = [
     featured: true,
     href: '/tools/leather-dye-calculator',
     icon: 'palette',
-    accentColor: '#8A4228',
     engineVersion: 'Vanilla Survival',
   },
 ];

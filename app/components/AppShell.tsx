@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Header } from './Header';
+import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { QuickLauncherModal } from './QuickLauncherModal';
 import { useTheme } from '../hooks/useTheme';
@@ -37,7 +37,7 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="flex flex-col min-h-screen bg-[var(--md-sys-color-surface)] text-[var(--md-sys-color-on-surface)] transition-colors duration-200">
-      <Header
+      <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}
         isDark={isDark}
         toggleTheme={toggleTheme}

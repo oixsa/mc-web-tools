@@ -1,7 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
+import { ToolHeader } from '@/app/components/ToolHeader';
+import { Toast } from '@/app/components/Toast';
+import { useClipboard } from '@/app/hooks/useClipboard';
+import { colorDistance, hexToRgb } from '@/app/lib/minecraft-colors';
 
 interface BlockData {
   id: string;
@@ -44,7 +47,7 @@ const MINECRAFT_BLOCKS: BlockData[] = [
   { id: 'dark_oak_planks', name: 'Dark Oak Planks', category: 'Wood', hex: '#422A15' },
   { id: 'mangrove_planks', name: 'Mangrove Planks', category: 'Wood', hex: '#763631' },
 
-  // Teracotta & Red Sand
+  // Terracotta & Red Sand
   { id: 'red_sand', name: 'Red Sand', category: 'Sand', hex: '#BF6721' },
   { id: 'red_sandstone', name: 'Red Sandstone', category: 'Sand', hex: '#B5601D' },
   { id: 'terracotta', name: 'Terracotta', category: 'Terracotta', hex: '#965C42' },
@@ -70,21 +73,6 @@ const MINECRAFT_BLOCKS: BlockData[] = [
   { id: 'snow_block', name: 'Snow Block', category: 'Ice', hex: '#F9FEFE' },
 ];
 
-function hexToRgb(hex: string): [number, number, number] {
-  const cleaned = hex.replace('#', '');
-  const r = parseInt(cleaned.substring(0, 2), 16) || 0;
-  const g = parseInt(cleaned.substring(2, 4), 16) || 0;
-  const b = parseInt(cleaned.substring(4, 6), 16) || 0;
-  return [r, g, b];
-}
-
-function colorDistance(c1: [number, number, number], c2: [number, number, number]): number {
-  const dr = c1[0] - c2[0];
-  const dg = c1[1] - c2[1];
-  const db = c1[2] - c2[2];
-  return Math.sqrt(dr * dr + dg * dg + db * db);
-}
-
 const PRESET_GRADIENTS = [
   { name: 'Weathered Castle Wall', start: 'stone_bricks', end: 'deepslate_tiles', length: 5 },
   { name: 'Desert Oasis Sandstone', start: 'sand', end: 'smooth_sandstone', length: 4 },
@@ -94,16 +82,10 @@ const PRESET_GRADIENTS = [
 ];
 
 export default function GradientGeneratorPage() {
-  // States
   const [startBlockId, setStartBlockId] = useState<string>('stone');
   const [endBlockId, setEndBlockId] = useState<string>('deepslate');
   const [length, setLength] = useState<number>(5);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  const triggerToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 2200);
-  };
+  const { copy, toastMessage, showToast } = useClipboard();
 
   const startBlock = useMemo(
     () => MINECRAFT_BLOCKS.find((b) => b.id === startBlockId) || MINECRAFT_BLOCKS[0],
@@ -159,216 +141,196 @@ export default function GradientGeneratorPage() {
 
   const copyBlockList = () => {
     const text = gradientChain.map((b) => b.name).join(' -> ');
-    navigator.clipboard.writeText(text);
-    triggerToast('Copied block gradient sequence!');
+    copy(text, 'Copied block gradient sequence!');
   };
 
   const copySetblockSequence = () => {
     const cmd = gradientChain
       .map((b, idx) => `/setblock ~${idx} ~ ~ minecraft:${b.id}`)
       .join('\n');
-    navigator.clipboard.writeText(cmd);
-    triggerToast('Copied /setblock sequence!');
+    copy(cmd, 'Copied /setblock sequence!');
   };
 
   return (
     <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in">
-          <span className="material-symbols-outlined text-[18px]">check_circle</span>
-          {toastMessage}
-        </div>
-      )}
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
-          <Link href="/" className="hover:underline">Home</Link>
-          <span>/</span>
-          <span>Tools</span>
-          <span>/</span>
-          <span className="text-[#8A4228] dark:text-[#E07A5F] font-semibold">Block Gradient &amp; Palette Matcher</span>
-        </div>
+      <Toast message={toastMessage} />
 
-        {/* Header */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FBECE6] dark:bg-[#38231C] border border-[#E2DDD8] dark:border-[#3A2D28] text-[11px] font-bold text-[#8A4228] dark:text-[#E07A5F] mb-3 uppercase tracking-wider">
-            <span className="material-symbols-outlined text-[15px]">palette</span>
-            Art &amp; Colors
+      <ToolHeader
+        title="Block Gradient & Palette Matcher"
+        description="Find natural, organic block transition palettes between any two building materials to elevate your Minecraft walls, terrains, and roofs."
+        badge="Art & Colors"
+        icon="gradient"
+      />
+
+      {/* Live Gradient Visualization Strip */}
+      <div className="mb-10 bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline-variant)]/40 rounded-2xl p-6 shadow-2xs">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--md-sys-color-primary)]" />
+            <h2 className="font-headline font-bold text-sm sm:text-base text-[var(--md-sys-color-on-surface)]">
+              Generated Gradient Sequence ({gradientChain.length} Blocks)
+            </h2>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-headline font-bold tracking-tight mb-2">
-            Block Gradient &amp; Palette Matcher
-          </h1>
-          <p className="text-sm sm:text-base text-[#68615A] dark:text-[#A8A19B] max-w-2xl">
-            Find natural, organic block transition palettes between any two building materials to elevate your Minecraft walls, terrains, and roofs.
-          </p>
+          <button
+            type="button"
+            onClick={copyBlockList}
+            className="text-xs font-semibold text-[var(--md-sys-color-primary)] hover:underline flex items-center gap-1 cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[16px]">content_copy</span>
+            Copy Names
+          </button>
         </div>
 
-        {/* Live Gradient Visualization Strip */}
-        <div className="mb-10 bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-6 shadow-2xs">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#8A4228] dark:bg-[#E07A5F]" />
-              <h2 className="font-headline font-bold text-sm sm:text-base">Generated Gradient Sequence ({gradientChain.length} Blocks)</h2>
-            </div>
-            <button
-              type="button"
-              onClick={copyBlockList}
-              className="text-xs font-semibold text-[#8A4228] dark:text-[#E07A5F] hover:underline flex items-center gap-1"
+        {/* Blocks Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          {gradientChain.map((b, idx) => (
+            <div
+              key={`${b.id}-${idx}`}
+              className="p-3 rounded-xl border border-[var(--md-sys-color-outline-variant)]/40 bg-[var(--md-sys-color-surface-container)] flex flex-col items-center text-center space-y-2 group hover:border-[var(--md-sys-color-primary)] transition-all"
             >
-              <span className="material-symbols-outlined text-[16px]">content_copy</span>
-              Copy Names
-            </button>
-          </div>
-
-          {/* Blocks Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {gradientChain.map((b, idx) => (
+              <div className="text-[10px] font-mono text-[var(--md-sys-color-outline)]">Step {idx + 1}</div>
               <div
-                key={`${b.id}-${idx}`}
-                className="p-3 rounded-xl border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] flex flex-col items-center text-center space-y-2 group hover:border-[#8A4228] dark:hover:border-[#E07A5F] transition-all"
-              >
-                <div className="text-[10px] font-mono text-[#918A83]">Step {idx + 1}</div>
-                <div
-                  className="w-14 h-14 rounded-lg shadow-inner border border-black/20 group-hover:scale-105 transition-transform"
-                  style={{ backgroundColor: b.hex }}
-                />
-                <div>
-                  <div className="font-headline font-bold text-xs truncate max-w-[120px]">{b.name}</div>
-                  <div className="font-mono text-[10px] text-[#918A83]">{b.hex}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Smooth color preview bar */}
-          <div className="mt-5 h-4 rounded-full overflow-hidden flex border border-[#E2DDD8] dark:border-[#3A2D28]">
-            {gradientChain.map((b, idx) => (
-              <div
-                key={`bar-${idx}`}
+                className="w-14 h-14 rounded-lg shadow-inner border border-black/20 group-hover:scale-105 transition-transform"
                 style={{ backgroundColor: b.hex }}
-                className="flex-1 h-full"
-                title={b.name}
               />
-            ))}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Controls */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 sm:p-6 shadow-2xs space-y-5">
-              <h2 className="font-headline font-bold text-base flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[20px]">tune</span>
-                Select Gradient Endpoints
-              </h2>
-
-              {/* Start Block Picker */}
               <div>
-                <label className="block text-xs font-semibold mb-1.5">Start Material</label>
-                <select
-                  value={startBlockId}
-                  onChange={(e) => setStartBlockId(e.target.value)}
-                  className="w-full h-10 px-3 rounded-xl border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] text-xs font-semibold cursor-pointer"
-                >
-                  {MINECRAFT_BLOCKS.map((b) => (
-                    <option key={`start-${b.id}`} value={b.id}>
-                      {b.name} ({b.category})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* End Block Picker */}
-              <div>
-                <label className="block text-xs font-semibold mb-1.5">End Material</label>
-                <select
-                  value={endBlockId}
-                  onChange={(e) => setEndBlockId(e.target.value)}
-                  className="w-full h-10 px-3 rounded-xl border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] text-xs font-semibold cursor-pointer"
-                >
-                  {MINECRAFT_BLOCKS.map((b) => (
-                    <option key={`end-${b.id}`} value={b.id}>
-                      {b.name} ({b.category})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Length Slider */}
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1.5">
-                  <span>Gradient Length</span>
-                  <span className="font-mono text-[#8A4228] dark:text-[#E07A5F]">{length} blocks</span>
-                </div>
-                <input
-                  type="range"
-                  min="3"
-                  max="10"
-                  value={length}
-                  onChange={(e) => setLength(parseInt(e.target.value))}
-                  className="w-full accent-[#8A4228] dark:accent-[#E07A5F]"
-                />
-              </div>
-
-              {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={copyBlockList}
-                  className="py-2.5 px-3 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] text-xs font-bold hover:border-[#8A4228] dark:hover:border-[#E07A5F] transition-colors flex items-center justify-center gap-1.5"
-                >
-                  <span className="material-symbols-outlined text-[16px]">content_copy</span>
-                  Copy List
-                </button>
-                <button
-                  type="button"
-                  onClick={copySetblockSequence}
-                  className="py-2.5 px-3 rounded-lg bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] text-xs font-bold hover:bg-[#72341D] dark:hover:bg-[#F19178] transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
-                >
-                  <span className="material-symbols-outlined text-[16px]">terminal</span>
-                  Copy /setblock
-                </button>
+                <div className="font-headline font-bold text-xs truncate max-w-[120px] text-[var(--md-sys-color-on-surface)]">{b.name}</div>
+                <div className="font-mono text-[10px] text-[var(--md-sys-color-outline)]">{b.hex}</div>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
 
-          {/* Popular Presets */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 sm:p-6 shadow-2xs space-y-3">
-              <h3 className="font-headline font-bold text-sm">Popular Building Gradients</h3>
-              <p className="text-xs text-[#68615A] dark:text-[#A8A19B]">
-                Curated block progressions tested for high visual appeal on castles, towers, and mountainscapes:
-              </p>
+        {/* Smooth color preview bar */}
+        <div className="mt-5 h-4 rounded-full overflow-hidden flex border border-[var(--md-sys-color-outline-variant)]/40">
+          {gradientChain.map((b, idx) => (
+            <div
+              key={`bar-${idx}`}
+              style={{ backgroundColor: b.hex }}
+              className="flex-1 h-full"
+              title={b.name}
+            />
+          ))}
+        </div>
+      </div>
 
-              <div className="space-y-2.5 pt-2">
-                {PRESET_GRADIENTS.map((p) => (
-                  <button
-                    key={p.name}
-                    type="button"
-                    onClick={() => {
-                      setStartBlockId(p.start);
-                      setEndBlockId(p.end);
-                      setLength(p.length);
-                      triggerToast(`Applied "${p.name}" preset!`);
-                    }}
-                    className="w-full p-3 rounded-xl border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] hover:border-[#8A4228] dark:hover:border-[#E07A5F] transition-all text-left flex items-center justify-between group"
-                  >
-                    <div>
-                      <div className="font-headline font-bold text-xs text-[#1A1210] dark:text-[#F8F4F0] group-hover:text-[#8A4228] dark:group-hover:text-[#E07A5F]">
-                        {p.name}
-                      </div>
-                      <div className="text-[11px] text-[#68615A] dark:text-[#A8A19B] mt-0.5">
-                        {p.length} blocks transition
-                      </div>
-                    </div>
-                    <span className="material-symbols-outlined text-[18px] text-[#918A83] group-hover:translate-x-0.5 transition-transform">
-                      arrow_forward
-                    </span>
-                  </button>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Controls */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline-variant)]/40 rounded-2xl p-5 sm:p-6 shadow-2xs space-y-5">
+            <h2 className="font-headline font-bold text-base flex items-center gap-2 text-[var(--md-sys-color-on-surface)]">
+              <span className="material-symbols-outlined text-[var(--md-sys-color-primary)] text-[20px]">tune</span>
+              Select Gradient Endpoints
+            </h2>
+
+            {/* Start Block Picker */}
+            <div>
+              <label className="block text-xs font-semibold mb-1.5 text-[var(--md-sys-color-on-surface-variant)]">Start Material</label>
+              <select
+                value={startBlockId}
+                onChange={(e) => setStartBlockId(e.target.value)}
+                className="w-full h-10 px-3 rounded-xl border border-[var(--md-sys-color-outline-variant)]/40 bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] text-xs font-semibold cursor-pointer focus:outline-none focus:border-[var(--md-sys-color-primary)]"
+              >
+                {MINECRAFT_BLOCKS.map((b) => (
+                  <option key={`start-${b.id}`} value={b.id}>
+                    {b.name} ({b.category})
+                  </option>
                 ))}
+              </select>
+            </div>
+
+            {/* End Block Picker */}
+            <div>
+              <label className="block text-xs font-semibold mb-1.5 text-[var(--md-sys-color-on-surface-variant)]">End Material</label>
+              <select
+                value={endBlockId}
+                onChange={(e) => setEndBlockId(e.target.value)}
+                className="w-full h-10 px-3 rounded-xl border border-[var(--md-sys-color-outline-variant)]/40 bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] text-xs font-semibold cursor-pointer focus:outline-none focus:border-[var(--md-sys-color-primary)]"
+              >
+                {MINECRAFT_BLOCKS.map((b) => (
+                  <option key={`end-${b.id}`} value={b.id}>
+                    {b.name} ({b.category})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Length Slider */}
+            <div>
+              <div className="flex justify-between text-xs font-semibold mb-1.5 text-[var(--md-sys-color-on-surface-variant)]">
+                <span>Gradient Length</span>
+                <span className="font-mono text-[var(--md-sys-color-primary)] font-bold">{length} blocks</span>
               </div>
+              <input
+                type="range"
+                min="3"
+                max="10"
+                value={length}
+                onChange={(e) => setLength(parseInt(e.target.value))}
+                className="w-full accent-[var(--md-sys-color-primary)]"
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <button
+                type="button"
+                onClick={copyBlockList}
+                className="py-2.5 px-3 rounded-full border border-[var(--md-sys-color-outline-variant)]/60 text-xs font-bold text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-surface-container)] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[16px]">content_copy</span>
+                Copy List
+              </button>
+              <button
+                type="button"
+                onClick={copySetblockSequence}
+                className="py-2.5 px-3 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] text-xs font-bold hover:brightness-105 active:scale-98 transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[16px]">terminal</span>
+                Copy /setblock
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Popular Presets */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline-variant)]/40 rounded-2xl p-5 sm:p-6 shadow-2xs space-y-3">
+            <h3 className="font-headline font-bold text-sm text-[var(--md-sys-color-on-surface)]">Popular Building Gradients</h3>
+            <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
+              Curated block progressions tested for high visual appeal on castles, towers, and mountainscapes:
+            </p>
+
+            <div className="space-y-2.5 pt-2">
+              {PRESET_GRADIENTS.map((p) => (
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => {
+                    setStartBlockId(p.start);
+                    setEndBlockId(p.end);
+                    setLength(p.length);
+                    showToast(`Applied "${p.name}" preset!`);
+                  }}
+                  className="w-full p-3 rounded-xl border border-[var(--md-sys-color-outline-variant)]/40 bg-[var(--md-sys-color-surface-container)] hover:border-[var(--md-sys-color-primary)] transition-all text-left flex items-center justify-between group cursor-pointer"
+                >
+                  <div>
+                    <div className="font-headline font-bold text-xs text-[var(--md-sys-color-on-surface)] group-hover:text-[var(--md-sys-color-primary)] transition-colors">
+                      {p.name}
+                    </div>
+                    <div className="text-[11px] text-[var(--md-sys-color-on-surface-variant)] mt-0.5">
+                      {p.length} blocks transition
+                    </div>
+                  </div>
+                  <span className="material-symbols-outlined text-[18px] text-[var(--md-sys-color-outline)] group-hover:text-[var(--md-sys-color-primary)] group-hover:translate-x-0.5 transition-transform">
+                    arrow_forward
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

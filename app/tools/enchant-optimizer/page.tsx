@@ -1,7 +1,9 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
+import { ToolHeader } from '@/app/components/ToolHeader';
+import { Toast } from '@/app/components/Toast';
+import { useClipboard } from '@/app/hooks/useClipboard';
 
 interface Enchantment {
   id: string;
@@ -57,16 +59,6 @@ const ALL_ENCHANTMENTS: Record<string, Enchantment[]> = {
   ],
 };
 
-interface AnvilNode {
-  name: string;
-  isItem: boolean;
-  cost: number;
-  penalty: number;
-  enchantCost: number;
-  left?: AnvilNode;
-  right?: AnvilNode;
-}
-
 interface CombiningStep {
   step: number;
   target: string;
@@ -90,7 +82,6 @@ function solveOptimalAnvilOrder(
   // Sort enchantments by weight descending
   const sorted = [...selectedEnchants].sort((a, b) => b.weight * b.maxLevel - a.weight * a.maxLevel);
 
-  // Binary tree combination strategy: combine books pairwise first, then apply to item
   const steps: CombiningStep[] = [];
   let totalLevels = 0;
   let isTooExpensive = false;
@@ -116,69 +107,78 @@ function solveOptimalAnvilOrder(
 
   // Pairwise combine books
   while (items.length > 1) {
-    // Pick the best pair (lowest combined penalty and reasonable enchantment cost)
     let bestA = 0;
     let bestB = 1;
     let lowestCost = Infinity;
 
     for (let i = 0; i < items.length; i++) {
-      for (let j = i + 1; j < items.length; j++) {
-        const a = items[i];
-        const b = items[j];
+      for (let j = 0; j < items.length; j++) {
+        if (i === j) continue;
 
-        // Prefer combining books with books first, then with main item last
-        if (a.isMainItem && items.length > 2 && !b.isMainItem) {
-          continue; // wait till books are consolidated
+        const target = items[i];
+        const sacrifice = items[j];
+
+        // Books only before main item where possible
+        if (target.isMainItem && items.length > 2 && !sacrifice.isMainItem) {
+          continue;
         }
 
-        const penaltyA = Math.pow(2, a.penalty) - 1;
-        const penaltyB = Math.pow(2, b.penalty) - 1;
-        const enchantWeight = b.enchants.reduce((acc, cur) => acc + cur.weight * cur.maxLevel, 0);
+        // Calculate anvil costs
+        const targetPenalty = (1 << target.penalty) - 1;
+        const sacrificePenalty = (1 << sacrifice.penalty) - 1;
+        const penaltyCost = targetPenalty + sacrificePenalty;
 
-        const cost = penaltyA + penaltyB + enchantWeight;
-        if (cost < lowestCost) {
-          lowestCost = cost;
+        let enchantCost = 0;
+        for (const e of sacrifice.enchants) {
+          const mult = target.isMainItem ? e.itemMultiplier : 1;
+          enchantCost += e.maxLevel * mult;
+        }
+
+        const opCost = penaltyCost + enchantCost;
+        if (opCost < lowestCost) {
+          lowestCost = opCost;
           bestA = i;
           bestB = j;
         }
       }
     }
 
-    const itemA = items[bestA];
-    const itemB = items[bestB];
+    const target = items[bestA];
+    const sacrifice = items[bestB];
+    const stepCost = lowestCost;
 
-    const penaltyA = Math.pow(2, itemA.penalty) - 1;
-    const penaltyB = Math.pow(2, itemB.penalty) - 1;
-    const enchantCost = itemB.enchants.reduce((acc, cur) => acc + cur.weight * cur.maxLevel, 0);
-    const stepCost = penaltyA + penaltyB + enchantCost;
-
-    const tooExpensive = stepCost > 39;
-    if (tooExpensive) isTooExpensive = true;
+    if (stepCost >= 40) {
+      isTooExpensive = true;
+    }
     totalLevels += stepCost;
 
-    const resultName = itemA.isMainItem
-      ? `${itemA.name} (+${itemB.enchants.map((e) => e.name).join(', ')})`
-      : `Combined Book (${itemA.enchants.length + itemB.enchants.length} Enchants)`;
+    const resultName = target.isMainItem
+      ? target.name
+      : `Combined Book (${[...target.enchants, ...sacrifice.enchants].map((e) => e.name).join(', ')})`;
 
     steps.push({
       step: stepNum++,
-      target: itemA.name,
-      sacrifice: itemB.name,
+      target: target.name,
+      sacrifice: sacrifice.name,
       result: resultName,
       levelCost: stepCost,
-      tooExpensive,
+      tooExpensive: stepCost >= 40,
     });
 
     const newItem: IntermediateItem = {
       name: resultName,
-      penalty: Math.max(itemA.penalty, itemB.penalty) + 1,
-      enchants: [...itemA.enchants, ...itemB.enchants],
-      isMainItem: itemA.isMainItem || itemB.isMainItem,
+      penalty: Math.max(target.penalty, sacrifice.penalty) + 1,
+      enchants: [...target.enchants, ...sacrifice.enchants],
+      isMainItem: target.isMainItem,
     };
 
-    // Remove old items and add new
-    items.splice(bestB, 1);
-    items.splice(bestA, 1);
+    if (bestA > bestB) {
+      items.splice(bestA, 1);
+      items.splice(bestB, 1);
+    } else {
+      items.splice(bestB, 1);
+      items.splice(bestA, 1);
+    }
     items.push(newItem);
   }
 
@@ -193,12 +193,7 @@ export default function EnchantOptimizerPage() {
     'mending',
     'looting',
   ]);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  const triggerToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 2200);
-  };
+  const { copy, toastMessage } = useClipboard();
 
   const availableEnchants = useMemo(() => ALL_ENCHANTMENTS[itemType] || [], [itemType]);
 
@@ -234,194 +229,192 @@ export default function EnchantOptimizerPage() {
     return solveOptimalAnvilOrder(itemNames[itemType] || 'Gear Item', selectedEnchantments);
   }, [itemType, selectedEnchantments]);
 
+  const handleCopyRecipe = () => {
+    if (steps.length === 0) return;
+    const text = steps.map((s) => `Step ${s.step}: ${s.target} + ${s.sacrifice} -> ${s.result} (${s.levelCost} Levels)`).join('\n') + `\nTotal: ${totalLevels} Levels`;
+    copy(text, 'Anvil recipe copied to clipboard!');
+  };
+
   return (
     <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in">
-          <span className="material-symbols-outlined text-[18px]">check_circle</span>
-          {toastMessage}
-        </div>
-      )}
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
-          <Link href="/" className="hover:underline">Home</Link>
-          <span>/</span>
-          <span>Tools</span>
-          <span>/</span>
-          <span className="text-[#8A4228] dark:text-[#E07A5F] font-semibold">Anvil &amp; Enchantment Optimizer</span>
-        </div>
+      <Toast message={toastMessage} />
 
-        {/* Header */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FBECE6] dark:bg-[#38231C] border border-[#E2DDD8] dark:border-[#3A2D28] text-[11px] font-bold text-[#8A4228] dark:text-[#E07A5F] mb-3 uppercase tracking-wider">
-            <span className="material-symbols-outlined text-[15px]">auto_fix_high</span>
-            Calculators &amp; Games
+      <ToolHeader
+        title="Anvil & Enchantment Optimizer"
+        description="Calculate the exact cheapest anvil combining order to bypass prior work penalties and prevent the dreaded 'Too Expensive!' (>39 Levels) survival cap."
+        badge="Calculators & Games"
+        icon="auto_fix_high"
+      />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Item Selector & Enchants Checklist */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 shadow-2xs space-y-4">
+            <h2 className="font-headline font-bold text-base flex items-center gap-2 text-[var(--md-sys-color-on-surface)]">
+              <span className="material-symbols-outlined text-[var(--md-sys-color-primary)] text-[20px]">shield</span>
+              Select Gear Type
+            </h2>
+
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5">
+              {[
+                { id: 'sword', label: 'Sword', icon: 'colorize' },
+                { id: 'pickaxe', label: 'Pickaxe', icon: 'construction' },
+                { id: 'bow', label: 'Bow', icon: 'adjust' },
+                { id: 'boots', label: 'Boots', icon: 'airline_seat_legroom_extra' },
+                { id: 'helmet', label: 'Helmet', icon: 'face' },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => {
+                    setItemType(item.id);
+                    setSelectedIds(
+                      (ALL_ENCHANTMENTS[item.id] || []).slice(0, 3).map((e) => e.id)
+                    );
+                  }}
+                  className={`py-2 px-1 text-xs font-semibold rounded-lg border flex flex-col items-center gap-1 transition-all ${
+                    itemType === item.id
+                      ? 'bg-[var(--md-sys-color-primary-container)] border-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary-container)] font-bold'
+                      : 'border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-[18px]">{item.icon}</span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Enchantments Checklist */}
+            <div className="pt-3 border-t border-[var(--md-sys-color-outline-variant)] space-y-2">
+              <label className="block text-xs font-bold text-[var(--md-sys-color-on-surface)]">
+                Desired Enchantments ({selectedIds.length} Selected)
+              </label>
+
+              <div className="space-y-1.5 max-h-80 overflow-y-auto pr-1">
+                {availableEnchants.map((e) => {
+                  const isChecked = selectedIds.includes(e.id);
+                  return (
+                    <label
+                      key={e.id}
+                      className={`flex items-center justify-between p-2.5 rounded-lg border cursor-pointer text-xs transition-colors ${
+                        isChecked
+                          ? 'bg-[var(--md-sys-color-primary-container)]/40 border-[var(--md-sys-color-primary)] font-semibold text-[var(--md-sys-color-primary)]'
+                          : 'bg-[var(--md-sys-color-surface-container-lowest)] border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-surface-container-low)]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => handleToggleEnchant(e.id)}
+                          className="accent-[var(--md-sys-color-primary)] w-4 h-4 rounded"
+                        />
+                        <span>{e.name}</span>
+                      </div>
+                      <span className="font-mono text-[11px] text-[var(--md-sys-color-on-surface-variant)]">
+                        Tier {e.maxLevel}
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-headline font-bold tracking-tight mb-2">
-            Anvil &amp; Enchantment Optimizer
-          </h1>
-          <p className="text-sm sm:text-base text-[#68615A] dark:text-[#A8A19B] max-w-2xl">
-            Calculate the exact cheapest anvil combining order to bypass prior work penalties and prevent the dreaded &ldquo;Too Expensive!&rdquo; (&gt;39 Levels) survival cap.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Item Selector & Enchants Checklist */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 shadow-2xs space-y-4">
-              <h2 className="font-headline font-bold text-base flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[20px]">shield</span>
-                Select Gear Type
-              </h2>
+        {/* Results: Optimized Path */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* Summary Banner */}
+          <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 shadow-2xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="text-xs text-[var(--md-sys-color-on-surface-variant)]">Optimized Total Cost</div>
+                <div className="text-3xl font-headline font-bold text-[var(--md-sys-color-primary)]">
+                  {totalLevels} Levels
+                </div>
+              </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5">
-                {[
-                  { id: 'sword', label: 'Sword', icon: 'colorize' },
-                  { id: 'pickaxe', label: 'Pickaxe', icon: 'construction' },
-                  { id: 'bow', label: 'Bow', icon: 'adjust' },
-                  { id: 'boots', label: 'Boots', icon: 'airline_seat_legroom_extra' },
-                  { id: 'helmet', label: 'Helmet', icon: 'face' },
-                ].map((item) => (
+              <div className="flex items-center gap-2">
+                {isTooExpensive ? (
+                  <div className="px-3 py-1.5 rounded-lg bg-red-100 dark:bg-red-950/60 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 text-xs font-bold flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[16px]">warning</span>
+                    Too Expensive!
+                  </div>
+                ) : (
+                  <div className="px-3 py-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 text-xs font-bold flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[16px]">check_circle</span>
+                    100% Survival Safe (&lt;39)
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Step-by-Step Combining Order */}
+          <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 sm:p-6 shadow-2xs space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-headline font-bold text-base flex items-center gap-2 text-[var(--md-sys-color-on-surface)]">
+                <span className="material-symbols-outlined text-[var(--md-sys-color-primary)] text-[20px]">format_list_numbered</span>
+                Step-by-Step Anvil Recipe
+              </h3>
+              <div className="flex items-center gap-3">
+                <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">{steps.length} Operations</span>
+                {steps.length > 0 && (
                   <button
-                    key={item.id}
                     type="button"
-                    onClick={() => {
-                      setItemType(item.id);
-                      setSelectedIds(
-                        (ALL_ENCHANTMENTS[item.id] || []).slice(0, 3).map((e) => e.id)
-                      );
-                    }}
-                    className={`py-2 px-1 text-xs font-semibold rounded-lg border flex flex-col items-center gap-1 transition-all ${
-                      itemType === item.id
-                        ? 'bg-[#FBECE6] dark:bg-[#38231C] border-[#8A4228] dark:border-[#E07A5F] text-[#8A4228] dark:text-[#E07A5F]'
-                        : 'border-[#E2DDD8] dark:border-[#3A2D28] text-[#68615A] dark:text-[#A8A19B]'
-                    }`}
+                    onClick={handleCopyRecipe}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary-container)] transition-colors border border-[var(--md-sys-color-outline-variant)]"
                   >
-                    <span className="material-symbols-outlined text-[18px]">{item.icon}</span>
-                    <span>{item.label}</span>
+                    <span className="material-symbols-outlined text-[14px]">content_copy</span>
+                    Copy Recipe
                   </button>
+                )}
+              </div>
+            </div>
+
+            {steps.length > 0 ? (
+              <div className="space-y-3">
+                {steps.map((s) => (
+                  <div
+                    key={s.step}
+                    className="p-3.5 rounded-xl border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-lowest)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="w-6 h-6 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                        {s.step}
+                      </span>
+                      <div>
+                        <div className="font-semibold text-sm mb-0.5 flex items-center flex-wrap gap-1">
+                          <span className="font-mono text-[var(--md-sys-color-primary)]">{s.target}</span>
+                          <span className="text-[var(--md-sys-color-on-surface-variant)]">+</span>
+                          <span className="font-mono text-[var(--md-sys-color-on-surface)]">{s.sacrifice}</span>
+                        </div>
+                        <div className="text-[11px] text-[var(--md-sys-color-on-surface-variant)]">
+                          Output: {s.result}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 sm:self-center flex-shrink-0">
+                      <span className="font-mono font-bold bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] px-2.5 py-1 rounded-lg border border-[var(--md-sys-color-outline-variant)]">
+                        {s.levelCost} Levels
+                      </span>
+                    </div>
+                  </div>
                 ))}
               </div>
-
-              {/* Enchantments Checklist */}
-              <div className="pt-3 border-t border-[#E2DDD8] dark:border-[#3A2D28] space-y-2">
-                <label className="block text-xs font-bold text-[#1A1210] dark:text-[#F8F4F0]">
-                  Desired Enchantments ({selectedIds.length} Selected)
-                </label>
-
-                <div className="space-y-1.5 max-h-80 overflow-y-auto pr-1">
-                  {availableEnchants.map((e) => {
-                    const isChecked = selectedIds.includes(e.id);
-                    return (
-                      <label
-                        key={e.id}
-                        className={`flex items-center justify-between p-2.5 rounded-lg border cursor-pointer text-xs transition-colors ${
-                          isChecked
-                            ? 'bg-[#FBECE6]/50 dark:bg-[#38231C]/50 border-[#8A4228] dark:border-[#E07A5F] font-semibold text-[#8A4228] dark:text-[#E07A5F]'
-                            : 'bg-[#F7F6F4] dark:bg-[#15100E] border-[#E2DDD8] dark:border-[#3A2D28] text-[#1A1210] dark:text-[#F8F4F0]'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => handleToggleEnchant(e.id)}
-                            className="accent-[#8A4228] dark:accent-[#E07A5F] w-4 h-4 rounded"
-                          />
-                          <span>{e.name}</span>
-                        </div>
-                        <span className="font-mono text-[11px] text-[#918A83]">
-                          Tier {e.maxLevel}
-                        </span>
-                      </label>
-                    );
-                  })}
-                </div>
+            ) : (
+              <div className="py-8 text-center text-xs text-[var(--md-sys-color-on-surface-variant)]">
+                Select at least 1 enchantment to calculate anvil path.
               </div>
-            </div>
-          </div>
+            )}
 
-          {/* Results: Optimized Path */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* Summary Banner */}
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 shadow-2xs">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div className="text-xs text-[#68615A] dark:text-[#A8A19B]">Optimized Total Cost</div>
-                  <div className="text-3xl font-headline font-bold text-[#8A4228] dark:text-[#E07A5F]">
-                    {totalLevels} Levels
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  {isTooExpensive ? (
-                    <div className="px-3 py-1.5 rounded-lg bg-red-100 dark:bg-red-950/60 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 text-xs font-bold flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-[16px]">warning</span>
-                      Too Expensive!
-                    </div>
-                  ) : (
-                    <div className="px-3 py-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 text-xs font-bold flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-[16px]">check_circle</span>
-                      100% Survival Safe (&lt;39)
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Step-by-Step Combining Order */}
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 sm:p-6 shadow-2xs space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="font-headline font-bold text-base flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[20px]">format_list_numbered</span>
-                  Step-by-Step Anvil Recipe
-                </h3>
-                <span className="text-xs text-[#918A83]">{steps.length} Anvil Operations</span>
-              </div>
-
-              {steps.length > 0 ? (
-                <div className="space-y-3">
-                  {steps.map((s) => (
-                    <div
-                      key={s.step}
-                      className="p-3.5 rounded-xl border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
-                    >
-                      <div className="flex items-start gap-3">
-                        <span className="w-6 h-6 rounded-full bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                          {s.step}
-                        </span>
-                        <div>
-                          <div className="font-semibold text-sm mb-0.5 flex items-center flex-wrap gap-1">
-                            <span className="font-mono text-[#8A4228] dark:text-[#E07A5F]">{s.target}</span>
-                            <span className="text-[#918A83]">+</span>
-                            <span className="font-mono">{s.sacrifice}</span>
-                          </div>
-                          <div className="text-[11px] text-[#68615A] dark:text-[#A8A19B]">
-                            Output: {s.result}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2 sm:self-center flex-shrink-0">
-                        <span className="font-mono font-bold bg-white dark:bg-[#201815] px-2.5 py-1 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28]">
-                          {s.levelCost} Levels
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="py-8 text-center text-xs text-[#68615A] dark:text-[#A8A19B]">
-                  Select at least 1 enchantment to calculate anvil path.
-                </div>
-              )}
-
-              <div className="pt-3 border-t border-[#E2DDD8] dark:border-[#3A2D28] text-[11px] text-[#918A83]">
-                Tip: Follow this exact pairing order. Combining books together first before attaching to your gear avoids exponential prior work penalty compounding!
-              </div>
+            <div className="pt-3 border-t border-[var(--md-sys-color-outline-variant)] text-[11px] text-[var(--md-sys-color-on-surface-variant)]">
+              Tip: Follow this exact pairing order. Combining books together first before attaching to your gear avoids exponential prior work penalty compounding!
             </div>
           </div>
         </div>
+      </div>
     </div>
   );
 }
