@@ -1,7 +1,9 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
+import { ToolHeader } from '@/app/components/ToolHeader';
+import { Toast } from '@/app/components/Toast';
+import { useClipboard } from '@/app/hooks/useClipboard';
 
 type PyramidSetup = 'single' | 'double' | 'quad' | 'six';
 type MineralType = 'iron' | 'gold' | 'emerald' | 'diamond' | 'netherite';
@@ -59,23 +61,16 @@ const MINERALS: Record<MineralType, { name: string; hex: string; icon: string }>
 };
 
 export default function BeaconCalculatorPage() {
-  // States
   const [setupId, setSetupId] = useState<PyramidSetup>('single');
-  const [activeTiers, setActiveTiers] = useState<number>(4); // 1, 2, 3, or 4 tiers
+  const [activeTiers, setActiveTiers] = useState<number>(4);
   const [mineral, setMineral] = useState<MineralType>('iron');
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  const triggerToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 2200);
-  };
+  const { copy, toastMessage } = useClipboard();
 
   const currentSetup = useMemo(
     () => PYRAMID_SETUPS.find((s) => s.id === setupId) || PYRAMID_SETUPS[0],
     [setupId]
   );
 
-  // Calculate blocks based on selected tier count
   const calculatedBlocks = useMemo(() => {
     return currentSetup.layers.slice(0, activeTiers).reduce((acc, cur) => acc + cur, 0);
   }, [currentSetup, activeTiers]);
@@ -102,205 +97,185 @@ export default function BeaconCalculatorPage() {
     }
   }, [activeTiers]);
 
+  const handleCopySummary = () => {
+    const summary = `Beacon Setup: ${currentSetup.name} (Tier ${activeTiers})\nTotal Blocks: ${calculatedBlocks}\nTotal Ingots: ${rawIngots} (${stacks} stacks + ${remainderIngots})\nShulkers: ${shulkers}\nRange: ${beaconRange}`;
+    copy(summary, 'Copied beacon materials summary!');
+  };
+
   return (
     <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in">
-          <span className="material-symbols-outlined text-[18px]">check_circle</span>
-          {toastMessage}
-        </div>
-      )}
+      <Toast message={toastMessage} />
 
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
-        <Link href="/" className="hover:underline">Home</Link>
-        <span>/</span>
-        <span>Tools</span>
-        <span>/</span>
-        <span className="text-[#8A4228] dark:text-[#E07A5F] font-semibold">Beacon Pyramid &amp; Mineral Calculator</span>
-      </div>
+      <ToolHeader
+        title="Beacon Pyramid & Mineral Calculator"
+        description="Plan single and multi-beacon pyramids with exact block totals, ingot requirements, stack counts, and shulker box storage breakdowns."
+        badge="Mechanics & Calculators"
+        icon="diamond"
+      />
 
-        {/* Header */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FBECE6] dark:bg-[#38231C] border border-[#E2DDD8] dark:border-[#3A2D28] text-[11px] font-bold text-[#8A4228] dark:text-[#E07A5F] mb-3 uppercase tracking-wider">
-            <span className="material-symbols-outlined text-[15px]">diamond</span>
-            Mechanics &amp; Calculators
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-headline font-bold tracking-tight mb-2">
-            Beacon Pyramid &amp; Mineral Calculator
-          </h1>
-          <p className="text-sm sm:text-base text-[#68615A] dark:text-[#A8A19B] max-w-2xl">
-            Plan single and multi-beacon pyramids with exact block totals, ingot requirements, stack counts, and shulker box storage breakdowns.
-          </p>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Settings Column */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 shadow-2xs space-y-5">
+            <h2 className="font-headline font-bold text-base flex items-center gap-2 text-[var(--md-sys-color-on-surface)]">
+              <span className="material-symbols-outlined text-[var(--md-sys-color-primary)] text-[20px]">tune</span>
+              Beacon Setup Configuration
+            </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Settings Column */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 shadow-2xs space-y-5">
-              <h2 className="font-headline font-bold text-base flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[20px]">tune</span>
-                Beacon Setup Configuration
-              </h2>
-
-              {/* Pyramid Layout */}
-              <div>
-                <label className="block text-xs font-semibold mb-2">Pyramid Layout</label>
-                <div className="grid grid-cols-2 gap-2">
-                  {PYRAMID_SETUPS.map((s) => (
-                    <button
-                      key={s.id}
-                      type="button"
-                      onClick={() => setSetupId(s.id)}
-                      className={`p-2.5 rounded-xl border text-left transition-all ${
-                        setupId === s.id
-                          ? 'bg-[#FBECE6] dark:bg-[#38231C] border-[#8A4228] dark:border-[#E07A5F] text-[#8A4228] dark:text-[#E07A5F] font-semibold'
-                          : 'border-[#E2DDD8] dark:border-[#3A2D28] text-[#68615A] dark:text-[#A8A19B] hover:border-gray-400'
-                      }`}
-                    >
-                      <div className="text-xs font-bold">{s.name}</div>
-                      <div className="text-[10px] text-[#918A83] mt-0.5">{s.beaconCount} Beacon(s)</div>
-                    </button>
-                  ))}
-                </div>
+            {/* Pyramid Layout */}
+            <div>
+              <label className="block text-xs font-semibold mb-2 text-[var(--md-sys-color-on-surface)]">Pyramid Layout</label>
+              <div className="grid grid-cols-2 gap-2">
+                {PYRAMID_SETUPS.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setSetupId(s.id)}
+                    className={`p-2.5 rounded-xl border text-left transition-all ${
+                      setupId === s.id
+                        ? 'bg-[var(--md-sys-color-primary-container)] border-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary-container)] font-semibold'
+                        : 'bg-[var(--md-sys-color-surface-container-lowest)] border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:border-[var(--md-sys-color-outline)]'
+                    }`}
+                  >
+                    <div className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">{s.name}</div>
+                    <div className="text-[10px] text-[var(--md-sys-color-on-surface-variant)] mt-0.5">{s.beaconCount} Beacon(s)</div>
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* Tier Height */}
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1.5">
-                  <span>Pyramid Tiers</span>
-                  <span className="font-mono text-[#8A4228] dark:text-[#E07A5F] font-bold">
-                    Tier {activeTiers} (Range: {beaconRange})
-                  </span>
-                </div>
-                <div className="grid grid-cols-4 gap-1.5">
-                  {[1, 2, 3, 4].map((tier) => (
-                    <button
-                      key={tier}
-                      type="button"
-                      onClick={() => setActiveTiers(tier)}
-                      className={`py-2 rounded-lg text-xs font-bold border transition-colors ${
-                        activeTiers === tier
-                          ? 'bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] border-transparent'
-                          : 'border-[#E2DDD8] dark:border-[#3A2D28] text-[#68615A] dark:text-[#A8A19B]'
-                      }`}
-                    >
-                      Tier {tier}
-                    </button>
-                  ))}
-                </div>
+            {/* Tier Height */}
+            <div>
+              <div className="flex justify-between text-xs font-semibold mb-1.5 text-[var(--md-sys-color-on-surface)]">
+                <span>Pyramid Tiers</span>
+                <span className="font-mono text-[var(--md-sys-color-primary)] font-bold">
+                  Tier {activeTiers} (Range: {beaconRange})
+                </span>
               </div>
+              <div className="grid grid-cols-4 gap-1.5">
+                {[1, 2, 3, 4].map((tier) => (
+                  <button
+                    key={tier}
+                    type="button"
+                    onClick={() => setActiveTiers(tier)}
+                    className={`py-2 rounded-lg text-xs font-bold border transition-colors ${
+                      activeTiers === tier
+                        ? 'bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] border-transparent'
+                        : 'border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                    }`}
+                  >
+                    Tier {tier}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-              {/* Mineral Type */}
-              <div className="pt-2 border-t border-[#E2DDD8] dark:border-[#3A2D28]">
-                <label className="block text-xs font-semibold mb-2">Mineral Material</label>
-                <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5">
-                  {(Object.keys(MINERALS) as MineralType[]).map((m) => (
-                    <button
-                      key={m}
-                      type="button"
-                      onClick={() => setMineral(m)}
-                      className={`p-2 rounded-lg border text-xs font-semibold capitalize flex flex-col items-center gap-1 transition-all ${
-                        mineral === m
-                          ? 'bg-[#FBECE6] dark:bg-[#38231C] border-[#8A4228] dark:border-[#E07A5F] text-[#8A4228] dark:text-[#E07A5F]'
-                          : 'border-[#E2DDD8] dark:border-[#3A2D28] text-[#68615A] dark:text-[#A8A19B]'
-                      }`}
-                    >
-                      <span className="w-4 h-4 rounded-xs border border-black/20" style={{ backgroundColor: MINERALS[m].hex }} />
-                      <span className="text-[11px] truncate">{m}</span>
-                    </button>
-                  ))}
-                </div>
+            {/* Mineral Type */}
+            <div className="pt-2 border-t border-[var(--md-sys-color-outline-variant)]">
+              <label className="block text-xs font-semibold mb-2 text-[var(--md-sys-color-on-surface)]">Mineral Material</label>
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5">
+                {(Object.keys(MINERALS) as MineralType[]).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    onClick={() => setMineral(m)}
+                    className={`p-2 rounded-lg border text-xs font-semibold capitalize flex flex-col items-center gap-1 transition-all ${
+                      mineral === m
+                        ? 'bg-[var(--md-sys-color-primary-container)] border-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary-container)]'
+                        : 'border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                    }`}
+                  >
+                    <span className="w-4 h-4 rounded-xs border border-black/20" style={{ backgroundColor: MINERALS[m].hex }} />
+                    <span className="text-[11px] truncate">{m}</span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Results Column */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* Primary Metrics Card */}
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 sm:p-6 shadow-2xs">
-              <h3 className="text-xs font-bold text-[#68615A] dark:text-[#A8A19B] uppercase tracking-wider mb-4">
-                Materials Gathering Checklist
-              </h3>
+        {/* Results Column */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* Primary Metrics Card */}
+          <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 sm:p-6 shadow-2xs">
+            <h3 className="text-xs font-bold text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider mb-4">
+              Materials Gathering Checklist
+            </h3>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                <div className="p-3 rounded-xl bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
-                  <div className="text-xs text-[#68615A] dark:text-[#A8A19B]">Mineral Blocks</div>
-                  <div className="text-2xl font-headline font-bold text-[#8A4228] dark:text-[#E07A5F]">
-                    {calculatedBlocks}
-                  </div>
-                  <div className="text-[10px] text-[#918A83] mt-0.5">
-                    {blockStacks} stacks + {blockRemainder}
-                  </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+              <div className="p-3 rounded-xl bg-[var(--md-sys-color-surface-container-lowest)] border border-[var(--md-sys-color-outline-variant)]">
+                <div className="text-xs text-[var(--md-sys-color-on-surface-variant)]">Mineral Blocks</div>
+                <div className="text-2xl font-headline font-bold text-[var(--md-sys-color-primary)]">
+                  {calculatedBlocks}
                 </div>
-
-                <div className="p-3 rounded-xl bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
-                  <div className="text-xs text-[#68615A] dark:text-[#A8A19B]">Total Ingots / Gems</div>
-                  <div className="text-2xl font-headline font-bold text-[#8A4228] dark:text-[#E07A5F]">
-                    {rawIngots}
-                  </div>
-                  <div className="text-[10px] text-[#918A83] mt-0.5">9 per block</div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
-                  <div className="text-xs text-[#68615A] dark:text-[#A8A19B]">Ingot Stacks</div>
-                  <div className="text-2xl font-headline font-bold">
-                    {stacks}
-                  </div>
-                  <div className="text-[10px] text-[#918A83] mt-0.5">
-                    + {remainderIngots} loose
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]">
-                  <div className="text-xs text-[#68615A] dark:text-[#A8A19B]">Shulker Boxes</div>
-                  <div className="text-2xl font-headline font-bold text-emerald-600 dark:text-emerald-400">
-                    {shulkers}
-                  </div>
-                  <div className="text-[10px] text-[#918A83] mt-0.5">full storage boxes</div>
+                <div className="text-[10px] text-[var(--md-sys-color-on-surface-variant)] mt-0.5">
+                  {blockStacks} stacks + {blockRemainder}
                 </div>
               </div>
 
-              {/* Layer-by-Layer Block Breakdown */}
-              <div className="mt-6 pt-5 border-t border-[#E2DDD8] dark:border-[#3A2D28] space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#68615A] dark:text-[#A8A19B]">
-                  Layer Construction Order (Top to Bottom)
-                </h4>
+              <div className="p-3 rounded-xl bg-[var(--md-sys-color-surface-container-lowest)] border border-[var(--md-sys-color-outline-variant)]">
+                <div className="text-xs text-[var(--md-sys-color-on-surface-variant)]">Total Ingots / Gems</div>
+                <div className="text-2xl font-headline font-bold text-[var(--md-sys-color-primary)]">
+                  {rawIngots}
+                </div>
+                <div className="text-[10px] text-[var(--md-sys-color-on-surface-variant)] mt-0.5">9 per block</div>
+              </div>
 
-                <div className="space-y-2 text-xs">
-                  {currentSetup.layers.slice(0, activeTiers).map((blocks, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between p-2.5 rounded-lg bg-[#F7F6F4] dark:bg-[#15100E] border border-[#E2DDD8] dark:border-[#3A2D28]"
-                    >
-                      <span className="font-semibold">
-                        Layer {idx + 1} ({idx === 0 ? 'Directly below Beacon' : `Tier ${idx + 1}`})
-                      </span>
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono font-bold text-[#8A4228] dark:text-[#E07A5F]">{blocks} Blocks</span>
-                        <span className="font-mono text-[#918A83]">({blocks * 9} Ingots)</span>
-                      </div>
+              <div className="p-3 rounded-xl bg-[var(--md-sys-color-surface-container-lowest)] border border-[var(--md-sys-color-outline-variant)]">
+                <div className="text-xs text-[var(--md-sys-color-on-surface-variant)]">Ingot Stacks</div>
+                <div className="text-2xl font-headline font-bold text-[var(--md-sys-color-on-surface)]">
+                  {stacks}
+                </div>
+                <div className="text-[10px] text-[var(--md-sys-color-on-surface-variant)] mt-0.5">
+                  + {remainderIngots} loose
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-[var(--md-sys-color-surface-container-lowest)] border border-[var(--md-sys-color-outline-variant)]">
+                <div className="text-xs text-[var(--md-sys-color-on-surface-variant)]">Shulker Boxes</div>
+                <div className="text-2xl font-headline font-bold text-emerald-600 dark:text-emerald-400">
+                  {shulkers}
+                </div>
+                <div className="text-[10px] text-[var(--md-sys-color-on-surface-variant)] mt-0.5">full storage boxes</div>
+              </div>
+            </div>
+
+            {/* Layer-by-Layer Block Breakdown */}
+            <div className="mt-6 pt-5 border-t border-[var(--md-sys-color-outline-variant)] space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)]">
+                Layer Construction Order (Top to Bottom)
+              </h4>
+
+              <div className="space-y-2 text-xs">
+                {currentSetup.layers.slice(0, activeTiers).map((blocks, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between p-2.5 rounded-lg bg-[var(--md-sys-color-surface-container-lowest)] border border-[var(--md-sys-color-outline-variant)]"
+                  >
+                    <span className="font-semibold text-[var(--md-sys-color-on-surface)]">
+                      Layer {idx + 1} ({idx === 0 ? 'Directly below Beacon' : `Tier ${idx + 1}`})
+                    </span>
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono font-bold text-[var(--md-sys-color-primary)]">{blocks} Blocks</span>
+                      <span className="font-mono text-[var(--md-sys-color-on-surface-variant)]">({blocks * 9} Ingots)</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-
-              {/* Copy Summary Button */}
-              <button
-                type="button"
-                onClick={() => {
-                  const summary = `Beacon Setup: ${currentSetup.name} (Tier ${activeTiers})\nTotal Blocks: ${calculatedBlocks}\nTotal Ingots: ${rawIngots} (${stacks} stacks + ${remainderIngots})\nShulkers: ${shulkers}\nRange: ${beaconRange}`;
-                  navigator.clipboard.writeText(summary);
-                  triggerToast('Copied beacon materials summary!');
-                }}
-                className="w-full mt-5 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] text-xs font-bold hover:bg-[#72341D] dark:hover:bg-[#F19178] transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
-              >
-                <span className="material-symbols-outlined text-[16px]">content_copy</span>
-                Copy Materials Checklist
-              </button>
             </div>
+
+            {/* Copy Summary Button */}
+            <button
+              type="button"
+              onClick={handleCopySummary}
+              className="w-full mt-5 py-2.5 rounded-xl bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] text-xs font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 shadow-2xs"
+            >
+              <span className="material-symbols-outlined text-[16px]">content_copy</span>
+              Copy Materials Checklist
+            </button>
           </div>
         </div>
+      </div>
     </div>
   );
 }

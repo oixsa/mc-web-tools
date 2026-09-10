@@ -70,13 +70,14 @@ export function QuickLauncherModal({
       className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-150"
       onClick={onClose}
     >
+      {/* M3 Dialog Container (28px corner radius & surface-container-high) */}
       <div
-        className="w-full max-w-xl bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
+        className="w-full max-w-xl bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/40 rounded-[28px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Search Header Input */}
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-[#E2DDD8] dark:border-[#3A2D28]">
-          <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[22px]">
+        {/* Search Header Input (M3 Docked Search) */}
+        <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--md-sys-color-outline-variant)]/40">
+          <span className="material-symbols-outlined text-[var(--md-sys-color-primary)] text-[22px]">
             search
           </span>
           <input
@@ -87,67 +88,102 @@ export function QuickLauncherModal({
               setQuery(e.target.value);
               setSelectedIndex(0);
             }}
-            placeholder="Search tools, schematics, guides..."
-            className="flex-1 bg-transparent border-none text-sm sm:text-base text-[#1A1210] dark:text-[#F8F4F0] placeholder:text-[#918A83] focus:outline-none"
+            placeholder="Search tools, calculators, generators..."
+            className="flex-1 bg-transparent border-none text-sm sm:text-base text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
           />
-          <kbd className="font-mono-meta text-[10px] bg-[#F7F6F4] dark:bg-[#15100E] px-2 py-0.5 rounded border border-[#E2DDD8] dark:border-[#3A2D28] text-[#918A83]">
+          <kbd className="font-mono-meta text-[10px] bg-[var(--md-sys-color-surface-container-lowest)] px-2 py-0.5 rounded-full border border-[var(--md-sys-color-outline-variant)]/60 text-[var(--md-sys-color-outline)] shadow-2xs">
             ESC
           </kbd>
         </div>
 
         {/* Results List */}
-        <div className="max-h-80 overflow-y-auto p-2 divide-y divide-[#E2DDD8]/40 dark:divide-[#3A2D28]/40">
+        <div className="max-h-80 overflow-y-auto p-2.5 space-y-1">
           {results.length > 0 ? (
             results.map((tool, idx) => {
               const isSelected = idx === selectedIndex;
               return (
-                <div
+                <button
                   key={tool.id}
+                  type="button"
                   onClick={() => {
                     onSelectTool(tool);
                     onClose();
                   }}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`flex items-center justify-between p-3 rounded-xl cursor-pointer transition-colors ${
+                  className={`w-full text-left p-3 rounded-2xl flex items-center justify-between gap-3 transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-[#FBECE6] dark:bg-[#38231C] text-[#8A4228] dark:text-[#E07A5F]'
-                      : 'hover:bg-[#F7F6F4] dark:hover:bg-[#1B1412] text-[#1A1210] dark:text-[#F8F4F0]'
+                      ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] shadow-2xs'
+                      : 'hover:bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface)]'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="material-symbols-outlined text-[20px] text-[#8A4228] dark:text-[#E07A5F] flex-shrink-0">
-                      {tool.icon}
-                    </span>
+                    <div
+                      className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                        isSelected
+                          ? 'bg-[var(--md-sys-color-on-secondary-container)]/10 text-[var(--md-sys-color-on-secondary-container)]'
+                          : 'bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-primary)]'
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-[20px]">
+                        {tool.icon}
+                      </span>
+                    </div>
                     <div className="truncate">
-                      <div className="font-headline font-semibold text-sm truncate">
+                      <div className="text-sm font-semibold truncate">
                         {tool.title}
                       </div>
-                      <div className="text-xs text-[#68615A] dark:text-[#A8A19B] truncate">
+                      <div
+                        className={`text-xs truncate ${
+                          isSelected
+                            ? 'text-[var(--md-sys-color-on-secondary-container)]/80'
+                            : 'text-[var(--md-sys-color-on-surface-variant)]'
+                        }`}
+                      >
                         {tool.description}
                       </div>
                     </div>
                   </div>
 
-                  <span className="font-mono-meta text-[10px] text-[#918A83] dark:text-[#766F69] uppercase px-2 py-0.5 rounded bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] ml-2 flex-shrink-0">
-                    {tool.category.replace('-', ' ')}
-                  </span>
-                </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span
+                      className={`font-mono-meta text-[10px] capitalize px-2 py-0.5 rounded-md ${
+                        isSelected
+                          ? 'bg-[var(--md-sys-color-on-secondary-container)]/15 text-[var(--md-sys-color-on-secondary-container)] font-bold'
+                          : 'bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-outline)]'
+                      }`}
+                    >
+                      {tool.category.replace('-', ' ')}
+                    </span>
+                    <span
+                      className={`material-symbols-outlined text-[16px] ${
+                        isSelected
+                          ? 'text-[var(--md-sys-color-on-secondary-container)]'
+                          : 'text-[var(--md-sys-color-outline)]'
+                      }`}
+                    >
+                      subdirectory_arrow_left
+                    </span>
+                  </div>
+                </button>
               );
             })
           ) : (
-            <div className="p-8 text-center text-xs sm:text-sm text-[#68615A] dark:text-[#A8A19B]">
-              No tools matching &ldquo;{query}&rdquo;
+            <div className="p-8 text-center text-[var(--md-sys-color-on-surface-variant)] text-sm">
+              No matching tools found for &ldquo;{query}&rdquo;
             </div>
           )}
         </div>
 
-        {/* Footer info bar */}
-        <div className="px-4 py-2 bg-[#F7F6F4] dark:bg-[#15100E] border-t border-[#E2DDD8] dark:border-[#3A2D28] flex items-center justify-between text-[11px] text-[#918A83]">
+        {/* Dialog Footer Bar with Keyboard Shortcuts */}
+        <div className="px-5 py-3 border-t border-[var(--md-sys-color-outline-variant)]/40 bg-[var(--md-sys-color-surface-container)] flex items-center justify-between text-[11px] text-[var(--md-sys-color-outline)] font-mono-meta">
           <div className="flex items-center gap-3">
             <span>↑↓ Navigate</span>
             <span>↵ Select</span>
+            <span>ESC Close</span>
           </div>
-          <span>{TOOLS.length} {TOOLS.length === 1 ? 'tool' : 'tools'} ready</span>
+          <span className="text-[var(--md-sys-color-primary)] font-bold">
+            Kita Tools
+          </span>
         </div>
       </div>
     </div>

@@ -2,9 +2,6 @@ import { FooterSection, NavItem } from '../types/tools';
 
 export const MAIN_NAV_ITEMS: NavItem[] = [
   { label: 'All Tools', href: '/#explore-tools' },
-  { label: 'Circle Generator', href: '/tools/circle-generator' },
-  { label: 'Enchant Optimizer', href: '/tools/enchant-optimizer' },
-  { label: 'MOTD Generator', href: '/tools/motd-editor' },
   { label: 'About', href: '/#about' },
 ];
 
@@ -41,9 +38,7 @@ export const FOOTER_SECTIONS: FooterSection[] = [
     title: 'Project & Docs',
     links: [
       { label: 'About Kita Tools', href: '/#about' },
-      { label: 'Architecture Guide', href: '/docs/ARCHITECTURE.md' },
-      { label: 'GitHub Repository', href: 'https://github.com' },
-      { label: 'Discord Community', href: 'https://discord.com' },
+      { label: 'GitHub Repository', href: 'https://github.com/oixsa/kita-tools' },
     ],
   },
 ];

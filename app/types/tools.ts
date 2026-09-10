@@ -31,19 +31,10 @@ export interface Tool {
   featured?: boolean;
   href: string;
   icon: string;
-  accentColor?: string;
   blockCount?: string;
   engineVersion?: string;
 }
 
-export interface Guide {
-  id: string;
-  title: string;
-  description: string;
-  href: string;
-  badge?: string;
-  icon: string;
-}
 
 export type ThemeMode = 'light' | 'dark';
 

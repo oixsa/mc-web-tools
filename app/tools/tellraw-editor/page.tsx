@@ -2,6 +2,10 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import { ToolHeader } from '@/app/components/ToolHeader';
+import { Toast } from '@/app/components/Toast';
+import { useClipboard } from '@/app/hooks/useClipboard';
+import { MINECRAFT_COLORS } from '@/app/lib/minecraft-colors';
 
 interface TextSegment {
   id: string;
@@ -17,25 +21,6 @@ interface TextSegment {
   hoverAction: 'none' | 'show_text';
   hoverValue: string;
 }
-
-const MINECRAFT_COLORS = [
-  { label: 'White', value: 'white', hex: '#FFFFFF' },
-  { label: 'Yellow', value: 'yellow', hex: '#FFFF55' },
-  { label: 'Gold', value: 'gold', hex: '#FFAA00' },
-  { label: 'Red', value: 'red', hex: '#FF5555' },
-  { label: 'Dark Red', value: 'dark_red', hex: '#AA0000' },
-  { label: 'Aqua', value: 'aqua', hex: '#55FFFF' },
-  { label: 'Dark Aqua', value: 'dark_aqua', hex: '#00AAAA' },
-  { label: 'Blue', value: 'blue', hex: '#5555FF' },
-  { label: 'Dark Blue', value: 'dark_blue', hex: '#0000AA' },
-  { label: 'Light Purple', value: 'light_purple', hex: '#FF55FF' },
-  { label: 'Dark Purple', value: 'dark_purple', hex: '#AA00AA' },
-  { label: 'Green', value: 'green', hex: '#55FF55' },
-  { label: 'Dark Green', value: 'dark_green', hex: '#00AA00' },
-  { label: 'Gray', value: 'gray', hex: '#AAAAAA' },
-  { label: 'Dark Gray', value: 'dark_gray', hex: '#555555' },
-  { label: 'Black', value: 'black', hex: '#000000' },
-];
 
 const PRESETS = [
   {
@@ -157,12 +142,7 @@ export default function TellrawEditorPage() {
   ]);
 
   const [activeSegId, setActiveSegId] = useState<string>(segments[0].id);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  const triggerToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 2200);
-  };
+  const { copy, toastMessage, showToast } = useClipboard();
 
   const activeSegment = useMemo(
     () => segments.find((s) => s.id === activeSegId) || segments[0],
@@ -249,54 +229,33 @@ export default function TellrawEditorPage() {
   }, [target, jsonPayload]);
 
   const copyToClipboard = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    triggerToast(`Copied ${label}!`);
+    copy(text, `Copied ${label}!`);
   };
 
   return (
     <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-in fade-in">
-          <span className="material-symbols-outlined text-[18px]">check_circle</span>
-          {toastMessage}
-        </div>
-      )}
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-[#68615A] dark:text-[#A8A19B] mb-6">
-          <Link href="/" className="hover:underline">Home</Link>
-          <span>/</span>
-          <span>Tools</span>
-          <span>/</span>
-          <span className="text-[#8A4228] dark:text-[#E07A5F] font-semibold">Tellraw &amp; JSON Text Builder</span>
-        </div>
+      <Toast message={toastMessage} />
 
-        {/* Header */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FBECE6] dark:bg-[#38231C] border border-[#E2DDD8] dark:border-[#3A2D28] text-[11px] font-bold text-[#8A4228] dark:text-[#E07A5F] mb-3 uppercase tracking-wider">
-            <span className="material-symbols-outlined text-[15px]">chat</span>
-            Command Generator
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-headline font-bold tracking-tight mb-2">
-            Tellraw &amp; JSON Text Builder
-          </h1>
-          <p className="text-sm sm:text-base text-[#68615A] dark:text-[#A8A19B] max-w-2xl">
-            Design interactive Minecraft server messages with colors, clickable links, command executions, and hover tooltips for <code>/tellraw</code> and <code>/title</code>.
-          </p>
+      <ToolHeader
+        title="Tellraw & JSON Text Builder"
+        description="Design interactive Minecraft server messages with colors, clickable links, command executions, and hover tooltips for /tellraw and /title."
+        badge="Creator Tool"
+        icon="chat"
+      />
+
+      {/* Chat Preview Viewport */}
+      <div className="mb-8 bg-black/80 border-2 border-black/90 rounded-2xl p-4 sm:p-6 shadow-xl relative overflow-hidden font-mono text-sm select-none">
+        <div className="text-[11px] font-bold text-[#918A83] uppercase tracking-wider mb-2 flex items-center justify-between">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#55FF55]" />
+            In-Game Minecraft Chat Preview
+          </span>
+          <span>Scale: 100%</span>
         </div>
 
-        {/* Chat Preview Viewport */}
-        <div className="mb-8 bg-black/80 border-2 border-black/90 rounded-2xl p-4 sm:p-6 shadow-xl relative overflow-hidden font-mono text-sm select-none">
-          <div className="text-[11px] font-bold text-[#918A83] uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#55FF55]" />
-              In-Game Minecraft Chat Preview
-            </span>
-            <span>Scale: 100%</span>
-          </div>
-
-          <div className="bg-black/60 rounded-lg p-3 min-h-[50px] flex items-center flex-wrap gap-x-0.5 leading-relaxed">
-            {segments.map((s) => {
-              const col = MINECRAFT_COLORS.find((c) => c.value === s.color)?.hex || s.color || '#FFFFFF';
+        <div className="bg-black/60 rounded-lg p-3 min-h-[50px] flex items-center flex-wrap gap-x-0.5 leading-relaxed">
+          {segments.map((s) => {
+            const col = MINECRAFT_COLORS.find((c) => c.jsonName === s.color)?.hex || s.color || '#FFFFFF';
               return (
                 <span
                   key={s.id}
@@ -329,16 +288,16 @@ export default function TellrawEditorPage() {
           {/* Segments List & Presets */}
           <div className="lg:col-span-5 space-y-6">
             {/* Segments Manager */}
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 shadow-2xs space-y-4">
+            <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 shadow-2xs space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="font-headline font-bold text-base flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[20px]">segment</span>
+                <h2 className="font-headline font-bold text-base flex items-center gap-2 text-[var(--md-sys-color-on-surface)]">
+                  <span className="material-symbols-outlined text-[var(--md-sys-color-primary)] text-[20px]">segment</span>
                   Message Segments
                 </h2>
                 <button
                   type="button"
                   onClick={addSegment}
-                  className="px-2.5 py-1 rounded-lg bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] text-xs font-bold hover:bg-[#72341D] transition-colors flex items-center gap-1"
+                  className="px-2.5 py-1 rounded-lg bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] text-xs font-bold hover:opacity-90 transition-opacity flex items-center gap-1"
                 >
                   <span className="material-symbols-outlined text-[16px]">add</span>
                   Add Segment
@@ -347,7 +306,7 @@ export default function TellrawEditorPage() {
 
               {/* Target Selector */}
               <div>
-                <label className="block text-xs font-semibold mb-1">Target Selector</label>
+                <label className="block text-xs font-semibold mb-1 text-[var(--md-sys-color-on-surface)]">Target Selector</label>
                 <div className="grid grid-cols-4 gap-1.5">
                   {['@a', '@p', '@s', '@r'].map((t) => (
                     <button
@@ -356,8 +315,8 @@ export default function TellrawEditorPage() {
                       onClick={() => setTarget(t)}
                       className={`py-1.5 rounded-lg text-xs font-mono font-bold border transition-colors ${
                         target === t
-                          ? 'bg-[#FBECE6] dark:bg-[#38231C] border-[#8A4228] dark:border-[#E07A5F] text-[#8A4228] dark:text-[#E07A5F]'
-                          : 'border-[#E2DDD8] dark:border-[#3A2D28] text-[#68615A] dark:text-[#A8A19B]'
+                          ? 'bg-[var(--md-sys-color-primary-container)] border-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary-container)]'
+                          : 'border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
                       }`}
                     >
                       {t}
@@ -376,13 +335,13 @@ export default function TellrawEditorPage() {
                       onClick={() => setActiveSegId(seg.id)}
                       className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${
                         isActive
-                          ? 'bg-[#FBECE6]/60 dark:bg-[#38231C]/60 border-[#8A4228] dark:border-[#E07A5F] shadow-xs'
-                          : 'bg-[#F7F6F4] dark:bg-[#15100E] border-[#E2DDD8] dark:border-[#3A2D28] hover:border-gray-400'
+                          ? 'bg-[var(--md-sys-color-primary-container)]/40 border-[var(--md-sys-color-primary)] shadow-xs'
+                          : 'bg-[var(--md-sys-color-surface-container-lowest)] border-[var(--md-sys-color-outline-variant)] hover:border-[var(--md-sys-color-outline)]'
                       }`}
                     >
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-xs font-mono text-[#918A83]">#{idx + 1}</span>
-                        <div className="truncate font-mono text-xs">
+                        <span className="text-xs font-mono text-[var(--md-sys-color-on-surface-variant)]">#{idx + 1}</span>
+                        <div className="truncate font-mono text-xs text-[var(--md-sys-color-on-surface)]">
                           {seg.text ? `"${seg.text}"` : '<empty>'}
                         </div>
                       </div>
@@ -402,7 +361,7 @@ export default function TellrawEditorPage() {
                               e.stopPropagation();
                               removeSegment(seg.id);
                             }}
-                            className="p-1 hover:text-red-500 transition-colors"
+                            className="p-1 hover:text-[var(--md-sys-color-error)] transition-colors"
                             title="Delete segment"
                           >
                             <span className="material-symbols-outlined text-[16px]">delete</span>
@@ -416,8 +375,8 @@ export default function TellrawEditorPage() {
             </div>
 
             {/* Presets */}
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 shadow-2xs">
-              <h3 className="font-headline font-bold text-xs uppercase tracking-wider text-[#68615A] dark:text-[#A8A19B] mb-3">
+            <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 shadow-2xs">
+              <h3 className="font-headline font-bold text-xs uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)] mb-3">
                 Load Preset Templates
               </h3>
               <div className="space-y-2">
@@ -432,7 +391,7 @@ export default function TellrawEditorPage() {
                       );
                       triggerToast(`Loaded "${p.name}" template!`);
                     }}
-                    className="w-full text-left p-2.5 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] text-xs font-semibold hover:border-[#8A4228] dark:hover:border-[#E07A5F] transition-colors"
+                    className="w-full text-left p-2.5 rounded-lg border border-[var(--md-sys-color-outline-variant)] text-xs font-semibold hover:border-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-surface)] transition-colors bg-[var(--md-sys-color-surface-container-lowest)]"
                   >
                     {p.name}
                   </button>
@@ -443,39 +402,39 @@ export default function TellrawEditorPage() {
 
           {/* Active Segment Properties Editor */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 sm:p-6 shadow-2xs space-y-5">
-              <h2 className="font-headline font-bold text-base flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#8A4228] dark:text-[#E07A5F] text-[20px]">edit</span>
+            <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 sm:p-6 shadow-2xs space-y-5">
+              <h2 className="font-headline font-bold text-base flex items-center gap-2 text-[var(--md-sys-color-on-surface)]">
+                <span className="material-symbols-outlined text-[var(--md-sys-color-primary)] text-[20px]">edit</span>
                 Edit Selected Segment
               </h2>
 
               {/* Text Input */}
               <div>
-                <label className="block text-xs font-semibold mb-1">Text String</label>
+                <label className="block text-xs font-semibold mb-1 text-[var(--md-sys-color-on-surface)]">Text String</label>
                 <input
                   type="text"
                   value={activeSegment.text}
                   onChange={(e) => updateActiveSegment({ text: e.target.value })}
                   placeholder="Enter message text..."
-                  className="w-full h-10 px-3 rounded-xl border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] text-sm focus:outline-none focus:border-[#8A4228] dark:focus:border-[#E07A5F]"
+                  className="w-full h-10 px-3 rounded-xl border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-lowest)] text-sm text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
                 />
               </div>
 
               {/* Color Selector */}
               <div>
-                <label className="block text-xs font-semibold mb-1.5">Color</label>
+                <label className="block text-xs font-semibold mb-1.5 text-[var(--md-sys-color-on-surface)]">Color</label>
                 <div className="grid grid-cols-4 sm:grid-cols-8 gap-1.5">
                   {MINECRAFT_COLORS.map((c) => (
                     <button
-                      key={c.value}
+                      key={c.jsonName}
                       type="button"
-                      onClick={() => updateActiveSegment({ color: c.value })}
-                      className={`h-8 rounded-lg border flex items-center justify-center transition-all ${
-                        activeSegment.color === c.value
-                          ? 'border-[#8A4228] dark:border-[#E07A5F] ring-2 ring-amber-500/40'
-                          : 'border-[#E2DDD8] dark:border-[#3A2D28]'
+                      onClick={() => updateActiveSegment({ color: c.jsonName })}
+                      className={`h-8 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
+                        activeSegment.color === c.jsonName
+                          ? 'border-[var(--md-sys-color-primary)] ring-2 ring-[var(--md-sys-color-primary)]/40'
+                          : 'border-[var(--md-sys-color-outline-variant)]/40'
                       }`}
-                      title={c.label}
+                      title={c.name}
                     >
                       <span className="w-4 h-4 rounded-xs" style={{ backgroundColor: c.hex }} />
                     </button>
@@ -485,7 +444,7 @@ export default function TellrawEditorPage() {
 
               {/* Styles */}
               <div>
-                <label className="block text-xs font-semibold mb-1.5">Text Formats</label>
+                <label className="block text-xs font-semibold mb-1.5 text-[var(--md-sys-color-on-surface)]">Text Formats</label>
                 <div className="flex flex-wrap gap-2">
                   {[
                     { key: 'bold', label: 'Bold (B)' },
@@ -502,8 +461,8 @@ export default function TellrawEditorPage() {
                         onClick={() => updateActiveSegment({ [fmt.key]: !active })}
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                           active
-                            ? 'bg-[#8A4228] dark:bg-[#E07A5F] text-white dark:text-[#15100E] border-transparent'
-                            : 'border-[#E2DDD8] dark:border-[#3A2D28] text-[#68615A] dark:text-[#A8A19B]'
+                            ? 'bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] border-transparent'
+                            : 'border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
                         }`}
                       >
                         {fmt.label}
@@ -514,9 +473,9 @@ export default function TellrawEditorPage() {
               </div>
 
               {/* Click Event */}
-              <div className="pt-2 border-t border-[#E2DDD8] dark:border-[#3A2D28] space-y-3">
+              <div className="pt-2 border-t border-[var(--md-sys-color-outline-variant)] space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold">Click Event (Optional)</label>
+                  <label className="text-xs font-semibold text-[var(--md-sys-color-on-surface)]">Click Event (Optional)</label>
                   <select
                     value={activeSegment.clickAction}
                     onChange={(e) =>
@@ -524,7 +483,7 @@ export default function TellrawEditorPage() {
                         clickAction: e.target.value as TextSegment['clickAction'],
                       })
                     }
-                    className="h-8 px-2 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] text-xs font-mono"
+                    className="h-8 px-2 rounded-lg border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-lowest)] text-xs font-mono text-[var(--md-sys-color-on-surface)]"
                   >
                     <option value="none">None</option>
                     <option value="run_command">run_command</option>
@@ -544,15 +503,15 @@ export default function TellrawEditorPage() {
                         ? 'https://example.com'
                         : '/say Hello world'
                     }
-                    className="w-full h-9 px-3 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] text-xs font-mono"
+                    className="w-full h-9 px-3 rounded-lg border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-lowest)] text-xs font-mono text-[var(--md-sys-color-on-surface)]"
                   />
                 )}
               </div>
 
               {/* Hover Event */}
-              <div className="pt-2 border-t border-[#E2DDD8] dark:border-[#3A2D28] space-y-3">
+              <div className="pt-2 border-t border-[var(--md-sys-color-outline-variant)] space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold">Hover Tooltip (Optional)</label>
+                  <label className="text-xs font-semibold text-[var(--md-sys-color-on-surface)]">Hover Tooltip (Optional)</label>
                   <select
                     value={activeSegment.hoverAction}
                     onChange={(e) =>
@@ -560,7 +519,7 @@ export default function TellrawEditorPage() {
                         hoverAction: e.target.value as TextSegment['hoverAction'],
                       })
                     }
-                    className="h-8 px-2 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] text-xs font-mono"
+                    className="h-8 px-2 rounded-lg border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-lowest)] text-xs font-mono text-[var(--md-sys-color-on-surface)]"
                   >
                     <option value="none">None</option>
                     <option value="show_text">show_text</option>
@@ -573,30 +532,30 @@ export default function TellrawEditorPage() {
                     value={activeSegment.hoverValue}
                     onChange={(e) => updateActiveSegment({ hoverValue: e.target.value })}
                     placeholder="Enter tooltip text to show on hover..."
-                    className="w-full h-9 px-3 rounded-lg border border-[#E2DDD8] dark:border-[#3A2D28] bg-[#F7F6F4] dark:bg-[#15100E] text-xs"
+                    className="w-full h-9 px-3 rounded-lg border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-lowest)] text-xs text-[var(--md-sys-color-on-surface)]"
                   />
                 )}
               </div>
             </div>
 
             {/* Commands Output Card */}
-            <div className="bg-white dark:bg-[#201815] border border-[#E2DDD8] dark:border-[#3A2D28] rounded-2xl p-5 shadow-2xs space-y-4">
-              <h3 className="font-headline font-bold text-sm">Generated In-Game Commands</h3>
+            <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-2xl p-5 shadow-2xs space-y-4">
+              <h3 className="font-headline font-bold text-sm text-[var(--md-sys-color-on-surface)]">Generated In-Game Commands</h3>
 
               {/* /tellraw */}
               <div>
                 <div className="flex justify-between items-center mb-1 text-xs">
-                  <span className="font-bold">/tellraw Command</span>
+                  <span className="font-bold text-[var(--md-sys-color-on-surface)]">/tellraw Command</span>
                   <button
                     type="button"
                     onClick={() => copyToClipboard(tellrawCommand, '/tellraw command')}
-                    className="text-[#8A4228] dark:text-[#E07A5F] hover:underline flex items-center gap-1 font-semibold"
+                    className="text-[var(--md-sys-color-primary)] hover:underline flex items-center gap-1 font-semibold"
                   >
                     <span className="material-symbols-outlined text-[14px]">content_copy</span>
                     Copy
                   </button>
                 </div>
-                <pre className="p-2.5 rounded-lg bg-black/5 dark:bg-black/30 font-mono text-xs overflow-x-auto whitespace-pre-wrap break-all select-all">
+                <pre className="p-2.5 rounded-lg bg-[var(--md-sys-color-surface-container-lowest)] font-mono text-xs overflow-x-auto whitespace-pre-wrap break-all select-all border border-[var(--md-sys-color-outline-variant)]/60 text-[var(--md-sys-color-on-surface)]">
                   {tellrawCommand}
                 </pre>
               </div>
@@ -604,23 +563,24 @@ export default function TellrawEditorPage() {
               {/* /title actionbar */}
               <div>
                 <div className="flex justify-between items-center mb-1 text-xs">
-                  <span className="font-bold">/title Actionbar Command</span>
+                  <span className="font-bold text-[var(--md-sys-color-on-surface)]">/title Actionbar Command</span>
                   <button
                     type="button"
                     onClick={() => copyToClipboard(actionbarCommand, 'actionbar command')}
-                    className="text-[#8A4228] dark:text-[#E07A5F] hover:underline flex items-center gap-1 font-semibold"
+                    className="text-[var(--md-sys-color-primary)] hover:underline flex items-center gap-1 font-semibold"
                   >
                     <span className="material-symbols-outlined text-[14px]">content_copy</span>
                     Copy
                   </button>
                 </div>
-                <pre className="p-2.5 rounded-lg bg-black/5 dark:bg-black/30 font-mono text-xs overflow-x-auto whitespace-pre-wrap break-all select-all">
+                <pre className="p-2.5 rounded-lg bg-[var(--md-sys-color-surface-container-lowest)] font-mono text-xs overflow-x-auto whitespace-pre-wrap break-all select-all border border-[var(--md-sys-color-outline-variant)]/60 text-[var(--md-sys-color-on-surface)]">
                   {actionbarCommand}
                 </pre>
               </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
   );
 }
